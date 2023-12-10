@@ -81,4 +81,10 @@ class userController extends Controller
             return response()->json($e->getMessage(), 404);
         }
     }
+    // show logedin user
+    public function self()
+    {
+        $user = Auth::user();
+        return $this->json_response('success', 'user_show', 'User Fetch Succeccfully', 200, $user);
+    }
 }

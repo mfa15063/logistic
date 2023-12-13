@@ -20,7 +20,8 @@
                 <div class="card">
                     <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-                        <img src="{{ asset('admin/img/profile-img.jpg') }}" alt="Profile" class="rounded-circle">
+                        <img src="{{ auth()->user()->profile_img == null ? asset('admin/img/profile-img.jpg') : asset('admin/img/profile/' . auth()->user()->profile_img) }}"
+                            alt="Profile" class="rounded-circle">
                         <h2>{{ auth()->user()->name }}</h2>
                         <div class="social-links mt-2">
                             <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
@@ -50,10 +51,7 @@
                                     Profile</button>
                             </li>
 
-                            <li class="nav-item">
-                                <button class="nav-link" data-bs-toggle="tab"
-                                    data-bs-target="#profile-settings">Settings</button>
-                            </li>
+
 
                             <li class="nav-item">
                                 <button class="nav-link" data-bs-toggle="tab"
@@ -87,18 +85,19 @@
                             <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
                                 <!-- Profile Edit Form -->
-                                <form method="POST" action="{{ route('admin.profile.update') }}">
+                                <form method="POST" action="{{ route('admin.profile.update') }}"
+                                    enctype="multipart/form-data">
                                     @csrf
                                     <div class="row mb-3">
                                         <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile
                                             Image</label>
                                         <div class="col-md-8 col-lg-9">
                                             <img id="image-preview"
-                                                src="{{ auth()->user()->profile_img == null ? asset('admin/img/profile-img.jpg') : 'admin/img/profile' . auth()->user()->profile_img }}"
+                                                src="{{ auth()->user()->profile_img == null ? asset('admin/img/profile-img.jpg') : asset('admin/img/profile/' . auth()->user()->profile_img) }}"
                                                 alt="Profile">
 
                                             <div class="pt-2">
-                                                <input type="file" id="image-input" accept="image/*">
+                                                <input type="file" id="image-input" name="profile_img" accept="image/*">
 
                                             </div>
                                         </div>
@@ -129,82 +128,53 @@
 
                             </div>
 
-                            <div class="tab-pane fade pt-3" id="profile-settings">
-
-                                <!-- Settings Form -->
-                                <form>
-
-                                    <div class="row mb-3">
-                                        <label for="Twitter" class="col-md-4 col-lg-3 col-form-label">Twitter
-                                            Profile</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input name="twitter" type="text" class="form-control" id="Twitter"
-                                                value="https://twitter.com/#">
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-3">
-                                        <label for="Facebook" class="col-md-4 col-lg-3 col-form-label">Facebook
-                                            Profile</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input name="facebook" type="text" class="form-control" id="Facebook"
-                                                value="https://facebook.com/#">
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-3">
-                                        <label for="Instagram" class="col-md-4 col-lg-3 col-form-label">Instagram
-                                            Profile</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input name="instagram" type="text" class="form-control" id="Instagram"
-                                                value="https://instagram.com/#">
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-3">
-                                        <label for="Linkedin" class="col-md-4 col-lg-3 col-form-label">Linkedin
-                                            Profile</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input name="linkedin" type="text" class="form-control" id="Linkedin"
-                                                value="https://linkedin.com/#">
-                                        </div>
-                                    </div>
-
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-primary">Save Changes</button>
-                                    </div>
-                                </form><!-- End settings Form -->
-
-                            </div>
-
                             <div class="tab-pane fade pt-3" id="profile-change-password">
                                 <!-- Change Password Form -->
-                                <form>
-
+                                <form method="POST" action="{{ route('admin.password.change') }}">
+                                    @csrf
                                     <div class="row mb-3">
-                                        <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current
+                                        <label for="current_password" class="col-md-4 col-lg-3 col-form-label">Current
                                             Password</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="password" type="password" class="form-control"
-                                                id="currentPassword">
+                                            <input name="current_password" type="password"
+                                                class="form-control @error('current_password') is-invalid @enderror"
+                                                id="current_password">
+                                            @error('current_password')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New
+                                        <label for="password" class="col-md-4 col-lg-3 col-form-label">New
                                             Password</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="newpassword" type="password" class="form-control"
-                                                id="newPassword">
+                                            <input name="password" type="password"
+                                                class="form-control @error('password') is-invalid @enderror"
+                                                id="password">
+                                            @error('password')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New
+                                        <label for="password_confirmation"
+                                            class="col-md-4 col-lg-3 col-form-label">Re-enter New
                                             Password</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="renewpassword" type="password" class="form-control"
-                                                id="renewPassword">
+                                            <input name="password_confirmation" type="password"
+                                                class="form-control @error('password_confirmation') is-invalid @enderror"
+                                                id="password_confirmation">
+                                            @error('password_confirmation')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div>
 

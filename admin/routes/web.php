@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 Route::prefix('administrator')->name('admin.')->group(function () {
 
     Route::get('/login', function () {
@@ -32,5 +32,6 @@ Route::prefix('administrator')->name('admin.')->group(function () {
             return view('admin.auth.profile');
         })->name('profile');
         Route::post('/profile/update', [UserController::class, 'profile'])->name('profile.update');
+        Route::post('/change/password', [UserController::class, 'changePassword'])->name('password.change');
     });
 });

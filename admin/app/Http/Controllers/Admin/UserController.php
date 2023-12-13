@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -62,6 +64,49 @@ class UserController extends Controller
                 'email' => ['required', 'email'],
             ]
         );
+        // dd($request);
+        $user = User::findorFail(auth()->user()->id);
+        if ($user) {
+            $user->name = $request->name;
+            $user->email = $request->email;
+            if ($file = $request->hasFile('profile_img')) {
+                $file = $request->file('profile_img');
+                $fileName = $file->getClientOriginalName();
+                $destinationPath = public_path() . '/admin/img/profile';
+                $file->move($destinationPath, $fileName);
+                $user->profile_img = $fileName;
+            }
+            $user->update();
+        } else {
+            echo 'undefined';
+        }
+        return redirect()->back();
+    }
+    // change password
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'password'  =>  ['required', Password::min(8)
+                ->letters()
+                ->mixedCase()
+                ->numbers()
+                ->symbols()
+                ->uncompromised()],
+            'password_confirmation' => ['required_with:password', 'same:password', Password::min(8)]
+        ]);
+
+        $user = auth()->user();
+
+        if (Hash::check($request->current_password, $user->password)) {
+            $user->update([
+                'password' => Hash::make($request->password),
+            ]);
+
+            return redirect()->back()->with('success', 'Password changed successfully');
+        }
+
+        return back()->withErrors(['current_password' => 'The current password is incorrect.']);
     }
     public function logout()
     {

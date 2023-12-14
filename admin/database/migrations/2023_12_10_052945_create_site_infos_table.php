@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('site_infos', function (Blueprint $table) {
             $table->id();
+            $table->string('email')->nullable();
             $table->string('address')->nullable();
-            $table->string('contact_no')->nullable();
-            $table->string('twitter_profile')->nullable();
+            $table->string('location')->nullable();
+            $table->string('phone_no')->nullable();
+            $table->string('whatsapp_no')->nullable();
             $table->string('facebook_profile')->nullable();
             $table->string('instagram_profile')->nullable();
-            $table->string('linkden_profile')->nullable();
-            $table->string('twiter_profile')->nullable();
             $table->timestamps();
         });
     }

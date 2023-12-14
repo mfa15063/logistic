@@ -33,5 +33,7 @@ Route::prefix('administrator')->name('admin.')->group(function () {
         })->name('profile');
         Route::post('/profile/update', [UserController::class, 'profile'])->name('profile.update');
         Route::post('/change/password', [UserController::class, 'changePassword'])->name('password.change');
+        Route::get('/edit/site_setting', [UserController::class, 'edit_site_setting'])->name('site_setting.edit');
+        Route::post('/update/site_setting', [UserController::class, 'update_site_setting'])->name('site_setting.update');
     });
 });

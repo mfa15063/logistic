@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\siteInfo;
 use App\Models\User;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Contracts\Database\Query\Builder;
@@ -107,6 +108,22 @@ class UserController extends Controller
         }
 
         return back()->withErrors(['current_password' => 'The current password is incorrect.']);
+    }
+    // site settings
+    public function edit_site_setting()
+    {
+        $site = siteInfo::first();
+        return view('admin.siteSetting', compact('site'));
+    }
+    public function update_site_setting(Request $request)
+    {
+        $site = siteInfo::first();
+        if ($site !=  null) {
+            $site->update($request->all());
+        } else {
+            siteInfo::create($request->all());
+        }
+        return view('admin.siteSetting', compact('site'));
     }
     public function logout()
     {

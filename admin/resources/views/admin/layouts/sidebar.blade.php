@@ -29,6 +29,13 @@
         </li><!-- End Components Nav -->
 
 
+        <li class="nav-item">
+            <a class="nav-link " href="{{ route('admin.site_setting.edit') }}">
+                <i class="bi bi-gear"></i>
+                <span>Site Settings</span>
+            </a>
+        </li>
+
 
     </ul>
 

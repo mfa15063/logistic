@@ -18,6 +18,14 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
 Route::post('register', [userController::class, 'register']);
 Route::post('login', [userController::class, 'authenticate']);
+
+Route::post('forget-password', [userController::class, 'forgetPassword']);
+Route::post('verify-otp',   [userController::class, 'verifyOtp']);
+Route::post('change-password', [userController::class, 'changePasswordOTP']);
+
+Route::group(['middleware' => ['auth.api']], function () {
+    Route::post('profile-update', [userController::class, 'profileUpdate']);
+    Route::post('change-password', [userController::class, 'changePassword']);
+});

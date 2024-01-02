@@ -17,9 +17,9 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::prefix('administrator')->name('admin.')->group(function () {
+// Route::prefix('administrator')->name('admin.')->group(function () {
 
-    Route::get('/login', function () {
+    Route::get('/', function () {
         return view('admin.auth.login');
     })->name('login');
     Route::post('/login/auth', [UserController::class, 'authenticate'])->name('login.auth');
@@ -36,4 +36,4 @@ Route::prefix('administrator')->name('admin.')->group(function () {
         Route::get('/edit/site_setting', [UserController::class, 'edit_site_setting'])->name('site_setting.edit');
         Route::post('/update/site_setting', [UserController::class, 'update_site_setting'])->name('site_setting.update');
     });
-});
+// });

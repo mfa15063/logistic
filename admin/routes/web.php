@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
     Route::post('/login/auth', [UserController::class, 'authenticate'])->name('login.auth');
     Route::get('logout', [UserController::class, 'logout'])->name('logout');
     Route::middleware('auth')->group(function () {
-        Route::get('/', function () {
+        Route::get('/dashboard', function () {
             return view('admin.dashboard');
         })->name('dashboard');
         Route::get('/profile', function () {

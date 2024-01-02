@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\OtpEmail;
 use App\Models\otp;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -71,15 +72,25 @@ class userController extends Controller
             return $this->json_response('error', 'validation_failed', $validator->errors()->first(), 422);
         }
         try {
+            $email = $request->input('email');
+            $is_user = User::where('email', $email)->first();
+            if (!empty($is_user)) {
+                if ($is_user->status == 2) {
+                    return $this->json_response('error', 'email verification pending', 'You are already register. Please verify your email', 200);
+                }
+                if (in_array($is_user->status, [0, 1])) {
+                    return $this->json_response('error', 'user_exist', 'You are already register.', 200);
+                }
+            }
             $user = User::create([
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
+                'status' => 2,
                 'password' => Hash::make($request->input('password')),
             ]);
-            $token = $user->createToken('auth_api', ['*'])->accessToken;
-
-            // show created user
-            return $this->json_response('success', 'user_created', 'User Created Successfully', 200, $user, $token);
+            event(new Registered($user));
+            $user->sendEmailVerificationNotification();
+            return $this->json_response('success', 'user created', 'User Created Successfully. Verification mail send to your provider email.', 200, $user);
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 404);
         }

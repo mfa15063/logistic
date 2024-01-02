@@ -5,7 +5,7 @@
         <h1>Setting</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
                 <li class="breadcrumb-item">Setting</li>
             </ol>
         </nav>
@@ -20,7 +20,7 @@
                     <div class="card-body pt-3">
                         <div class=" profile-edit pt-3" id="">
 
-                            <form method="POST" action="{{ route('admin.site_setting.update') }}">
+                            <form method="POST" action="{{ route('site_setting.update') }}">
                                 @csrf
                                 <div class="row mb-3">
                                     <label for="email" class="col-md-4 col-lg-3 col-form-label">Email</label>

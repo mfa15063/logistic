@@ -42,14 +42,14 @@ class UserController extends Controller
         // dd($remember);
         if (Auth::attempt(array('email' => $input['email'], 'password' => $input['password']), $remember)) {
             if (Auth::check() && Auth::user()->is_admin) {
-                return redirect()->route('admin.dashboard');
+                return redirect()->route('dashboard');
             } else {
-                return redirect()->route('admin.login')->withErrors([
+                return redirect()->route('login')->withErrors([
                     'error' => 'You not allow to access administrator panel',
                 ])->withInput();
             }
         } else {
-            return redirect()->route('admin.login')->withErrors([
+            return redirect()->route('login')->withErrors([
                 'password' => 'The password is invalid.',
             ])->withInput();
             // ->withInput();
@@ -128,6 +128,6 @@ class UserController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('admin.login'); // Redirect to your desired page after logout
+        return redirect()->route('login'); // Redirect to your desired page after logout
     }
 }

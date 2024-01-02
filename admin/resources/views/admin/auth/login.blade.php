@@ -61,7 +61,7 @@
                                         <p class="text-center small">Enter your email & password to login</p>
                                     </div>
                                     <form class="row g-3 needs-validation" method="POST"
-                                        action="{{ route('admin.login.auth') }}">
+                                        action="{{ route('login.auth') }}">
                                         @csrf
                                         <div class="col-12">
                                             <label for="email" class="form-label">Email</label>

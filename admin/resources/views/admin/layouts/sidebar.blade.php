@@ -30,7 +30,7 @@
 
 
         <li class="nav-item">
-            <a class="nav-link " href="{{ route('admin.site_setting.edit') }}">
+            <a class="nav-link " href="{{ route('site_setting.edit') }}">
                 <i class="bi bi-gear"></i>
                 <span>Site Settings</span>
             </a>

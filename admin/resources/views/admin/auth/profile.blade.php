@@ -5,7 +5,7 @@
         <h1>Profile</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
                 <li class="breadcrumb-item">Users</li>
                 <li class="breadcrumb-item active">Profile</li>
             </ol>
@@ -85,7 +85,7 @@
                             <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
                                 <!-- Profile Edit Form -->
-                                <form method="POST" action="{{ route('admin.profile.update') }}"
+                                <form method="POST" action="{{ route('profile.update') }}"
                                     enctype="multipart/form-data">
                                     @csrf
                                     <div class="row mb-3">
@@ -130,7 +130,7 @@
 
                             <div class="tab-pane fade pt-3" id="profile-change-password">
                                 <!-- Change Password Form -->
-                                <form method="POST" action="{{ route('admin.password.change') }}">
+                                <form method="POST" action="{{ route('password.change') }}">
                                     @csrf
                                     <div class="row mb-3">
                                         <label for="current_password" class="col-md-4 col-lg-3 col-form-label">Current

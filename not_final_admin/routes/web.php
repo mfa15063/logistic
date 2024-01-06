@@ -19,8 +19,8 @@ Route::get('/', function () {
     return view('admin.auth.login');
 })->name('login');
 
-Route::post('/login/auth', 'UserController@authenticate')->name('login.auth');
-Route::get('logout', 'UserController@logout')->name('logout');
+Route::post('/login/auth', [UserController::class, 'authenticate'])->name('login.auth');
+Route::get('logout', [UserController::class, 'logout'])->name('logout');
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
@@ -29,10 +29,10 @@ Route::middleware('auth')->group(function () {
         return view('admin.auth.profile');
     })->name('profile');
 
-    Route::post('/profile/update',      'UserController@profile')->name('profile.update');
-    Route::post('/change/password',     'UserController@changePassword')->name('password.change');
-    Route::get('/edit/site_setting',    'UserController@edit_site_setting')->name('site_setting.edit');
-    Route::post('/update/site_setting', 'UserController@update_site_setting')->name('site_setting.update');
+    Route::post('/profile/update',      [UserController::class,'profile'])->name('profile.update');
+    Route::post('/change/password',     [UserController::class,'changePassword'])->name('password.change');
+    Route::get('/edit/site_setting',    [UserController::class,'edit_site_setting'])->name('site_setting.edit');
+    Route::post('/update/site_setting', [UserController::class,'update_site_setting'])->name('site_setting.update');
 
     Route::get('/order/create', [orderController::class, 'create'])->name('order.create');
     Route::get('/order', [orderController::class, 'index'])->name('order.index');

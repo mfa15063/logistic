@@ -12,6 +12,13 @@
   scroll-behavior: smooth;
 }
 
+
+.form_title {
+    font-size: 20px;
+    font-family: "Nunito", sans-serif;
+    color: #899bbd;
+    font-weight: 600;
+}
 body {
   font-family: "Open Sans", sans-serif;
   background: #f6f9ff;

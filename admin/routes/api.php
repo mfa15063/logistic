@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\orderController;
 use App\Http\Controllers\API\userController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\VerificationController;
@@ -28,7 +29,9 @@ Route::post('forget-password', [userController::class, 'forgetPassword']);
 Route::post('verify-otp',   [userController::class, 'verifyOtp']);
 Route::post('change-password', [userController::class, 'changePasswordOTP']);
 
-Route::group(['middleware' => ['auth.api']], function () {
+Route::group(['middleware' => ['api']], function () {
     Route::post('profile-update', [userController::class, 'profileUpdate']);
     Route::post('change-password', [userController::class, 'changePassword']);
+    Route::post('order/store', [orderController::class, 'store']);
+    Route::get('order/my', [orderController::class, 'myOrder']);
 });

@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
-use League\OAuth2\Server\Exception\OAuthServerException;
 
 /*
     Author      : Zeeshan Mushtaq
@@ -36,11 +35,9 @@ class userController extends Controller
         if ($validator->fails()) {
             return $this->json_response('error', 'validation_failed', $validator->errors()->first(), 422);
         }
-
         try {
             $credentials = $request->only('email', 'password');
             $remember = request()->has('remember'); // Check if "remember" checkbox is checked
-
             if (!Auth::attempt($credentials, $remember)) {
                 // Invalid credentials
                 return $this->json_response('error', 'invalid_credential', 'The user email & password were incorrect.', 401);
@@ -88,9 +85,8 @@ class userController extends Controller
                 'status' => 2,
                 'password' => Hash::make($request->input('password')),
             ]);
-            event(new Registered($user));
-            $user->sendEmailVerificationNotification();
-            return $this->json_response('success', 'user created', 'User Created Successfully. Verification mail send to your provider email.', 200, $user);
+            $token = $user->createToken('auth_api', ['*'])->accessToken;
+            return $this->json_response('success', 'user created', 'User Created Successfully. Verification mail send to your provider email.', 200, $user, $token);
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 404);
         }

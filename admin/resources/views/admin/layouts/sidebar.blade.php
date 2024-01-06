@@ -2,26 +2,35 @@
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
-        <li class="nav-item">
-            <a class="nav-link " href="index.html">
-                <i class="bi bi-grid"></i>
-                <span>Dashboard</span>
-            </a>
-        </li><!-- End Dashboard Nav -->
 
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-menu-button-wide"></i><span>Orders</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="bi bi-menu-button-wide"></i><span>Dashboard</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="components-alerts.html">
+                    <a href="{{route('order.create')}}">
                         <i class="bi bi-circle"></i><span>Add a Order shipping </span>
                     </a>
                 </li>
                 <li>
-                    <a href="components-accordion.html">
+                    <a href="{{route('order.index')}}">
                         <i class="bi bi-circle"></i><span>View All Orders</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('order.allNew')}}">
+                        <i class="bi bi-circle"></i><span>View New Orders</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('order.allPanding')}}">
+                        <i class="bi bi-circle"></i><span>View Panding Orders</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('order.allDelivered')}}">
+                        <i class="bi bi-circle"></i><span>View Delivered Orders</span>
                     </a>
                 </li>
 

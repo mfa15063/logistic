@@ -43,9 +43,11 @@
                                             <td>{{ $client->name }}</td>
                                             <td>{{ $client->email }}</td>
                                             <td>{{ $client->contact_no }}</td>
-                                            <td>{{ $client->country }}{{$client->city != null ?'':','}}{{ $client->city }}{{$client->address != null ?'':','}}{{ $client->address }}</td>
+                                            <td>{{ $client->country }}{{ $client->city != null ? ',' : '' }}{{ $client->city }}{{ $client->address != null ? ',' : '' }}{{ $client->address }}
+                                            </td>
                                             <td>
-
+                                                <a href="{{ route('client.edit', $client->id) }}" class="btn btn-sm btn-success mt-1"><i
+                                                        class="bi bi-pencil-square"></i></a>
                                                 <!-- Modal trigger button -->
                                                 <button type="button" class="btn btn-danger btn-sm mt-1"
                                                     data-bs-toggle="modal" data-bs-target="#modalId">
@@ -61,7 +63,8 @@
                                                         role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="modaldelete{{ $client->id }}">
+                                                                <h5 class="modal-title"
+                                                                    id="modaldelete{{ $client->id }}">
                                                                     Delete Client
                                                                 </h5>
                                                                 <button type="button" class="btn-close"

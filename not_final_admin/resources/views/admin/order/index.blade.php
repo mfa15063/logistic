@@ -1,4 +1,14 @@
 @extends('admin.layouts.main')
+@section('style')
+    <style>
+        .long-text {
+            max-width: 200px;
+      overflow: hidden;
+      text-overflow: ellipsis; /* Optional: adds ellipsis for overflowing text */
+      white-space: nowrap;
+        }
+    </style>
+@endsection
 @section('content')
     <div class="pagetitle">
         <h1>View {{ $page }} Orders</h1>
@@ -57,7 +67,7 @@
                                             <td>{{ $order->delivered_date }}</td>
                                             <td>{{ $order->approved ? 'Yes' : 'No' }}</td>
                                             <td>{{ $order->order_delivered ? 'Yes' : 'No' }}</td>
-                                            <td>
+                                            <td class="long-text">
                                                 @if ($order->status == 'Pending')
                                                     <span class="badge  bg-warning">{{ $order->status }}</span>
                                                 @elseif ($order->status == 'Delivered')
@@ -86,59 +96,136 @@
                                                     <a href="{{ route('order.updateDelivered', $order->id) }}"
                                                         class="btn btn-sm btn-danger mt-1">Undelivered</a>
                                                 @endif
-                                                <!-- Modal trigger button -->
-                                                <button
-                                                    type="button"
-                                                    class="btn btn-danger btn-sm mt-1"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#modalId"
-                                                >
+                                                <a href="{{ route('order.edit', $order->id) }}"
+                                                    class="btn btn-sm btn-success mt-1"><i
+                                                        class="bi bi-pencil-square"></i></a>
+                                                <button type="button" class="btn btn-info btn-sm mt-1"
+                                                    data-bs-toggle="modal" data-bs-target="#modalview{{ $order->id }}">
+                                                    <i class="bi bi-eye"></i> </button>
+                                                <!-- Modal Body -->
+                                                <div class="modal fade" id="modalview{{ $order->id }}" tabindex="-1"
+                                                    data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
+                                                    aria-labelledby="modalview{{ $order->id }}" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg"
+                                                        role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="modalview{{ $order->id }}">
+                                                                    View Order
+                                                                </h5>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <h5 class="mt-2 mb-2">Order ID:{{ $order->id }}
+                                                                        </h5>
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <h5 class="mt-2 mb-2">Client
+                                                                            ID:{{ $order->user_id }} </h5>
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <h5 class="mt-2 mb-2">Client
+                                                                            Name:{{ $order->client->name }} </h5>
+                                                                    </div>
+                                                                    @if ($order->receiver_name)
+                                                                        <div class="col-12">
+                                                                            <h5 class="mt-2 mb-2">Recived
+                                                                                Name:{{ $order->receiver_name }}
+                                                                            </h5>
+                                                                        </div>
+                                                                    @endif
+                                                                    <div class="col-12">
+                                                                        <h5 class="mt-2 mb-2">Recived
+                                                                            From:{{ $order->received_address }},{{ $order->received_city }},{{ $order->received_country }}
+                                                                        </h5>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <h5 class="mt-2 mb-2">Delivered
+                                                                            TO:{{ $order->delivered_address }},{{ $order->delivered_city }},{{ $order->delivered_country }}
+                                                                        </h5>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <h5 class="mt-2 mb-2">Price:{{ $order->price }}
+                                                                        </h5>
+                                                                    </div>
+                                                                    @if ($order->received_date)
+                                                                        <div class="col-6">
+                                                                            <h5 class="mt-2 mb-2">Received
+                                                                                Date:{{ $order->received_date }}
+                                                                            </h5>
+                                                                        </div>
+                                                                    @endif
+                                                                    @if ($order->delivered_date)
+                                                                        <div class="col-6">
+                                                                            <h5 class="mt-2 mb-2">Delivered
+                                                                                Date:{{ $order->delivered_date }}
+                                                                            </h5>
+                                                                        </div>
+                                                                    @endif
+                                                                    @if ($order->product_pic)
+                                                                        <div class="col-12">
+                                                                            <h5 class="mt-2 mb-2">Product Picture</h5>
+                                                                            <img src="{{ asset($order->product_pic) }}"
+                                                                                alt="">
+                                                                        </div>
+                                                                    @endif
+                                                                    @if ($order->payment_recipt)
+                                                                        <div class="col-12">
+                                                                            <h5 class="mt-2 mb-2">Payment Recipt</h5>
+                                                                            <img src="{{ asset($order->payment_recipt) }}"
+                                                                                alt="">
+                                                                        </div>
+                                                                    @endif
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">
+                                                                    Close
+                                                                </button>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--delete Modal -->
+                                                <button type="button" class="btn btn-danger btn-sm mt-1"
+                                                    data-bs-toggle="modal" data-bs-target="#modalId">
                                                     <i class="bi bi-trash"></i>
                                                 </button>
 
                                                 <!-- Modal Body -->
                                                 <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
-                                                <div
-                                                    class="modal fade"
-                                                    id="modalId"
-                                                    tabindex="-1"
-                                                    data-bs-backdrop="static"
-                                                    data-bs-keyboard="false"
-
-                                                    role="dialog"
-                                                    aria-labelledby="modaldelete{{$order->id}}"
-                                                    aria-hidden="true"
-                                                >
-                                                    <div
-                                                        class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md"
-                                                        role="document"
-                                                    >
+                                                <div class="modal fade" id="modalId" tabindex="-1"
+                                                    data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
+                                                    aria-labelledby="modaldelete{{ $order->id }}" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md"
+                                                        role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="modaldelete{{$order->id}}">
+                                                                <h5 class="modal-title"
+                                                                    id="modaldelete{{ $order->id }}">
                                                                     Delete Order
                                                                 </h5>
-                                                                <button
-                                                                    type="button"
-                                                                    class="btn-close"
-                                                                    data-bs-dismiss="modal"
-                                                                    aria-label="Close"
-                                                                ></button>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">Are you sure you want to delete</div>
                                                             <div class="modal-footer">
-                                                                <form action="{{route('order.delete',$order->id)}}" method="POST">
+                                                                <form action="{{ route('order.delete', $order->id) }}"
+                                                                    method="POST">
                                                                     @csrf
                                                                     @method('delete')
-                                                                <button
-                                                                    type="button"
-                                                                    class="btn btn-secondary"
-                                                                    data-bs-dismiss="modal"
-                                                                >
-                                                                    Close
-                                                                </button>
-                                                                <button type="submit" class="btn btn-danger">Delete</button>
-                                                            </form>
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">
+                                                                        Close
+                                                                    </button>
+                                                                    <button type="submit"
+                                                                        class="btn btn-danger">Delete</button>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     </div>

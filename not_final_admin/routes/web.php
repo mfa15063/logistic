@@ -30,10 +30,10 @@ Route::middleware('auth')->group(function () {
         return view('admin.auth.profile');
     })->name('profile');
 
-    Route::post('/profile/update',      [UserController::class,'profile'])->name('profile.update');
-    Route::post('/change/password',     [UserController::class,'changePassword'])->name('password.change');
-    Route::get('/edit/site_setting',    [UserController::class,'edit_site_setting'])->name('site_setting.edit');
-    Route::post('/update/site_setting', [UserController::class,'update_site_setting'])->name('site_setting.update');
+    Route::post('/profile/update',      [UserController::class, 'profile'])->name('profile.update');
+    Route::post('/change/password',     [UserController::class, 'changePassword'])->name('password.change');
+    Route::get('/edit/site_setting',    [UserController::class, 'edit_site_setting'])->name('site_setting.edit');
+    Route::post('/update/site_setting', [UserController::class, 'update_site_setting'])->name('site_setting.update');
 
     Route::get('/order/create', [orderController::class, 'create'])->name('order.create');
     Route::get('/order', [orderController::class, 'index'])->name('order.index');
@@ -44,10 +44,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/order/approved/{id}', [orderController::class, 'updateApproved'])->name('order.updateApproved');
     Route::get('/order/delivered/{id}', [orderController::class, 'updateDelivered'])->name('order.updateDelivered');
     Route::delete('/order/{id}', [orderController::class, 'delete'])->name('order.delete');
+    Route::get('/order/edit/{id}', [orderController::class, 'edit'])->name('order.edit');
+    Route::match(['put','patch'],'/order/update/{id}', [orderController::class, 'update'])->name('order.update');
 
     Route::get('/client', [clientController::class, 'index'])->name('client.index');
     Route::get('/client/create', [clientController::class, 'create'])->name('client.create');
     Route::post('/client/store', [clientController::class, 'store'])->name('client.store');
+    Route::get('/client/edit/{id}', [clientController::class, 'edit'])->name('client.edit');
+    Route::match(['put', 'patch'], '/client/update{id}', [clientController::class, 'update'])->name('client.update');
     Route::delete('/client/{id}', [clientController::class, 'delete'])->name('client.delete');
-
 });

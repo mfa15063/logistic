@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\order;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -81,6 +82,44 @@ class orderController extends Controller
                 'status' => 'Panding'
             ]);
         }
+        return redirect()->route('order.index');
+    }
+    public function edit($id)
+    {
+        $order = order::find($id);
+        return view('admin.order.edit', compact('order'));
+    }
+    public function update(Request $request, $id)
+    {
+        $request->validate(
+            [
+                'user_id'        => 'required|exists:users,id',
+                'price'            => 'required',
+                'received_country' => 'required',
+                'received_city'    => 'required',
+                'received_address' => 'required',
+                'delivered_country' => 'required',
+                'delivered_city'   => 'required',
+                'delivered_address' => 'required',
+                'status' => 'required',
+                'product_pic' => 'image',
+                'payment_recipt' => 'image',
+            ]
+        );
+        $data = $request->all();
+        if ($request->hasFile('product_pic')) {
+            $product_pic = $request->file('product_pic');
+            $fileName = time() . '_' . $product_pic->getClientOriginalName();
+            $product_pic->move(public_path('admin/img/order_attachment/'), $fileName);
+            $data['product_pic'] = '/admin/img/order_attachment/' . $fileName;
+        }
+        if ($request->hasFile('payment_recipt')) {
+            $payment_recipt = $request->file('payment_recipt');
+            $fileName = time() . '_' . $payment_recipt->getClientOriginalName();
+            $payment_recipt->move(public_path('admin/img/order_attachment/'), $fileName);
+            $data['payment_recipt'] = '/admin/img/order_attachment/' . $fileName;
+        }
+        $order = order::find($id)->update($data);
         return redirect()->route('order.index');
     }
     public function updateApproved($id)

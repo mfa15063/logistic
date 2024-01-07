@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password as RulesPassword;
 
 class clientController extends Controller
@@ -42,6 +43,30 @@ class clientController extends Controller
             'city'    => $request->city,
             'address'    => $request->address,
             'password' => Hash::make($request->password)
+        ]);
+        return redirect()->route('client.index');
+    }
+    public function edit($id)
+    {
+        $client = User::find($id);
+        return view('admin.client.edit',compact('client'));
+    }
+    public function update(Request $request,$id)
+    {
+        $request->validate(
+            [
+                'name'            => 'required|string|max:250',
+                'email'        => ['required','email',Rule::unique('users','email')->ignore($id)],
+                'phone_no'            => 'required|string|max:250'
+            ]
+        );
+        $client = User::find($id)->Update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'contact_no' => $request->phone_no,
+            'country'    => $request->country,
+            'city'    => $request->city,
+            'address'    => $request->address
         ]);
         return redirect()->route('client.index');
     }

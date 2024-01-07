@@ -106,10 +106,11 @@ class orderController extends Controller
         if ($order) {
             if ($order->order_delivered) {
                 $order->order_delivered = false;
-                $order->delivered_date = $currentDate;
+                $order->delivered_date = null;
             } else {
                 $order->order_delivered = true;
-                $order->delivered_date = null;
+                $order->delivered_date = $currentDate;
+                $order->status = 'Delivered';
             }
         }
         $order->update();

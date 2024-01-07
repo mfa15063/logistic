@@ -5,12 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Validation\Rules\Password as RulesPassword;
 
 class clientController extends Controller
 {
     public function index()
     {
-        $clients = User::where('is_admin','0')->get();
+        $clients = User::where('is_admin', '0')->get();
         return view('admin.client.index', compact('clients'));
     }
     public function create()
@@ -24,12 +27,21 @@ class clientController extends Controller
                 'name'            => 'required|string|max:250',
                 'email'        => 'required|email|unique:users,email',
                 'phone_no'            => 'required|string|max:250',
+                'password'            => ['required', 'confirmed', RulesPassword::min(8)
+                    ->letters()
+                    ->mixedCase()
+                    ->numbers()
+                    ->symbols()],
             ]
         );
         $client = User::create([
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'contact_no'=>$request->phone_no
+            'name' => $request->name,
+            'email' => $request->email,
+            'contact_no' => $request->phone_no,
+            'country'    => $request->country,
+            'city'    => $request->city,
+            'address'    => $request->address,
+            'password' => Hash::make($request->password)
         ]);
         return redirect()->route('client.index');
     }

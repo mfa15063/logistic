@@ -32,6 +32,7 @@
                                         <th scope="col">Name</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Phone No.</th>
+                                        <th scope="col">Address</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -42,6 +43,7 @@
                                             <td>{{ $client->name }}</td>
                                             <td>{{ $client->email }}</td>
                                             <td>{{ $client->contact_no }}</td>
+                                            <td>{{ $client->country }}{{$client->city != null ?'':','}}{{ $client->city }}{{$client->address != null ?'':','}}{{ $client->address }}</td>
                                             <td>
 
                                                 <!-- Modal trigger button -->
@@ -67,7 +69,7 @@
                                                             </div>
                                                             <div class="modal-body">Are you sure you want to delete</div>
                                                             <div class="modal-footer">
-                                                                <form action="{{ route('order.delete', $client->id) }}"
+                                                                <form action="{{ route('client.delete', $client->id) }}"
                                                                     method="POST">
                                                                     @csrf
                                                                     @method('delete')

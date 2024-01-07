@@ -86,6 +86,72 @@
                                                     <a href="{{ route('order.updateDelivered', $order->id) }}"
                                                         class="btn btn-sm btn-danger mt-1">Undelivered</a>
                                                 @endif
+                                                <!-- Modal trigger button -->
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-danger btn-sm mt-1"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#modalId"
+                                                >
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+
+                                                <!-- Modal Body -->
+                                                <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+                                                <div
+                                                    class="modal fade"
+                                                    id="modalId"
+                                                    tabindex="-1"
+                                                    data-bs-backdrop="static"
+                                                    data-bs-keyboard="false"
+
+                                                    role="dialog"
+                                                    aria-labelledby="modaldelete{{$order->id}}"
+                                                    aria-hidden="true"
+                                                >
+                                                    <div
+                                                        class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md"
+                                                        role="document"
+                                                    >
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="modaldelete{{$order->id}}">
+                                                                    Delete Order
+                                                                </h5>
+                                                                <button
+                                                                    type="button"
+                                                                    class="btn-close"
+                                                                    data-bs-dismiss="modal"
+                                                                    aria-label="Close"
+                                                                ></button>
+                                                            </div>
+                                                            <div class="modal-body">Are you sure you want to delete</div>
+                                                            <div class="modal-footer">
+                                                                <form action="{{route('order.delete',$order->id)}}" method="POST">
+                                                                    @csrf
+                                                                    @method('delete')
+                                                                <button
+                                                                    type="button"
+                                                                    class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal"
+                                                                >
+                                                                    Close
+                                                                </button>
+                                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                                            </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Optional: Place to the bottom of scripts -->
+                                                <script>
+                                                    const myModal = new bootstrap.Modal(
+                                                        document.getElementById("modalId"),
+                                                        options,
+                                                    );
+                                                </script>
+
                                             </td>
                                         </tr>
                                     @endforeach

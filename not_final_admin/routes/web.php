@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\clientController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\orderController;
 use Illuminate\Support\Facades\Route;
@@ -42,4 +43,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/order/store', [orderController::class, 'store'])->name('order.store');
     Route::get('/order/approved/{id}', [orderController::class, 'updateApproved'])->name('order.updateApproved');
     Route::get('/order/delivered/{id}', [orderController::class, 'updateDelivered'])->name('order.updateDelivered');
+    Route::delete('/order/{id}', [orderController::class, 'delete'])->name('order.delete');
+
+    Route::get('/client', [clientController::class, 'index'])->name('client.index');
+    Route::get('/client/create', [clientController::class, 'create'])->name('client.create');
+    Route::post('/client/store', [clientController::class, 'store'])->name('client.store');
+    Route::delete('/client/{id}', [clientController::class, 'delete'])->name('client.delete');
+
 });

@@ -82,7 +82,6 @@ class orderController extends Controller
             ]);
         }
         return redirect()->route('order.index');
-
     }
     public function updateApproved($id)
     {
@@ -114,6 +113,14 @@ class orderController extends Controller
             }
         }
         $order->update();
+        return redirect()->route('order.index');
+    }
+    public function delete($id)
+    {
+        $order = order::find($id);
+        if ($order) {
+            $order->delete();
+        }
         return redirect()->route('order.index');
     }
 }

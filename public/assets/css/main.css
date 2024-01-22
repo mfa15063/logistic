@@ -248,8 +248,8 @@ section {
 .header {
   z-index: 997;
   position: absolute;
-  padding: 30px 0;
   top: 0;
+  height: 70px;
   left: 0;
   right: 0;
 }

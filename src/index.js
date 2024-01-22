@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import './index.scss';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/home';
 import Portfolio from './pages/portfolio';
@@ -9,6 +9,7 @@ import Contact from './pages/contact';
 import FourZeroFour from './pages/404';
 import LayoutWithHeader from './layouts/layout-header';
 import LayoutWithOutHeader from './layouts/layout-noheader';
+import Profile from './pages/profile';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -19,6 +20,7 @@ root.render(
           <Route index element={<Home />} />
           <Route path='portfolio' element={<Portfolio />} />
           <Route path='about' element={<About />} />
+          <Route path='profile' element={<Profile/>} />
           {/* <Route path='contact' element={<Contact />} /> */}
         </Route>
         <Route path='*' element={<LayoutWithOutHeader />} >

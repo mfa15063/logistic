@@ -86,7 +86,11 @@ class orderController extends Controller
     public function orderById(Request $request)
     {
         try {
-            $order = order::where('id', $request->id)->get();
+            if (strpos($request->id, 'client_') === 0) {
+                $order = order::where('user_id', $request->id)->get();
+            } else {
+                $order = order::where('id', $request->id)->get();
+            }
             return $this->json_response('success', 'my_order', 'My Orders get Successfully', 422, $order);
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 404);

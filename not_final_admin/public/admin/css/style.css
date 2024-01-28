@@ -12,6 +12,9 @@
   scroll-behavior: smooth;
 }
 
+table {
+  vertical-align: middle !important;
+}
 
 .form_title {
     font-size: 20px;

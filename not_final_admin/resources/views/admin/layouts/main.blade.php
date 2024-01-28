@@ -12,7 +12,7 @@
     <!-- Favicons -->
     <link href="{{ asset('admin/img/favicon.png') }}" rel="icon">
     <link href="{{ asset('admin/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
-
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
     <!-- Google Fonts -->
     {{-- <link href="https://fonts.gstatic.com" rel="preconnect"> --}}
     <link
@@ -57,14 +57,19 @@
     <!--  JS Files -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
-    {{-- <script src="{{ asset('admin/vendor/apexcharts/apexcharts.min.js') }}"></script> --}}
-    {{-- <script src="{{ asset('admin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script> --}}
-    {{-- <script src="{{ asset('assets/vendor/quill/quill.min.js') }}"></script> --}}
-    {{-- <script src="{{ asset('assets/vendor/simple-datatables/simple-datatables.js') }}"></script> --}}
-    {{-- <script src="{{ asset('assets/vendor/tinymce/tinymce.min.js') }}"></script> --}}
-    {{-- <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script> --}}
-    <!--  Main JS File -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
     <script src="{{ asset('admin/js/main.js') }}"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+    <!-- Include jQuery via CDN -->
+    <script>
+$(document).ready( function () {
+    $('#myTable').DataTable({
+        "lengthMenu": [ 25, 50, 100,500],
+    });
+} );
+    </script>
 
 </body>
 

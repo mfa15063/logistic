@@ -4,8 +4,8 @@
         .long-text {
             max-width: 200px;
       overflow: hidden;
-      text-overflow: ellipsis; /* Optional: adds ellipsis for overflowing text */
-      white-space: nowrap;
+      /* text-overflow: ellipsis; Optional: adds ellipsis for overflowing text */
+      white-space: wrap;
         }
     </style>
 @endsection
@@ -35,25 +35,20 @@
                                     class="btn btn-primary">Create Order</a></div>
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-borderless datatable">
+                            <table class="table table-hover datatable" id="myTable">
                                 <thead>
                                     <tr>
                                         <th scope="col">Order ID</th>
                                         <th scope="col">Client ID</th>
                                         <th scope="col">Recived From</th>
                                         <th scope="col">Delivered To</th>
-                                        <th scope="col">Reciver Name</th>
                                         <th scope="col">Price</th>
-                                        <th scope="col">Reveived Date</th>
-                                        <th scope="col">Delivered Date</th>
-                                        <th scope="col">Approved</th>
-                                        <th scope="col">Delivered</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($orders as $order)
+                                    @forelse ($orders as $order)
                                         <tr>
                                             <td>{{ $order->id }}</td>
                                             <td>{{ $order->user_id }}</td>
@@ -61,33 +56,29 @@
                                             </td>
                                             <td>{{ $order->delivered_address }},{{ $order->delivered_city }},{{ $order->delivered_country }}
                                             </td>
-                                            <td>{{ $order->receiver_name }}</td>
                                             <td>{{ $order->price }}</td>
-                                            <td>{{ $order->received_date }}</td>
-                                            <td>{{ $order->delivered_date }}</td>
-                                            <td>{{ $order->approved ? 'Yes' : 'No' }}</td>
-                                            <td>{{ $order->order_delivered ? 'Yes' : 'No' }}</td>
                                             <td class="long-text">
                                                 @if ($order->status == 'Pending')
-                                                    <span class="badge  bg-warning">{{ $order->status }}</span>
+                                                    <span class="badge  bg-secondary">{{ $order->status }}</span>
+                                                @elseif ($order->status == 'New')
+                                                    <span class="badge bg-info">{{ $order->status }}</span>
                                                 @elseif ($order->status == 'Delivered')
                                                     <span class="badge bg-success">{{ $order->status }}</span>
+                                                @elseif ($order->status == 'Rejected')
+                                                    <span class="badge bg-danger">{{ $order->status }}</span>
                                                 @else
-                                                    {{ $order->status }}
+                                                    <span class="badge bg-warning">{{ $order->status }}</span>
                                                 @endif
                                             </td>
-                                            <td>
+                                            <td class="long-text">
                                                 @if ($order->approved == 0)
                                                     <a href="{{ route('order.updateApproved', $order->id) }}"
-                                                        class="btn btn-sm btn-success mt-1">Approve</a>
+                                                        class="btn btn-sm btn-success mt-1">Accept </a>
                                                     <a href="{{ route('order.updateApproved', $order->id) }}"
-                                                        class="btn btn-sm btn-danger mt-1">Disapprove</a>
-                                                @elseif ($order->approved == 1)
-                                                    <a href="{{ route('order.updateApproved', $order->id) }}"
-                                                        class="btn btn-sm btn-danger mt-1">Disapprove</a>
+                                                        class="btn btn-sm btn-danger mt-1">Reject</a>
                                                 @elseif ($order->approved == 2)
                                                     <a href="{{ route('order.updateApproved', $order->id) }}"
-                                                        class="btn btn-sm btn-success mt-1">Approve</a>
+                                                        class="btn btn-sm btn-success mt-1">Accept </a>
                                                 @endif
                                                 @if (!$order->order_delivered)
                                                     <a href="{{ route('order.updateDelivered', $order->id) }}"
@@ -241,7 +232,11 @@
 
                                             </td>
                                         </tr>
-                                    @endforeach
+                                    @empty
+                                        <tr>
+                                            <td colspan="7" class="text-center">No Order Found</td>
+                                        </tr>
+                                    @endforelse
 
                                 </tbody>
                             </table>

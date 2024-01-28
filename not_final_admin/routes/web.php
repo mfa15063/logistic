@@ -38,7 +38,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/order/create', [orderController::class, 'create'])->name('order.create');
     Route::get('/order', [orderController::class, 'index'])->name('order.index');
     Route::get('/order/new', [orderController::class, 'allNew'])->name('order.allNew');
-    Route::get('/order/panding', [orderController::class, 'allPanding'])->name('order.allPanding');
+    Route::get('/order/rejected', [orderController::class, 'allrejected'])->name('order.allrejected');
+    Route::get('/order/underprocessing', [orderController::class, 'allPanding'])->name('order.allPanding');
     Route::get('/order/delivered', [orderController::class, 'allDelivered'])->name('order.allDelivered');
     Route::post('/order/store', [orderController::class, 'store'])->name('order.store');
     Route::get('/order/approved/{id}', [orderController::class, 'updateApproved'])->name('order.updateApproved');

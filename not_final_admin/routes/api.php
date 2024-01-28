@@ -34,4 +34,5 @@ Route::group(['middleware' => ['api']], function () {
     Route::post('change-password', [userController::class, 'changePassword']);
     Route::post('order/store', [orderController::class, 'store']);
     Route::get('order/my', [orderController::class, 'myOrder']);
+    Route::get('order/by-id', [orderController::class, 'orderById']);
 });

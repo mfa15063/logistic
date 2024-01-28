@@ -82,4 +82,14 @@ class orderController extends Controller
             return response()->json($e->getMessage(), 404);
         }
     }
+
+    public function orderById(Request $request)
+    {
+        try {
+            $order = order::where('id', $request->id)->get();
+            return $this->json_response('success', 'my_order', 'My Orders get Successfully', 422, $order);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 404);
+        }
+    }
 }

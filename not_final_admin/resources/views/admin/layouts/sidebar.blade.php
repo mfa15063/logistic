@@ -28,9 +28,15 @@
                     </a>
                 </li>
                 <li>
+                    <a class="{{ Route::currentRouteName() == 'order.allrejected' ? 'active' : '' }}"
+                        href="{{ route('order.allrejected') }}">
+                        <i class="bi bi-circle"></i><span>View Rejected Orders</span>
+                    </a>
+                </li>
+                <li>
                     <a class="{{ Route::currentRouteName() == 'order.allPanding' ? 'active' : '' }}"
                         href="{{ route('order.allPanding') }}">
-                        <i class="bi bi-circle"></i><span>View Panding Orders</span>
+                        <i class="bi bi-circle"></i><span>View Underprocessing Orders</span>
                     </a>
                 </li>
                 <li>

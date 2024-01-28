@@ -42,7 +42,7 @@ class UserController extends Controller
         // dd($remember);
         if (Auth::attempt(array('email' => $input['email'], 'password' => $input['password']), $remember)) {
             if (Auth::check() && Auth::user()->is_admin) {
-                return redirect()->route('dashboard');
+                return redirect()->route('order.index');
             } else {
                 return redirect()->route('login')->withErrors([
                     'error' => 'You not allow to access administrator panel',

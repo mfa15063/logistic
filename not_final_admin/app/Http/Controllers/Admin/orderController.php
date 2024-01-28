@@ -19,16 +19,23 @@ class orderController extends Controller
     }
     public function allNew()
     {
-        $orders = order::where('approved', '1')->where('order_delivered', '0')->get();
+        $orders = order::where('approved', '0')->where('order_delivered', '0')->get();
         $type = 'new';
         $page = 'New';
+        return view('admin.order.index', compact('orders', 'type', 'page'));
+    }
+    public function allrejected()
+    {
+        $orders = order::where('approved', '2')->where('order_delivered', '0')->get();
+        $type = 'rejected';
+        $page = 'Rejected';
         return view('admin.order.index', compact('orders', 'type', 'page'));
     }
     public function allPanding()
     {
         $orders = order::where('approved', '1')->where('order_delivered', '0')->get();
         $type = 'panding';
-        $page = 'Panding';
+        $page = 'Underprocessing';
         return view('admin.order.index', compact('orders', 'type', 'page'));
     }
     public function allDelivered()
@@ -74,7 +81,9 @@ class orderController extends Controller
         } else {
             $payment_recipt = null;
         }
-        $order = order::create($request->all());
+        $data = $request->all();
+        $data['status'] = 'New';
+        $order = order::create($data);
         if ($order) {
             order::find($order->id)->update([
                 'product_pic' => $product_pic,
@@ -129,10 +138,12 @@ class orderController extends Controller
         if ($order) {
             if ($order->approved == 1) {
                 $order->approved = 2;
+                $order->status = 'Rejected';
                 $order->received_date = $currentDate;
             } else {
                 $order->approved = 1;
                 $order->received_date = null;
+                $order->status = 'Pending';
             }
         }
         $order->update();

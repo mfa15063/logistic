@@ -77,9 +77,14 @@
 
                                         <div class="col-12">
                                             <label for="password" class="form-label">Password</label>
-                                            <input type="password" name="password"
-                                                class="form-control  @error('password') is-invalid @enderror @if (!$errors->has('password') && old('password')) is-valid @endif"
-                                                id="password">
+
+                                                <div class="input-group mb-3">
+                                                    <input type="password" name="password"
+                                                    class="form-control  @error('password') is-invalid @enderror @if (!$errors->has('password') && old('password')) is-valid @endif"
+                                                    id="password">
+                                                    <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                                        <i class="bi bi-eye" id="eyeIcon"></i>
+                                                      </button>                                                  </div>
                                             @error('password')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -125,7 +130,22 @@
 
     <!--  Main JS File -->
     <script src="{{ asset('admin/js/main.js') }}"></script>
+    <script>
+        document.getElementById('togglePassword').addEventListener('click', function() {
+          var passwordInput = document.getElementById('password');
+          var eyeIcon = document.getElementById('eyeIcon');
 
+          if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            eyeIcon.classList.remove('bi','bi-eye');
+            eyeIcon.classList.add('bi','bi-eye-slash');
+          } else {
+            passwordInput.type = 'password';
+            eyeIcon.classList.remove('bi','bi-eye-slash');
+            eyeIcon.classList.add('bi','bi-eye');
+          }
+        });
+      </script>
 </body>
 
 </html>

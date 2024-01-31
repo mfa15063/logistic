@@ -8,7 +8,7 @@ import {
   MDBCheckbox
 }
 from 'mdb-react-ui-kit';
-import './signup.scss';
+import '../styles/signup-component.scss';
 
 function SignUp() {
   return (

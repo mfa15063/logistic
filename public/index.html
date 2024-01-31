@@ -31,6 +31,23 @@
   <link href="assets/css/main.css" rel="stylesheet">
 
   <base href="/" />
+
+  <style id="scroll-style">
+    ::-webkit-scrollbar {
+      width: 15px;
+      background: linear-gradient(to bottom, #feb900 0%, #feb900 0%, #ddd 0%, #ddd 100%);
+      border-left: 1px solid #feb900;
+      border-right: 1px solid #feb900;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-size: contain !important;
+      background-image: url(https://www.freeiconspng.com/uploads/white-down-arrow-png-2.png);
+      background-repeat: no-repeat;
+      background-position: bottom;
+      background-color: #feb900;
+    }
+  </style>
 </head>
 
 <body>
@@ -81,7 +98,7 @@
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root"></div>
 
-  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i
+  <a id="scroll-to-top" class="scroll-top d-flex align-items-center justify-content-center"><i
       class="bi bi-arrow-up-short"></i></a>
 
   <div id="preloader"></div>

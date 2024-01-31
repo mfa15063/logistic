@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./profile.scss";
+import "../styles/profile-page.scss";
 import SignUp from "../components/signup";
 import ProfileComponent from "../components/profile";
 

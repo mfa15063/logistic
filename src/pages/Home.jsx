@@ -1,10 +1,11 @@
 import HeroSection from "../components/hero-section";
+import StatusBar from "../components/status-bar";
 
 function Home() {
   return (
     <>
       <HeroSection/>
-
+      <StatusBar status='Picked up'/>
       {/* ======= #main ======= */}
       <main id="main">
         {/* ======= Get Started Section ======= */}

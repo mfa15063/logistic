@@ -1,4 +1,4 @@
-import React from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import {
   MDBBtn,
   MDBContainer,
@@ -8,16 +8,23 @@ import {
   MDBCheckbox
 }
 from 'mdb-react-ui-kit';
-import '../styles/signup-component.scss';
+import '../styles/form.scss';
+import { useEffect } from 'react';
 
-function SignUp() {
+export default function SignUp(props) {
+  const {isLoggedIn, cameFrom} = props.all?.globals;
+  const navigate = useNavigate();
+  const location = useLocation();
+  useEffect(()=>{
+    if (isLoggedIn) navigate(cameFrom);
+  }, [isLoggedIn, location, navigate, cameFrom]);
   return (
     <MDBContainer fluid className='d-flex align-items-center justify-content-center bg-image' style={{backgroundImage: 'url(https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp)'}}>
       <div className='mask gradient-custom-3'></div>
       <MDBCard className='m-5' style={{maxWidth: '600px'}}>
         <MDBCardBody className='px-5'>
           <h2 className="text-uppercase text-center mb-5">Create an account</h2>
-          <label htmlFor="form1">Your Name</label>
+          <label htmlFor="form1">Your Name</label><Link to="/profile">Profile</Link>
           <MDBInput wrapperClass='mb-4' size='lg' id='form1' type='text'/>
           <MDBInput wrapperClass='mb-4' label='Your Email' size='lg' id='form2' type='email'/>
           <MDBInput wrapperClass='mb-4' label='Password' size='lg' id='form3' type='password'/>
@@ -31,5 +38,3 @@ function SignUp() {
     </MDBContainer>
   );
 }
-
-export default SignUp;

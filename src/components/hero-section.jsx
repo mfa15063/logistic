@@ -1,6 +1,4 @@
-import React from "react";
-
-const HeroSection = () => {
+export default function HeroSection() {
   return (
     <>
       {/* ======= Hero Section ======= */}
@@ -98,6 +96,4 @@ const HeroSection = () => {
       {/* End Hero Section */}
     </>
   );
-};
-
-export default HeroSection;
+}

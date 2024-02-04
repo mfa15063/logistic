@@ -1,16 +1,19 @@
+import { Component } from "react";
 import { Outlet } from "react-router-dom";
 
-
-
-function LayoutWithOutHeader() {
-
+class LayoutWithOutHeader extends Component {
+  componentDidMount() {
     let header = document.getElementById("header");
     if (header) header.remove();
-    console.log(5);
+  }
 
+  render() {
     return (
+      <>
         <Outlet />
+      </>
     );
+  }
 }
 
 export default LayoutWithOutHeader;

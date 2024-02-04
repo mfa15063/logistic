@@ -1,5 +1,4 @@
-import HeroSection from "../components/hero-section";
-import StatusBar from "../components/status-bar";
+import { HeroSection, StatusBar } from '../components/exports';
 
 function Home() {
   return (

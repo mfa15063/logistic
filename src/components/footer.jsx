@@ -1,4 +1,4 @@
-function Footer() {
+export default function Footer() {
   return (
     <>
       {/* ======= Footer ======= */}
@@ -158,5 +158,3 @@ function Footer() {
     </>
   );
 }
-
-export default Footer;

@@ -1,4 +1,4 @@
-function FourZeroFour(){
+export default function FourZeroFour(){
     return (
         <>
         <center>
@@ -9,5 +9,3 @@ function FourZeroFour(){
         </>
     );
 }
-
-export default FourZeroFour;

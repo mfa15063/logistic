@@ -1,106 +1,183 @@
-import React, { useEffect } from "react";
+import {
+  MDBCol,
+  MDBContainer,
+  MDBRow,
+  MDBCard,
+  MDBCardText,
+  MDBCardBody,
+  MDBCardImage,
+  MDBBtn,
+  MDBTypography,
+} from "mdb-react-ui-kit";
+import { Link, useNavigate } from "react-router-dom";
 import "../styles/profile-page.scss";
-import SignUp from "../components/signup";
-import ProfileComponent from "../components/profile";
+import { useEffect } from "react";
 
-const Profile = () => {
-  useEffect(() => {
-    let header = document.getElementById("header");
-    if (header) header.classList.add("profile-header");
-    let getSidebar = document.querySelector(".profile-page nav");
-    let getToggle = document.querySelectorAll(".profile-page .toggle");
-    let handleToggleClick = () => {
-      if (getSidebar) getSidebar.classList.toggle("active");
-    };
-    getToggle.forEach((toggle) => {
-      toggle.addEventListener("click", handleToggleClick);
+export default function Profile(props) {
+  const { globals, setGlobals } = props.all;
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    setGlobals({
+      ...globals,
+      isLoggedIn: false
     });
+  };
 
-    return () => {
-      getToggle.forEach((toggle) => {
-        toggle.removeEventListener("click", handleToggleClick);
-      });
-    };
-  }, []);
+  const handleLogIn = () => {
+    setGlobals({
+      ...globals,
+      isLoggedIn: true
+    });
+  };
+  useEffect(()=>{
+    console.log(globals);
+    if (!globals?.isLoggedIn) navigate('/signin');
+  }, [globals, navigate]);
   return (
-    <div className="profile-page">
-      <div className="toggle ioooi" style={{ display: "none" }}>
-        <i className="fas fa-bars" />
-      </div>
-      <nav>
-        <ul>
-          <li>
-            <a className="toggle">
-              <span className="icon">
-                <i className="fas fa-bars" />
-              </span>
-              <span className="title">Menu</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <span className="icon">
-                <i className="fas fa-home" />
-              </span>
-              <span className="title">Home</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <span className="icon">
-                <i className="fas fa-user" />
-              </span>
-              <span className="title">Profile</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <span className="icon">
-                <i className="fas fa-envelope" />
-              </span>
-              <span className="title">Messages</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <span className="icon">
-                <i className="fas fa-info" />
-              </span>
-              <span className="title">Help</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <span className="icon">
-                <i className="fas fa-cog" />
-              </span>
-              <span className="title">Setting</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <span className="icon">
-                <i className="fas fa-lock" />
-              </span>
-              <span className="title">Password</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <span className="icon">
-                <i className="fas fa-sign-out-alt" />
-              </span>
-              <span className="title">Sign Out</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <div className="profile-right">
-        {/* <SignUp/> */}
-        <ProfileComponent/>
-      </div>
+    <div className="gradient-custom-2" style={{ backgroundColor: "#9de2ff" }}>
+      <MDBContainer className="py-5 h-100">
+        <MDBRow className="justify-content-center align-items-center h-100">
+          <MDBCol lg="9" xl="7">
+            <MDBCard>
+              <div
+                className="rounded-top text-white d-flex flex-row"
+                style={{ backgroundColor: "#000", height: "200px" }}
+              >
+                <div
+                  className="ms-4 mt-5 d-flex flex-column"
+                  style={{ width: "150px" }}
+                >
+                  <MDBCardImage
+                    src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
+                    alt="Generic placeholder image"
+                    className="mt-4 mb-2 img-thumbnail"
+                    fluid
+                    style={{ width: "150px", zIndex: "1" }}
+                  />
+                  <MDBBtn
+                    outline
+                    color="dark"
+                    style={{ height: "36px", overflow: "visible" }}
+                  >
+                    Edit profile
+                  </MDBBtn>
+                </div>
+                <div className="ms-3" style={{ marginTop: "130px" }}>
+                  <MDBTypography tag="h5">Andy Horowitz
+                  </MDBTypography>
+                  <MDBCardText>New York</MDBCardText>
+                </div>
+              </div>
+              <div
+                className="p-4 text-black"
+                style={{ backgroundColor: "#f8f9fa" }}
+              >
+                <div className="d-flex justify-content-end text-center py-1">
+                  <div>
+                    <MDBCardText className="mb-1 h5">253</MDBCardText>
+                    <MDBCardText className="small text-muted mb-0">
+                      Photos
+                    </MDBCardText>
+                  </div>
+                  <div className="px-3">
+                    <MDBCardText className="mb-1 h5">1026</MDBCardText>
+                    <MDBCardText className="small text-muted mb-0">
+                      Followers
+                    </MDBCardText>
+                  </div>
+                  <div>
+                    <MDBCardText className="mb-1 h5">478</MDBCardText>
+                    <MDBCardText className="small text-muted mb-0">
+                      Following
+                    </MDBCardText>
+                  </div>
+                </div>
+              </div>
+              <MDBCardBody className="text-black p-4">
+                <div className="mb-5">
+                  <p className="lead fw-normal mb-1">About</p>
+                  <MDBBtn
+                    outline
+                    display-if={!globals?.isLoggedIn}
+                    color="dark"
+                    style={{ height: "36px", overflow: "visible" }}
+                    onClick={() => {
+                      handleLogIn();
+                    }}
+                  >
+                    Login
+                  </MDBBtn>
+                  <MDBBtn
+                    outline
+                    display-if={globals?.isLoggedIn}
+                    color="dark"
+                    style={{ height: "36px", overflow: "visible" }}
+                    onClick={() => {
+                      handleLogout();
+                    }}
+                  >
+                    Logout
+                  </MDBBtn>
+                  <Link to="/signup">Sign Up</Link>
+                  <div className="p-4" style={{ backgroundColor: "#f8f9fa" }}>
+                    <MDBCardText className="font-italic mb-1">
+                      Web Developer
+                    </MDBCardText>
+                    <MDBCardText className="font-italic mb-1">
+                      Lives in New York
+                    </MDBCardText>
+                    <MDBCardText className="font-italic mb-0">
+                      Photographer
+                    </MDBCardText>
+                  </div>
+                </div>
+                <div className="d-flex justify-content-between align-items-center mb-4">
+                  <MDBCardText className="lead fw-normal mb-0">
+                    Recent photos
+                  </MDBCardText>
+                  <MDBCardText className="mb-0">
+                    <a href="#!" className="text-muted">
+                      Show all
+                    </a>
+                  </MDBCardText>
+                </div>
+                <MDBRow>
+                  <MDBCol className="mb-2">
+                    <MDBCardImage
+                      src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
+                      alt="image 1"
+                      className="w-100 rounded-3"
+                    />
+                  </MDBCol>
+                  <MDBCol className="mb-2">
+                    <MDBCardImage
+                      src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"
+                      alt="image 1"
+                      className="w-100 rounded-3"
+                    />
+                  </MDBCol>
+                </MDBRow>
+                <MDBRow className="g-2">
+                  <MDBCol className="mb-2">
+                    <MDBCardImage
+                      src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(108).webp"
+                      alt="image 1"
+                      className="w-100 rounded-3"
+                    />
+                  </MDBCol>
+                  <MDBCol className="mb-2">
+                    <MDBCardImage
+                      src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp"
+                      alt="image 1"
+                      className="w-100 rounded-3"
+                    />
+                  </MDBCol>
+                </MDBRow>
+              </MDBCardBody>
+            </MDBCard>
+          </MDBCol>
+        </MDBRow>
+      </MDBContainer>
     </div>
   );
-};
-
-export default Profile;
+}

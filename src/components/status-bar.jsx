@@ -2,7 +2,7 @@ import React from "react";
 import { Choose, When, Otherwise } from "babel-plugin-jsx-control-statements";
 import "../styles/status-bar-component.scss";
 
-const StatusBar = (props) => {
+export default function StatusBar(props) {
   let status = props.status.toLowerCase();
   let underProcess = "On The Way";
   let position = 66.67;
@@ -39,6 +39,4 @@ const StatusBar = (props) => {
       </div>
     </div>
   );
-};
-
-export default StatusBar;
+}

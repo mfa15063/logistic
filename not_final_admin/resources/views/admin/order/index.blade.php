@@ -57,9 +57,9 @@
                                             </td>
                                             <td>{{ $order->price }}</td>
                                             <td class="">
-                                                @if ($order->approved == 0  &&  $order->status == 'Pending')
+                                                @if ($order->approved == 0 && $order->status == 'Pending')
                                                     <span class="badge  bg-secondary">{{ $order->status }}</span>
-                                                @elseif ($order->approved == 1 && $order->order_delivered == 1 &&   $order->status == 'Delivered')
+                                                @elseif ($order->approved == 1 && $order->order_delivered == 1 && $order->status == 'Delivered')
                                                     <span class="badge bg-success">{{ $order->status }}</span>
                                                 @elseif ($order->approved == 2 && $order->status == 'Rejected')
                                                     <span class="badge bg-danger">{{ $order->status }}</span>
@@ -68,41 +68,76 @@
                                                 @endif
                                             </td>
                                             <td class="long-text">
-                                                @if ($order->approved == 0)
-                                                    <a href="{{ route('order.updateApproved', $order->id) }}"
-                                                        class="btn btn-sm btn-success mt-1">Accept </a>
-                                                    <a href="{{ route('order.updateApproved', $order->id) }}"
-                                                        class="btn btn-sm btn-danger mt-1">Reject</a>
-                                                        <!-- Button trigger modal -->
-                                                        <button type="button" class="btn btn-sm btn-danger mt-1" data-bs-toggle="modal" data-bs-target="#rejectionModal{{$order->id}}">
-                                                            Reject
+                                                @if ($order->approved != 1)
+                                                    @if(!is_null($order->price))
+                                                        <a href="{{ route('order.updateApproved', ['type'=>'accept','id'=>$order->id]) }}"
+                                                            class="btn btn-sm btn-success mt-1">Accept </a>
+                                                    @elseif(is_null($order->price))
+                                                        <button type="button" class="btn btn-sm btn-success mt-1" data-bs-toggle="modal" data-bs-target="#updatePriceModal{{$order->id}}">
+                                                            Accept
                                                         </button>
 
                                                         <!-- Modal -->
-                                                        <div class="modal fade" id="rejectionModal{{$order->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal fade" id="updatePriceModal{{$order->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                 <h1 class="modal-title fs-5" id="exampleModalLabel">Reject Order</h1>
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
+                                                                <form action="{{route('order.updateApproved',['type'=>'accept','id'=>$order->id])}}" method="POST">
+                                                                    @csrf
+                                                                    <div class="modal-body">
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <label for="price" class="form-label">Price</label>
+                                                                                <input type="text" class="form-control " name="price"  id="price"
+                                                                                    placeholder="Price">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                    <button type="submit" class="btn btn-danger">Reject</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+
+                                                @elseif ($order->approved == 0)
+                                                    <button type="button" class="btn btn-sm btn-danger mt-1" data-bs-toggle="modal" data-bs-target="#rejectionModal{{$order->id}}">
+                                                        Reject
+                                                    </button>
+
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="rejectionModal{{$order->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Reject Order</h1>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <form action="{{route('order.updateApproved',['type'=>'reject','id'=>$order->id])}}" method="POST">
+                                                                @csrf
                                                                 <div class="modal-body">
                                                                     <div class="row">
                                                                         <div class="col-12">
-
+                                                                            <label for="rejection_reason" class="form-label">Reason for rejection</label>
+                                                                            <input type="text" class="form-control " name="rejection_reason"  id="rejection_reason"
+                                                                                placeholder="Reason for rejection">
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                                <button type="button" class="btn btn-primary">Reject</button>
+                                                                <button type="submit" class="btn btn-danger">Reject</button>
                                                                 </div>
-                                                            </div>
-                                                            </div>
+                                                            </form>
                                                         </div>
-                                                @elseif ($order->approved == 2)
-                                                    <a href="{{ route('order.updateApproved', $order->id) }}"
-                                                        class="btn btn-sm btn-success mt-1">Accept </a>
+                                                        </div>
+                                                    </div>
                                                 @endif
                                                 @if (!$order->order_delivered)
                                                     <a href="{{ route('order.updateDelivered', $order->id) }}"

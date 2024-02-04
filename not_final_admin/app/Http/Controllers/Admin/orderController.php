@@ -131,19 +131,22 @@ class orderController extends Controller
         $order = order::find($id)->update($data);
         return redirect()->route('order.index');
     }
-    public function updateApproved($id)
+    public function updateApproved(Request $request,$type,$id)
     {
         $order = order::findorFail($id);
         $currentDate = Carbon::now()->format('Y-m-d');
         if ($order) {
-            if ($order->approved == 1) {
-                $order->approved = 2;
-                $order->status = 'Rejected';
-                $order->received_date = $currentDate;
-            } else {
+            if($type == 'accept'){
                 $order->approved = 1;
-                $order->received_date = null;
-                $order->status = 'Pending';
+                $order->received_date = $currentDate;
+                if($request->has('price')){
+                    $order->price = $request->input('price');
+                }
+            }
+            elseif($type == 'reject'){
+                $order->approved = 2;
+                $order->rejection_reason = $request->rejection_reason;
+                $order->status = 'Rejected';
             }
         }
         $order->update();

@@ -4,7 +4,7 @@ const User = {
 }
 
 const Globals = {
-    isLoggedIn: true,
+    isLoggedIn: false,
     cameFrom: '/profile'
 }
 

@@ -12,27 +12,21 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/profile-page.scss";
 import { useEffect } from "react";
+import { User } from "../models";
 
 export default function Profile(props) {
-  const { globals, setGlobals } = props.all;
+  const { user } = props.all;
   const navigate = useNavigate();
   const handleLogout = () => {
-    setGlobals({
-      ...globals,
-      isLoggedIn: false
-    });
+    
   };
 
   const handleLogIn = () => {
-    setGlobals({
-      ...globals,
-      isLoggedIn: true
-    });
+    
   };
   useEffect(()=>{
-    console.log(globals);
-    if (!globals?.isLoggedIn) navigate('/signin');
-  }, [globals, navigate]);
+    if (!user?.isLoggedIn) navigate('/signin');
+  }, [user, navigate]);
   return (
     <div className="gradient-custom-2" style={{ backgroundColor: "#9de2ff" }}>
       <MDBContainer className="py-5 h-100">
@@ -98,7 +92,7 @@ export default function Profile(props) {
                   <p className="lead fw-normal mb-1">About</p>
                   <MDBBtn
                     outline
-                    display-if={!globals?.isLoggedIn}
+                    display-if={!user?.isLoggedIn}
                     color="dark"
                     style={{ height: "36px", overflow: "visible" }}
                     onClick={() => {
@@ -109,7 +103,7 @@ export default function Profile(props) {
                   </MDBBtn>
                   <MDBBtn
                     outline
-                    display-if={globals?.isLoggedIn}
+                    display-if={user?.isLoggedIn}
                     color="dark"
                     style={{ height: "36px", overflow: "visible" }}
                     onClick={() => {

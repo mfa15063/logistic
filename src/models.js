@@ -1,11 +1,25 @@
 const User = {
-    name: '',
-    email: ''
-}
-
-const Globals = {
     isLoggedIn: false,
-    cameFrom: '/profile'
+    address: "",
+    city: "",
+    contact_no: "",
+    country: "",
+    created_at: "",
+    email: "",
+    email_verified_at: null,
+    id: 0,
+    is_admin: 0,
+    name: "",
+    profile_img: null,
+    status: 0,
+    updated_at: ""
 }
 
-export {User, Globals};
+const Response = {
+    error: false,
+    success: false,
+    message: "",
+    data: null
+}
+
+export { User, Response };

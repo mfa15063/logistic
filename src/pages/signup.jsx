@@ -12,12 +12,12 @@ import '../styles/form.scss';
 import { useEffect } from 'react';
 
 export default function SignUp(props) {
-  const {isLoggedIn, cameFrom} = props.all?.globals;
+  const {user, setUser, cameFrom} = props.all;
   const navigate = useNavigate();
   const location = useLocation();
   useEffect(()=>{
-    if (isLoggedIn) navigate(cameFrom);
-  }, [isLoggedIn, location, navigate, cameFrom]);
+    if (user?.isLoggedIn) navigate(cameFrom);
+  }, [user, location, navigate, cameFrom]);
   return (
     <MDBContainer fluid className='d-flex align-items-center justify-content-center bg-image' style={{backgroundImage: 'url(https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp)'}}>
       <div className='mask gradient-custom-3'></div>

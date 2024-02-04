@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Mail\OtpEmail;
 use App\Models\otp;
 use App\Models\User;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -15,12 +14,6 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
-
-/*
-    Author      : Zeeshan Mushtaq
-    Date        : 04-12-2023
-    Description : This  class will manage user authentication.
-*/
 
 class userController extends Controller
 {
@@ -37,8 +30,7 @@ class userController extends Controller
         }
         try {
             $credentials = $request->only('email', 'password');
-            $remember = request()->has('remember',0); // Check if "remember" checkbox is checked
-            if (!Auth::attempt($credentials, $remember)) {
+            if (!Auth::attempt($credentials)) {
                 // Invalid credentials
                 return $this->json_response('error', 'invalid_credential', 'The user email & password were incorrect.', 401);
             }
@@ -184,7 +176,7 @@ class userController extends Controller
             return response()->json($e->getMessage(), 404);
         }
     }
-    // chanage password by otp
+    // change password by otp
     public function changePasswordOTP(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -230,7 +222,7 @@ class userController extends Controller
             return response()->json($e->getMessage(), 404);
         }
     }
-    // chanage password by current password
+    // change password by current password
     public function changePassword(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -266,13 +258,13 @@ class userController extends Controller
             return response()->json($e->getMessage(), 404);
         }
     }
-    // show logedin user profile
+    // show loggedIn user profile
     public function profile()
     {
         try{
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
-        return $this->json_response('success', 'profile_show', 'User Fetch Succeccfully', 200, $user);
+        return $this->json_response('success', 'profile_show', 'User Fetch Successfully', 200, $user);
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 404);
         }

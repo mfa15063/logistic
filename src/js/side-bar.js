@@ -1,4 +1,4 @@
-window.onload = ()=>{
+window.onload = () => {
     let header = document.getElementById("header");
     if (header) header.classList.add("profile-header");
     let getSidebar = document.querySelector(".profile-page nav");

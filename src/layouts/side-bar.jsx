@@ -3,13 +3,11 @@ import { Link, Outlet } from "react-router-dom";
 import "../styles/side-bar.scss";
 
 class SideBar extends Component {
-  componentDidMount() {
-    require("../js/side-bar");
-  }
 
   render() {
-    const { isLoggedIn } = this.props.all?.globals;
-
+    const { isLoggedIn } = this.props.all?.user;
+    require("../js/side-bar");
+    
     return (
       <div className="profile-page">
         <Link className="toggle mobile-toggle" style={{ display: "none" }}>

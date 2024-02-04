@@ -14,7 +14,7 @@ class orderController extends Controller
     public $user_id;
     public function __construct()
     {
-        $user = Auth::user();
+        $user = auth()->user();
 
         // Check if the user is authenticated before accessing the id property
         $this->user_id = $user ? $user->id : null;
@@ -54,9 +54,8 @@ class orderController extends Controller
             } else {
                 $payment_recipt = null;
             }
-
             $order = order::create([
-                'user_id'    => $request->user_id,
+                'user_id'    => $this->user_id,
                 'receiver_name'    => $request->receiver_name,
                 'received_country' => $request->received_country,
                 'received_city'    => $request->received_city,

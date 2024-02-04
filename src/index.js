@@ -1,38 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.scss';
+import 'mdb-react-ui-kit/dist/css/mdb.min.css';
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Home, Portfolio, About, Contact, Profile, SignIn, SignUp, FourZeroFour } from './pages/exports';
 import { LayoutWithHeader, LayoutWithOutHeader, SideBar } from './layouts/exports';
 import { User } from './models';
-import { fetchUserProfile } from './js/api';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+if (window.localStorage.authToken !== undefined)
+  window.sessionStorage.authToken = window.localStorage.authToken;
 
 function Main() {
   const [cameFrom, setCameFrom] = useState('/profile');
   const [user, setUser] = useState(User);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const userData = await fetchUserProfile();
-        if (userData.success) {
-          setUser({
-            ...userData.data,
-            isLoggedIn: true
-          });
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [user]);
-
-  if(loading) return <LayoutWithHeader />
 
   return (
     <React.StrictMode>
@@ -42,13 +24,13 @@ function Main() {
             <Route index element={<Home />} />
             <Route path='portfolio' element={<Portfolio />} />
             <Route path='about' element={<About />} />
-            <Route path='profile' element={<SideBar all={{ user }} />} >
-              <Route index element={<Profile all={{ user }} />} />
+            <Route path='profile' element={<SideBar all={{ user, setUser }} />} >
+              <Route index element={<Profile all={{ user, setUser }} />} />
             </Route>
-            <Route path='signup' element={<SideBar all={{ user }} />} >
+            <Route path='signup' element={<SideBar all={{ user, setUser }} />} >
               <Route index element={<SignUp all={{ cameFrom, user, setUser }} />} />
             </Route>
-            <Route path='signin' element={<SideBar all={{ user }} />} >
+            <Route path='signin' element={<SideBar all={{ user, setUser }} />} >
               <Route index element={<SignIn all={{ cameFrom, user, setUser }} />} />
             </Route>
           </Route>

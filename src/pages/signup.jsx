@@ -8,7 +8,6 @@ import {
   MDBCheckbox
 }
 from 'mdb-react-ui-kit';
-import '../styles/form.scss';
 import { useEffect } from 'react';
 
 export default function SignUp(props) {
@@ -19,7 +18,7 @@ export default function SignUp(props) {
     if (user?.isLoggedIn) navigate(cameFrom);
   }, [user, location, navigate, cameFrom]);
   return (
-    <MDBContainer fluid className='d-flex align-items-center justify-content-center bg-image' style={{backgroundImage: 'url(https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp)'}}>
+    <MDBContainer fluid className='d-flex align-items-center justify-content-center bg-image'>
       <div className='mask gradient-custom-3'></div>
       <MDBCard className='m-5' style={{maxWidth: '600px'}}>
         <MDBCardBody className='px-5'>
@@ -32,7 +31,7 @@ export default function SignUp(props) {
           <div className='d-flex flex-row justify-content-center mb-4'>
             <MDBCheckbox name='flexCheck' id='flexCheckDefault' label='I agree all statements in Terms of service' />
           </div>
-          <MDBBtn className='mb-4 w-100 gradient-custom-4' size='lg'>Register</MDBBtn>
+          <MDBBtn className='mb-4 w-100' size='lg'>Register</MDBBtn>
         </MDBCardBody>
       </MDBCard>
     </MDBContainer>

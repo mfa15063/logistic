@@ -1,13 +1,43 @@
 import React, { Component } from "react";
 import { Link, Outlet } from "react-router-dom";
 import "../styles/side-bar.scss";
+import { fetchUserProfile } from "../js/api";
 
 class SideBar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true,
+    };
+  }
+  componentDidMount() {
+    require("../js/side-bar");
+    if (window.sessionStorage.authToken) {
+      this.fetchData();
+    } else this.setState({ loading: false });
+  }
+
+  async fetchData() {
+    const { setUser } = this.props.all;
+
+    try {
+      const userData = await fetchUserProfile();
+      if (userData.success) {
+        setUser({
+          ...userData.data,
+          isLoggedIn: true,
+        });
+      }
+    } finally {
+      this.setState({
+        loading: false,
+      });
+    }
+  }
 
   render() {
-    const { isLoggedIn } = this.props.all?.user;
-    require("../js/side-bar");
-    
+    const { isLoggedIn } = this.props.all?.user || {};
+
     return (
       <div className="profile-page">
         <Link className="toggle mobile-toggle" style={{ display: "none" }}>
@@ -49,8 +79,14 @@ class SideBar extends Component {
             </li>
           </ul>
         </nav>
-        <div className="profile-right">
+        <div
+          className="profile-right gradient-custom-2"
+          display-if={!this.state.loading}
+        >
           <Outlet />
+        </div>
+        <div className="profile-right" display-if={this.state.loading}>
+          <div id="preloader" style={{ position: "relative" }}></div>
         </div>
       </div>
     );

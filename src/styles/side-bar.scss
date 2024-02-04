@@ -17,6 +17,11 @@ $cl_text: #f6f4e6;
     background: $bg_primary;
     position: fixed;
 }
+.gradient-custom-2 {
+    background: #fbc2eb;
+    background: -webkit-linear-gradient(to right, rgba(251, 194, 235, 1), rgba(166, 193, 238, 1));
+    background: linear-gradient(to right, rgba(251, 194, 235, 1), rgba(166, 193, 238, 1))
+}
 .profile-page {
     nav {
         position: fixed;

@@ -29,7 +29,8 @@ Route::post('forget-password', [userController::class, 'forgetPassword']);
 Route::post('verify-otp',   [userController::class, 'verifyOtp']);
 Route::post('change-password', [userController::class, 'changePasswordOTP']);
 
-Route::group(['middleware' => ['api']], function () {
+Route::group(['middleware' => ['auth:api']], function () {
+    Route::get('profile', [userController::class, 'profile']);
     Route::post('profile-update', [userController::class, 'profileUpdate']);
     Route::post('change-password', [userController::class, 'changePassword']);
     Route::post('order/store', [orderController::class, 'store']);

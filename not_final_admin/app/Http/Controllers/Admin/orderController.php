@@ -139,7 +139,9 @@ class orderController extends Controller
             if($type == 'accept'){
                 $order->approved = 1;
                 $order->received_date = $currentDate;
-                $order->status = 'Rejected';
+                if($request->has('price')){
+                    $order->price = $request->input('price');
+                }
             }
             elseif($type == 'reject'){
                 $order->approved = 2;

@@ -36,4 +36,5 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('order/store', [orderController::class, 'store']);
     Route::get('order/my', [orderController::class, 'myOrder']);
     Route::get('order/by-id', [orderController::class, 'orderById']);
+    Route::get('logout', [userController::class, 'logout']);
 });

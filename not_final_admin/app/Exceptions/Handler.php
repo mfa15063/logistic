@@ -6,6 +6,8 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 use League\OAuth2\Server\Exception\OAuthServerException;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Support\Facades\Request;
+
 class Handler extends ExceptionHandler
 {
     /**
@@ -25,10 +27,18 @@ class Handler extends ExceptionHandler
     public function register(): void
     {
 
-        $this->reportable(function (Throwable $e) {
-            if ( $e instanceof OAuthException ) {
-                return response(['error' => 'Token is invalid!'], 403);
-           }
+        $this->reportable(function (Request $request ,Throwable $e) {
+            if ($e instanceof OAuthServerException && $e->getCode() === 9) {
+                // OAuthServerException with code 9 indicates an expired or invalid token
+                return $this->unauthenticated($request, $e);
+            }
+            return response()->json($e->getMessage());
         });
+    }
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        if ($request->expectsJson() || $request->is('api/*')) {
+            return response()->json(['type' => 'error','code'=>'Unauthenticated','message'=>'Unauthenticated Client'], 401);
+        }
     }
 }

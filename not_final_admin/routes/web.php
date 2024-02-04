@@ -42,7 +42,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/order/underprocessing', [orderController::class, 'allPanding'])->name('order.allPanding');
     Route::get('/order/delivered', [orderController::class, 'allDelivered'])->name('order.allDelivered');
     Route::post('/order/store', [orderController::class, 'store'])->name('order.store');
-    Route::get('/order/approved/{id}', [orderController::class, 'updateApproved'])->name('order.updateApproved');
+    Route::match(['get','post'],'/order/approved/{type}/{id}', [orderController::class, 'updateApproved'])->name('order.updateApproved');
     Route::get('/order/delivered/{id}', [orderController::class, 'updateDelivered'])->name('order.updateDelivered');
     Route::delete('/order/{id}', [orderController::class, 'delete'])->name('order.delete');
     Route::get('/order/edit/{id}', [orderController::class, 'edit'])->name('order.edit');

@@ -271,7 +271,7 @@ class userController extends Controller
     {
         try{
         $user_id = auth()->user()->id;
-        $user = User::find($user_id);
+        $user = User::select('id','name', 'email', 'profile_img', 'address', 'contact_no', 'city', 'country')->find($user_id);
         return $this->json_response('success', 'profile_show', 'User Fetch Succeccfully', 200, $user);
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 404);
@@ -315,5 +315,12 @@ class userController extends Controller
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
+    }
+    public function logout()
+    {
+        $user = Auth::user();
+        $user->tokens()->delete();
+
+        return response()->json(['message' => 'User logged out successfully']);
     }
 }

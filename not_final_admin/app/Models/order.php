@@ -27,7 +27,8 @@ class order extends Model
        'packet_height',
        'packet_width',
        'packet_weight',
-       'no_of_packet'
+       'no_of_packet',
+       'rejection_reason'
     ];
     public function client(){
         return $this->belongsTo(User::class,'user_id');

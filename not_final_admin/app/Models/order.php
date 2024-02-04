@@ -23,11 +23,11 @@ class order extends Model
        'delivered_date',
        'product_pic',
        'payment_recipt',
-    //    'number_of_parcels', //int 0
-    //    'weight_of_goods', //two decimal float 0.00
-    //    'parcel_width', //two decimal float 0.00
-    //    'parcel_length', //two decimal float 0.00
-    //    'parcel_height' //two decimal float 0.00
+       'packet_length',
+       'packet_height',
+       'packet_width',
+       'packet_weight',
+       'no_of_packet'
     ];
     public function client(){
         return $this->belongsTo(User::class,'user_id');

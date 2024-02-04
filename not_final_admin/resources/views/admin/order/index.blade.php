@@ -86,17 +86,21 @@
                                                                 <h1 class="modal-title fs-5" id="exampleModalLabel">Reject Order</h1>
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
-                                                                <div class="modal-body">
-                                                                    <div class="row">
-                                                                        <div class="col-12">
-
+                                                                <form action="" method="POST">
+                                                                    <div class="modal-body">
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <label for="rejection_reason" class="form-label">Reason for rejection</label>
+                                                                                <input type="text" class="form-control " name="rejection_reason"  id="rejection_reason"
+                                                                                    placeholder="Reason for rejection">
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                                <button type="button" class="btn btn-primary">Reject</button>
-                                                                </div>
+                                                                    <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                    <button type="button" class="btn btn-primary">Reject</button>
+                                                                    </div>
+                                                                </form>
                                                             </div>
                                                             </div>
                                                         </div>

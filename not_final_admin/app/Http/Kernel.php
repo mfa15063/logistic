@@ -38,7 +38,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
         'api' => [
-            \Laravel\Passport\Http\Middleware\CreateFreshApiToken::class,
+            // \Laravel\Passport\Http\Middleware\CreateFreshApiToken::class,
             \Illuminate\Routing\Middleware\ThrottleRequests::class . ':api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],

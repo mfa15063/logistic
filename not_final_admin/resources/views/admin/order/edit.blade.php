@@ -72,12 +72,7 @@
                                     placeholder="Status of Order">
                             </div>
                             <h5 class="form_title">Received From</h5>
-                            <div class="col-md-6">
-                                <label for="name" class="form-label">Name</label>
-                                <input type="text" class="form-control" name="name"
-                                    value="{{ old('name', $order->receiver_name) }}" id="name"
-                                    placeholder="Receiver Name ">
-                            </div>
+
                             <div class="col-md-6">
                                 <label for="received_country" class="form-label">Country <sup
                                         class="text-danger"><b>*</b></sup></label>
@@ -115,6 +110,12 @@
                                 @enderror
                             </div>
                             <h5 class="form_title">Delivered To</h5>
+                            <div class="col-md-6">
+                                <label for="name" class="form-label">Parsel Receiver Name</label>
+                                <input type="text" class="form-control" name="name"
+                                    value="{{ old('name', $order->receiver_name) }}" id="name"
+                                    placeholder="Receiver Name ">
+                            </div>
                             <div class="col-md-6">
                                 <label for="delivered_country" class="form-label">Country <sup
                                         class="text-danger"><b>*</b></sup></label>
@@ -154,6 +155,33 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                            </div>
+                            <h5 class="form_title">Additional Details (Optional)</h5>
+                            <div class="col-md-6">
+                                <label for="no_of_packet" class="form-label">No. Of Packets </label>
+                                <input type="number" class="form-control" name="no_of_packet" id="no_of_packet"
+                                value="{{old('no_of_packet',$order->no_of_packet)}}"   placeholder="No. Of Packets">
+
+                            </div>
+                            <div class="col-md-6">
+                                <label for="packet_weight" class="form-label">Packet Weight</label>
+                                <input type="number" class="form-control" name="packet_weight" id="packet_weight"
+                                value="{{old('packet_weight',$order->packet_weight)}}"   placeholder="Packet Weight">
+
+                            </div>
+                            <div class="col-md-6">
+                                <label for="packet_width" class="form-label">Packet Width </label>
+                                <input type="number" class="form-control" name="packet_width" id="packet_width"
+                                value="{{old('packet_width',$order->packet_width)}}"   placeholder="Packet Width">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="packet_height" class="form-label">Packet Height </label>
+                                <input type="number" class="form-control" name="packet_height" id="packet_height"
+                                value="{{old('packet_height',$order->packet_height)}}"   placeholder="Packet Height">
+                            </div><div class="col-md-6">
+                                <label for="packet_length" class="form-label">Packet Lenght</label>
+                                <input type="number" class="form-control" name="packet_length" id="packet_length"
+                                value="{{old('packet_length',$order->packet_length)}}"   placeholder="Packet Lenght">
                             </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary">Submit</button>

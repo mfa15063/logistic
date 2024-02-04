@@ -1,12 +1,11 @@
 @extends('admin.layouts.main')
 @section('style')
     <style>
-        .long-text {
-            max-width: 200px;
-      overflow: hidden;
-      /* text-overflow: ellipsis; Optional: adds ellipsis for overflowing text */
-      white-space: wrap;
-        }
+    .long-text {
+        min-width: 250px;
+        white-space: normal !important;
+        word-wrap: break-word;
+    }
     </style>
 @endsection
 @section('content')
@@ -35,7 +34,7 @@
                                     class="btn btn-primary">Create Order</a></div>
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-hover datatable" id="myTable">
+                            <table class="table " id="myTableDatatable">
                                 <thead>
                                     <tr>
                                         <th scope="col">Order ID</th>
@@ -57,17 +56,15 @@
                                             <td>{{ $order->delivered_address }},{{ $order->delivered_city }},{{ $order->delivered_country }}
                                             </td>
                                             <td>{{ $order->price }}</td>
-                                            <td class="long-text">
-                                                @if ($order->status == 'Pending')
+                                            <td class="">
+                                                @if ($order->approved == 0  &&  $order->status == 'Pending')
                                                     <span class="badge  bg-secondary">{{ $order->status }}</span>
-                                                @elseif ($order->status == 'New')
-                                                    <span class="badge bg-info">{{ $order->status }}</span>
-                                                @elseif ($order->status == 'Delivered')
+                                                @elseif ($order->approved == 1 && $order->order_delivered == 1 &&   $order->status == 'Delivered')
                                                     <span class="badge bg-success">{{ $order->status }}</span>
-                                                @elseif ($order->status == 'Rejected')
+                                                @elseif ($order->approved == 2 && $order->status == 'Rejected')
                                                     <span class="badge bg-danger">{{ $order->status }}</span>
                                                 @else
-                                                    <span class="badge bg-warning">{{ $order->status }}</span>
+                                                    <span class="long-text badge bg-info">{{ $order->status }}</span>
                                                 @endif
                                             </td>
                                             <td class="long-text">
@@ -76,6 +73,33 @@
                                                         class="btn btn-sm btn-success mt-1">Accept </a>
                                                     <a href="{{ route('order.updateApproved', $order->id) }}"
                                                         class="btn btn-sm btn-danger mt-1">Reject</a>
+                                                        <!-- Button trigger modal -->
+                                                        <button type="button" class="btn btn-sm btn-danger mt-1" data-bs-toggle="modal" data-bs-target="#rejectionModal{{$order->id}}">
+                                                            Reject
+                                                        </button>
+
+                                                        <!-- Modal -->
+                                                        <div class="modal fade" id="rejectionModal{{$order->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Reject Order</h1>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="row">
+                                                                        <div class="col-12">
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                <button type="button" class="btn btn-primary">Reject</button>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </div>
                                                 @elseif ($order->approved == 2)
                                                     <a href="{{ route('order.updateApproved', $order->id) }}"
                                                         class="btn btn-sm btn-success mt-1">Accept </a>
@@ -168,6 +192,36 @@
                                                                             <h5 class="mt-2 mb-2">Payment Recipt</h5>
                                                                             <img src="{{ asset($order->payment_recipt) }}"
                                                                                 alt="">
+                                                                        </div>
+                                                                    @endif
+                                                                    @if ($order->no_of_packet)
+                                                                        <div class="col-6">
+                                                                            <h5 class="mt-2 mb-2">No of Packet:{{ $order->no_of_packet }}
+                                                                            </h5>
+                                                                        </div>
+                                                                    @endif
+                                                                    @if ($order->packet_weight)
+                                                                        <div class="col-6">
+                                                                            <h5 class="mt-2 mb-2">Packet Weight:{{ $order->packet_weight }}
+                                                                            </h5>
+                                                                        </div>
+                                                                    @endif
+                                                                    @if ($order->packet_width)
+                                                                        <div class="col-6">
+                                                                            <h5 class="mt-2 mb-2">Packet Width:{{ $order->packet_width }}
+                                                                            </h5>
+                                                                        </div>
+                                                                    @endif
+                                                                    @if ($order->packet_height)
+                                                                        <div class="col-6">
+                                                                            <h5 class="mt-2 mb-2">Packet Height:{{ $order->packet_height }}
+                                                                            </h5>
+                                                                        </div>
+                                                                    @endif
+                                                                    @if ($order->packet_length)
+                                                                        <div class="col-6">
+                                                                            <h5 class="mt-2 mb-2">Packet Length:{{ $order->packet_length }}
+                                                                            </h5>
                                                                         </div>
                                                                     @endif
                                                                 </div>

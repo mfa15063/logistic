@@ -37,7 +37,7 @@ class userController extends Controller
         }
         try {
             $credentials = $request->only('email', 'password');
-            $remember = request()->has('remember'); // Check if "remember" checkbox is checked
+            $remember = request()->has('remember',0); // Check if "remember" checkbox is checked
             if (!Auth::attempt($credentials, $remember)) {
                 // Invalid credentials
                 return $this->json_response('error', 'invalid_credential', 'The user email & password were incorrect.', 401);
@@ -46,7 +46,7 @@ class userController extends Controller
             $token = $user->createToken('auth_api', ['*'])->accessToken;
             return $this->json_response('success', 'user_login', 'User login Successfully.', 200, $user, $token);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'could_not_create_token : ' . $e->getMessage()], 500);
+            return response()->json(['error' => 'could_not_create_token : ' . $e->getMessage(),'line'=>$e->getLine(),'file'=>$e->getFile()], 500);
         }
     }
     // This function for register users
@@ -269,8 +269,13 @@ class userController extends Controller
     // show logedin user profile
     public function profile()
     {
-        $user = User::select('name', 'email', 'profile_img', 'address', 'contact_no', 'city', 'country')->find(Auth::user()->id);
+        try{
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
         return $this->json_response('success', 'profile_show', 'User Fetch Succeccfully', 200, $user);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 404);
+        }
     }
     // update profile
     public function profileUpdate(Request $request)

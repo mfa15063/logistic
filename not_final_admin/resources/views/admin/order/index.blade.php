@@ -66,6 +66,48 @@
                                                 @else
                                                     <span class="long-text badge bg-info">{{ $order->status }}</span>
                                                 @endif
+                                                <br>
+                                                <button type="button" class="btn btn-white text-info btn-sm mt-1"
+                                                data-bs-toggle="modal" data-bs-target="#modalstatus{{ $order->id }}">
+                                                <i class="bi bi-pencil-square"></i> </button>
+                                            <!-- Modal Body -->
+                                            <div class="modal fade" id="modalstatus{{ $order->id }}" tabindex="-1"
+                                                data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
+                                                aria-labelledby="modalview{{ $order->id }}" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg"
+                                                    role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="modalstatus{{ $order->id }}">
+                                                                Update Order status
+                                                            </h5>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <form action="{{route('order.update_status',$order->id)}}" method="POST">
+                                                            @csrf
+                                                            @method('PUT')
+                                                        <div class="modal-body">
+                                                            <label for=""></label>
+                                                            <div class="mb-3">
+                                                                <label for="status" class="form-label">Status</label>
+                                                                <textarea class="form-control" name="status" id="status" rows="3">{{$order->status}}</textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">
+                                                                Close
+                                                            </button>
+                                                            <button type="submit" class="btn btn-primary"
+                                                                data-bs-dismiss="modal">
+                                                                Update
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             </td>
                                             <td class="long-text">
                                                 @if ($order->approved != 1)

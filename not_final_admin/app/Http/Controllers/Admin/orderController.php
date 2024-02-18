@@ -98,6 +98,13 @@ class orderController extends Controller
         $order = order::find($id);
         return view('admin.order.edit', compact('order'));
     }
+    public function update_status(Request $request,$id){
+        $order = order::findorFail($id);
+        if ($order) {
+            $order->update(['status'=>$request->status]);
+        }
+        return redirect()->back();
+    }
     public function update(Request $request, $id)
     {
         $request->validate(

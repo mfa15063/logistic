@@ -47,6 +47,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/order/{id}', [orderController::class, 'delete'])->name('order.delete');
     Route::get('/order/edit/{id}', [orderController::class, 'edit'])->name('order.edit');
     Route::match(['put','patch'],'/order/update/{id}', [orderController::class, 'update'])->name('order.update');
+    Route::match(['put','patch'],'/order/update/status/{id}', [orderController::class, 'update_status'])->name('order.update_status');
 
     Route::get('/client', [clientController::class, 'index'])->name('client.index');
     Route::get('/client/create', [clientController::class, 'create'])->name('client.create');

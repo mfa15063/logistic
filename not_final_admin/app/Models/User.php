@@ -29,7 +29,17 @@ class User extends Authenticatable implements MustVerifyEmail
         'profile_img',
         'password',
     ];
+    protected $primaryKey = 'id'; // Specify the custom primary key
+    public $incrementing = false; // Indicates that primary key is not auto-incrementing
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->id = 'client_' . ($model->id ?: static::max('id') + 1);
+        });
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

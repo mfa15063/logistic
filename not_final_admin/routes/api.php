@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\orderController;
 use App\Http\Controllers\API\userController;
+use App\Http\Controllers\API\utellityController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\VerificationController;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +23,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+// utellities routes
+Route::get('admin/contect-details', [utellityController::class, 'getAdminContactDetails']);
+
 Route::post('register', [userController::class, 'register']);
 Route::post('login', [userController::class, 'authenticate']);
 
@@ -29,7 +33,7 @@ Route::post('forget-password', [userController::class, 'forgetPassword']);
 Route::post('verify-otp',   [userController::class, 'verifyOtp']);
 Route::post('change-password', [userController::class, 'changePasswordOTP']);
 Route::get('order/by-id', [orderController::class, 'orderById']);
-
+// protected routes
 Route::group(['middleware' => ['auth:api']], function () {
     Route::get('profile', [userController::class, 'profile']);
     Route::post('profile-update', [userController::class, 'profileUpdate']);

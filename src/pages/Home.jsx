@@ -5,7 +5,7 @@ function Home() {
   return (
     <>
       <HeroSection/>
-      <Link to='about'/>
+      <Link to='about'>new</Link>
       <StatusBar status='Picked up'/>
       {/* ======= #main ======= */}
       <main id="main">

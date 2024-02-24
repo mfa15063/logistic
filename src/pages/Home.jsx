@@ -1,9 +1,11 @@
+import { Link } from 'react-router-dom';
 import { HeroSection, StatusBar } from '../components/exports';
 
 function Home() {
   return (
     <>
       <HeroSection/>
+      <Link to='about'/>
       <StatusBar status='Picked up'/>
       {/* ======= #main ======= */}
       <main id="main">

@@ -38,7 +38,8 @@ class order extends Model
         parent::boot();
 
         static::creating(function ($model) {
-            $model->id = 'order_' . ($model->id ?: static::max('id') + 1);
+            $numericPart = (int) substr(static::max('id'), strlen("order_"));
+            $model->id = 'order_' . ($model->id ?: $numericPart + 1);
         });
     }
     public function client(){

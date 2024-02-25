@@ -4,7 +4,7 @@ import './index.scss';
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Home, Portfolio, About, Contact, Profile, SignIn, SignUp, FourZeroFour } from './pages/exports';
+import { Home, Portfolio, About, Contact, Profile, SignIn, SignUp, FourZeroFour, TrackShipment } from './pages/exports';
 import { LayoutWithHeader, LayoutWithOutHeader, SideBar } from './layouts/exports';
 import { User } from './models';
 
@@ -24,6 +24,7 @@ function Main() {
             <Route index element={<Home />} />
             <Route path='portfolio' element={<Portfolio />} />
             <Route path='about' element={<About />} />
+            <Route path='track-shipment' element={<TrackShipment />} />
             <Route path='profile' element={<SideBar all={{ user, setUser }} />} >
               <Route index element={<Profile all={{ user, setUser }} />} />
             </Route>

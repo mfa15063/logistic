@@ -6,5 +6,6 @@ import Portfolio from "./portfolio";
 import Profile from "./profile";
 import SignIn from "./signin";
 import SignUp from "./signup";
+import TrackShipment from "./track-shipment";
 
-export { FourZeroFour, About, Contact, Home, Portfolio, Profile, SignIn, SignUp };
+export { FourZeroFour, About, Contact, Home, Portfolio, Profile, SignIn, SignUp, TrackShipment };

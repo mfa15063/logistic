@@ -24,6 +24,7 @@ function Main() {
             <Route index element={<Home />} />
             <Route path='portfolio' element={<Portfolio />} />
             <Route path='about' element={<About />} />
+       
             <Route path='track-shipment' element={<TrackShipment />} />
             <Route path='profile' element={<SideBar all={{ user, setUser }} />} >
               <Route index element={<Profile all={{ user, setUser }} />} />

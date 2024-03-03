@@ -142,3 +142,45 @@ export const loginUser = async (email, password, remember = false) => {
         };
     }
 };
+
+export const signupUser = async (name, email, password, confirm_password) => {
+    try {
+        const response = await fetch(API_SERVER + "/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email,
+                password
+            })
+        });
+
+        if (response.status !== 200) {
+            const errorData = await response.json();
+            return {
+                success: false,
+                message: errorData.message
+            };
+        }
+
+        const res = await response.json();
+        window.sessionStorage.authToken = res.data.token;
+        delete res.data.token;
+        delete res.data.is_admin;
+        delete res.email_verified_at;
+        delete res.created_at;
+        delete res.updated_at;
+        delete res.status;
+        return {
+            success: true,
+            message: res.message,
+            data: res.data
+        };
+    } catch (error) {
+        return {
+            success: false,
+            message: error.message
+        };
+    }
+};

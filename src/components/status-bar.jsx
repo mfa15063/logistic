@@ -11,7 +11,7 @@ export default function StatusBar(props) {
   else if (status === "delivered") position = 100;
   else underProcess = props.status;
   return (
-    <div className="d-flex px-5 pt-3 pb-5">
+    <div className="d-flex px-5 pt-5 pb-5 ">
       <div className="delivery-status-bar">
         <div className="line-success" style={{ width: `${position}%` }}></div>
         <div className="line-gray"></div>

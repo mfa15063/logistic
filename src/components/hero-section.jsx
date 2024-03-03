@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function HeroSection() {
   return (
     <>
@@ -6,24 +8,25 @@ export default function HeroSection() {
         <div className="info d-flex align-items-center">
           <div className="container">
             <div className="row justify-content-center">
-              <div className="col-lg-6 text-center">
+              <div className="col-lg-9 col-md-10 col-12 text-center">
                 <h2 data-aos="fade-down">
-                  Welcome to <span>UpConstruction</span>
+                Let's build a smooth path to success, together
+
                 </h2>
                 <p data-aos="fade-up">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat.
+                From sourcing to delivery, we streamline your global supply chain. Our vast network and expert team ensure efficient, cost-effective solutions, wherever your goods need to go. 
                 </p>
+                <Link to={"track-shipment"}>
                 <a
                   data-aos="fade-up"
                   data-aos-delay={200}
                   href="#get-started"
                   className="btn-get-started"
                 >
-                  Get Started
+                  Track Shipment
                 </a>
+                </Link>
+              
               </div>
             </div>
           </div>
@@ -38,37 +41,38 @@ export default function HeroSection() {
             className="carousel-item active"
             style={{
               backgroundImage:
-                "url(assets/img/hero-carousel/hero-carousel-1.jpg)",
+                "url(assets/img/hero-carousel/Heade.jpg)",
+                
             }}
           />
           <div
             className="carousel-item"
             style={{
               backgroundImage:
-                "url(assets/img/hero-carousel/hero-carousel-2.jpg)",
+                "url(assets/img/hero-carousel/HeaderTwo.jpg.png)",
             }}
           />
           <div
             className="carousel-item"
             style={{
               backgroundImage:
-                "url(assets/img/hero-carousel/hero-carousel-3.jpg)",
+                "url(assets/img/hero-carousel/Headerthree.jpg)",
             }}
           />
-          <div
+          {/* <div
             className="carousel-item"
             style={{
               backgroundImage:
-                "url(assets/img/hero-carousel/hero-carousel-4.jpg)",
+                "url(assets/img/hero-carousel/Headerthree.jpg)",
             }}
-          />
-          <div
+          /> */}
+          {/* <div
             className="carousel-item"
             style={{
               backgroundImage:
                 "url(assets/img/hero-carousel/hero-carousel-5.jpg)",
             }}
-          />
+          /> */}
           <a
             className="carousel-control-prev"
             href="#hero-carousel"

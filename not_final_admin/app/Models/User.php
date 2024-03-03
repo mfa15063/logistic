@@ -37,7 +37,8 @@ class User extends Authenticatable implements MustVerifyEmail
         parent::boot();
 
         static::creating(function ($model) {
-            $model->id = 'client_' . ($model->id ?: static::max('id') + 1);
+            $numericPart = (int) substr(static::max('id'), strlen("order_"));
+            $model->id = 'client_' . ($model->id ?: $numericPart + 1);
         });
     }
     /**

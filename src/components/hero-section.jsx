@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function HeroSection() {
   return (
     <>
@@ -14,6 +16,7 @@ export default function HeroSection() {
                 <p data-aos="fade-up">
                 From sourcing to delivery, we streamline your global supply chain. Our vast network and expert team ensure efficient, cost-effective solutions, wherever your goods need to go. 
                 </p>
+                <Link to={"track-shipment"}>
                 <a
                   data-aos="fade-up"
                   data-aos-delay={200}
@@ -22,6 +25,8 @@ export default function HeroSection() {
                 >
                   Track Shipment
                 </a>
+                </Link>
+              
               </div>
             </div>
           </div>

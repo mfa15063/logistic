@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
 import { HeroSection, StatusBar } from "../components/exports";
+import Chat from "./Chat";
 
 function Home() {
   return (
     <>
       <HeroSection />
       {/* <Link to="about">new</Link> */}
-      <StatusBar status="Picked up" />
+      {/* <StatusBar status="Picked up" /> */}
       {/* ======= #main ======= */}
       <main id="main">
         {/* ======= Get Started Section ======= */}
@@ -113,11 +114,11 @@ function Home() {
                         className="card-bg"
                         style={{
                           backgroundImage: "url(assets/img/Sone.png.jpg)",
-                          height: "100%",
+                          height: "340px",
                         }}
                       />
                     </div>
-                    <div className="col-xl-7 d-flex align-items-center">
+                    <div className="col-xl-7 d-flex align-items-start">
                       <div className="card-body  lh-1">
                         <h4 className="card-title">Land Freight</h4>
                         <p>
@@ -143,7 +144,7 @@ function Home() {
                         className="card-bg"
                         style={{
                           backgroundImage: "url(assets/img/Stwo.jpg)",
-                          height: "100%",
+                          height: "340px",
                         }}
                       />
                     </div>
@@ -173,16 +174,16 @@ function Home() {
               <div className="col-lg-6" data-aos="fade-up" data-aos-delay={300}>
                 <div className="card-item" style={{ margin: 0, padding: 0 }}>
                   <div className="row" style={{ margin: 0, padding: 0 }}>
-                    <div className="col-xl-5">
+                    <div className="col-xl-5" style={{ margin: 0, padding: 0 }}>
                       <div
                         className="card-bg"
                         style={{
                           backgroundImage: "url(assets/img/Sthree.jpg)",
-                          height: "100%",
+                          height: "340px",
                         }}
                       />
                     </div>
-                    <div className="col-xl-7 d-flex align-items-center">
+                    <div className="col-xl-7 d-flex align-items-start">
                       <div className="card-body  lh-1">
                         <h4 className="card-title">
                           intermodal/multimodal freight
@@ -211,11 +212,12 @@ function Home() {
                         className="card-bg"
                         style={{
                           backgroundImage: "url(assets/img/Sfour.jpg)",
-                          height: "100%",
+                          height: "340px",
+                         
                         }}
                       />
                     </div>
-                    <div className="col-xl-7 d-flex align-items-center">
+                    <div className="col-xl-7 d-flex align-items-start">
                       <div className="card-body lh-1">
                         <h4 className="card-title">Reverse Supply Chain</h4>
                         <p>
@@ -240,11 +242,11 @@ function Home() {
                         className="card-bg"
                         style={{
                           backgroundImage: "url(assets/img/Sfive.jpg)",
-                          height: "100%",
+                          height: "340px",
                         }}
                       />
                     </div>
-                    <div className="col-xl-7 d-flex align-items-center">
+                    <div className="col-xl-7 d-flex align-items-start">
                       <div className="card-body  lh-1">
                         <h4 className="card-title">Hazardous Freight</h4>
                         <p>
@@ -266,11 +268,11 @@ function Home() {
                         className="card-bg"
                         style={{
                           backgroundImage: "url(assets/img/Ssix.jpg)",
-                          height: "100%",
+                          height: "340px",
                         }}
                       />
                     </div>
-                    <div className="col-xl-7 d-flex align-items-center">
+                    <div className="col-xl-7 d-flex align-items-start">
                       <div className="card-body  lh-1">
                         <h4 className="card-title">Integration</h4>
                         <p>
@@ -294,11 +296,11 @@ function Home() {
                         className="card-bg"
                         style={{
                           backgroundImage: "url(assets/img/Sseven.jpg)",
-                          height: "100%",
+                          height: "357px",
                         }}
                       />
                     </div>
-                    <div className="col-xl-7 d-flex align-items-center">
+                    <div className="col-xl-7 d-flex align-items-start">
                       <div className="card-body  lh-1">
                         <h4 className="card-title">Freight Insurance</h4>
                         <p>
@@ -327,10 +329,10 @@ function Home() {
                         }}
                       />
                     </div>
-                    <div className="col-xl-7 d-flex align-items-center">
+                    <div className="col-xl-7 d-flex align-items-start">
                       <div className="card-body  lh-1">
                         <h4 className="card-title">Exceptional cargo</h4>
-                        <p>
+                        <p className="col-12">
                           Fueled by a deep passion, we tackle our customers'
                           singular logistical hurdles. Our global project cargo
                           team excels in: Navigating bulk & break bulk shipments
@@ -1641,8 +1643,10 @@ function Home() {
               {/* End post item */}
             </div>
           </div>
+          <Chat/>
         </section>
         {/* End Recent Blog Posts Section */}
+        {/* <Chat/> */}
       </main>
       {/* End #main */}
     </>

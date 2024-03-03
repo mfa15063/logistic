@@ -49,7 +49,7 @@ export default function HeroSection() {
             className="carousel-item"
             style={{
               backgroundImage:
-                "url(assets/img/hero-carousel/HeaderTwo.jpg.png)",
+                "url(assets/img/hero-carousel/HeaderTwo.jpg)",
             }}
           />
           <div

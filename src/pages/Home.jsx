@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { HeroSection, StatusBar } from "../components/exports";
-import Chat from "./Chat";
+import Chat from "../components/Chat";
 
 function Home() {
   return (

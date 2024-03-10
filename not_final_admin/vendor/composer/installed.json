@@ -1768,8 +1768,6 @@
             "install-path": "../laravel/pint"
         },
         {
-=======
->>>>>>> befdfeaf2734ab7aab0faf519b674587ed4b8cd3
             "name": "laravel/prompts",
             "version": "v0.1.16",
             "version_normalized": "0.1.16.0",

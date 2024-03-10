@@ -1,6 +1,6 @@
 import FourZeroFour from "./404";
 import About from "./about";
-import Contact from "./Contact"
+import Contact from "./contact"
 import Home from "./home";
 import Portfolio from "./portfolio";
 import Profile from "./profile";
@@ -9,4 +9,4 @@ import SignUp from "./signup";
 import TrackShipment from "./track-shipment";
 
 
-export { FourZeroFour, About, Home,Contact, Portfolio, Profile, SignIn, SignUp, TrackShipment };
+export { FourZeroFour, About, Home, Contact, Portfolio, Profile, SignIn, SignUp, TrackShipment };

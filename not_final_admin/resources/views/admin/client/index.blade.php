@@ -1,4 +1,31 @@
 @extends('admin.layouts.main')
+@section('style')
+    <style>
+    .long-text {
+        min-width: 250px;
+        white-space: normal !important;
+        word-wrap: break-word;
+    }
+    tbody, td, tfoot, th, thead, tr {
+        border-color: #3633336b;
+        border-style: solid;
+        border-width: 1px !important;
+    }
+
+    #myTableDatatable {
+        border-collapse: collapse; /* Ensure borders are collapsed */
+        border: 1px solid #3633336b; /* Set border properties */
+    }
+    .long-th {
+        min-width: 67px !important;
+        word-wrap: break-word;
+        margin-top: 10px
+    }
+    .dataTables_filter {
+        margin-bottom: 20px; /* Change the value according to your requirement */
+    }
+    </style>
+@endsection
 @section('content')
     <div class="pagetitle">
         <h1>View All Clients</h1>
@@ -25,15 +52,16 @@
                                     class="btn btn-primary">Create Client</a></div>
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-borderless datatable">
+                            <table class="table table-borderless datatable" id="myTableDatatable">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Client ID</th>
+                                        <th scope="col" class="long-th">Client ID</th>
                                         <th scope="col">Name</th>
                                         <th scope="col">Email</th>
-                                        <th scope="col">Phone No.</th>
+                                        <th scope="col" style="min-width: 80px !important;
+                                        word-wrap: break-word;">Phone No.</th>
                                         <th scope="col">Address</th>
-                                        <th scope="col">Action</th>
+                                        <th scope="col" class="long-th">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>

@@ -6,6 +6,24 @@
         white-space: normal !important;
         word-wrap: break-word;
     }
+    tbody, td, tfoot, th, thead, tr {
+        border-color: #3633336b;
+        border-style: solid;
+        border-width: 1px !important;
+    }
+
+    #myTableDatatable {
+        border-collapse: collapse; /* Ensure borders are collapsed */
+        border: 1px solid #3633336b; /* Set border properties */
+    }
+    .long-th {
+        min-width: 67px !important;
+        word-wrap: break-word;
+        margin-top: 10px
+    }
+    .dataTables_filter {
+        margin-bottom: 20px; /* Change the value according to your requirement */
+    }
     </style>
 @endsection
 @section('content')
@@ -34,11 +52,11 @@
                                     class="btn btn-primary">Create Order</a></div>
                         </div>
                         <div class="table-responsive">
-                            <table class="table " id="myTableDatatable">
-                                <thead>
+                            <table class="table table-bordered table-hover mt-4" id="myTableDatatable">
+                                <thead class="bg-light">
                                     <tr>
-                                        <th scope="col">Order ID</th>
-                                        <th scope="col">Client ID</th>
+                                        <th scope="col" class="long-th">Order ID</th>
+                                        <th scope="col" class="long-th">Client ID</th>
                                         <th scope="col">Recived From</th>
                                         <th scope="col">Delivered To</th>
                                         <th scope="col">Price</th>

@@ -33,16 +33,8 @@ export const fetchUserProfile = async () => {
 
 export const fetchShipmentDetails = async (id) => {
     try {
-        const response = await fetch(API_SERVER + "/order/by-id", {
-            method: "GET",
-            data: {
-                id: id
-            },
-            headers: {
-                "Authorization": `Bearer ${window.sessionStorage.authToken || ''}`,
-                "Content-Type": "application/json"
-            }
-        });
+        if (!id) throw Error("Please Enter ID");
+        const response = await fetch(API_SERVER + "/order/by-id?id=" + id);
 
         if (response.status !== 200) {
             const errorData = await response.json();
@@ -52,6 +44,7 @@ export const fetchShipmentDetails = async (id) => {
             };
         }
         const res = await response.json();
+        console.log(res);
         return {
             success: true,
             message: res.message,

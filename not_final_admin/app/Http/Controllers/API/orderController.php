@@ -86,11 +86,13 @@ class orderController extends Controller
     {
         try {
             if (strpos($request->id, 'client_') === 0) {
-                $order = order::where('user_id', $request->id)->get();
+                $order = Order::with('client')->where('user_id', $request->id)->get();
             } else {
-                $order = order::where('id', $request->id)->get();
+                $order = order::with('client')->where('id', $request->id)->get();
             }
-            return $this->json_response('success', 'my_order', 'My Orders get Successfully', 422, $order);
+            if (count($order) > 0)
+                return $this->json_response('success', 'my_order', 'My Orders get Successfully', 200, $order);
+            else return $this->json_response('fail', 'not_found', 'Order Not Found!', 404);
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 404);
         }

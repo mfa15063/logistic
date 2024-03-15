@@ -2,6 +2,7 @@
 @section('style')
     <style>
     .long-text {
+        max-width: 400px;
         min-width: 250px;
         white-space: normal !important;
         word-wrap: break-word;
@@ -76,18 +77,21 @@
                                             <td>{{ $order->price }}</td>
                                             <td class="">
                                                 @if ($order->approved == 0 && $order->status == 'Pending')
-                                                    <span class="badge  bg-secondary">{{ $order->status }}</span>
+                                                    <span  class="badge  bg-secondary">{{ $order->status }}</span>
                                                 @elseif ($order->approved == 1 && $order->order_delivered == 1 && $order->status == 'Delivered')
                                                     <span class="badge bg-success">{{ $order->status }}</span>
                                                 @elseif ($order->approved == 2 && $order->status == 'Rejected')
                                                     <span class="badge bg-danger">{{ $order->status }}</span>
                                                 @else
-                                                    <span class="long-text badge bg-info">{{ $order->status }}</span>
+                                                    @if (str_word_count($order->status) > 4)
+                                                        <span class="long-text badge bg-info" style="max-width: 400px; min-width: 250px; white-space: normal !important; word-wrap: break-word;">{{ $order->status }}</span>
+                                                    @else
+                                                        <span class="badge bg-info">{{ $order->status }}</span>
+                                                    @endif
                                                 @endif
-                                                <br>
-                                                <button type="button" class="btn btn-white text-info btn-sm mt-1"
+                                                <span type="button" class="btn btn-white text-info btn-sm mt-1"
                                                 data-bs-toggle="modal" data-bs-target="#modalstatus{{ $order->id }}">
-                                                <i class="bi bi-pencil-square"></i> </button>
+                                                <i class="bi bi-pencil-square"></i> </span>
                                             <!-- Modal Body -->
                                             <div class="modal fade" id="modalstatus{{ $order->id }}" tabindex="-1"
                                                 data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
@@ -372,12 +376,7 @@
                                                 </div>
 
                                                 <!-- Optional: Place to the bottom of scripts -->
-                                                <script>
-                                                    const myModal = new bootstrap.Modal(
-                                                        document.getElementById("modalId"),
-                                                        options,
-                                                    );
-                                                </script>
+
 
                                             </td>
                                         </tr>

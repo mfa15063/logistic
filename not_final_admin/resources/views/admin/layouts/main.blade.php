@@ -64,6 +64,7 @@
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
     <!-- Include jQuery via CDN -->
     <script>
+
     $(document).ready( function () {
         $('#myTableDatatable').DataTable({
             "lengthMenu": [ 25, 50, 100,500]

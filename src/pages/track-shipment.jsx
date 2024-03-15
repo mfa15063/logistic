@@ -1,26 +1,29 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../styles/track-shipment.scss";
 import StatusBar from "../components/status-bar";
 import { fetchShipmentDetails } from "../js/api";
-import { Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 const TrackShipment = () => {
   const [loading, setLoading] = useState(false);
-  const [shipmentData, setShipmentData] = useState([]);
+  const [shipmentData, setShipmentData] = useState(null);
+  const { clientID } = useParams();
   const inputID = useRef();
-  const handleTracking = async (e) => {
-    e.preventDefault();
+  const handleTracking = async (e, clientID = null) => {
+    e && e.preventDefault();
+    if (!clientID) clientID = inputID.current.value;
     try {
       setLoading(true);
-      const orders = await fetchShipmentDetails(inputID.current.value.trim());
+      const orders = await fetchShipmentDetails(clientID.trim());
 
       if (orders.success) {
-        setShipmentData(orders.data || []);
+        setShipmentData(orders.data);
       } else {
-        alert(orders.message);
+        throw Error(orders.message);
       }
     } catch (error) {
-      alert(error.message);
+      e && alert(error.message);
+      setShipmentData(null);
     } finally {
       setLoading(false);
     }
@@ -38,6 +41,11 @@ const TrackShipment = () => {
     });
     return { date: formattedDate, time: formattedTime };
   };
+  useEffect(() => {
+    if (clientID) {
+      handleTracking(null, clientID);
+    }
+  }, []);
   return (
     <main id="main" className="track-shipment">
       {/* ======= Breadcrumbs ======= */}
@@ -70,7 +78,15 @@ const TrackShipment = () => {
               Shipment/User Id:
             </label>
             <div className="col-12 col-md-8 col-lg-6 mb-4 mb-md-0">
-              <input type="text" className="form-control" ref={inputID} />
+              <input
+                type="text"
+                className="form-control"
+                ref={inputID}
+                disabled={loading}
+                onKeyDown={(e) => {
+                  e.key === "Enter" && handleTracking(e);
+                }}
+              />
             </div>
             <div className="col-7 col-md-4 col-lg-3">
               <button
@@ -90,6 +106,7 @@ const TrackShipment = () => {
         ></div>
 
         {!loading &&
+          shipmentData &&
           shipmentData.map((shipment, index) => {
             let statusUpdatedAt = formatDateAndTime(shipment.updated_at);
             let statusColor;

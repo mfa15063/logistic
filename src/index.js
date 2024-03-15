@@ -24,8 +24,10 @@ function Main() {
             <Route index element={<Home />} />
             <Route path='portfolio' element={<Portfolio />} />
             <Route path='about' element={<About />} />
-       
-            <Route path='track-shipment' element={<TrackShipment />} />
+            <Route path='track-shipment' >
+              <Route index element={<TrackShipment />} />
+              <Route path=':clientID' element={<TrackShipment />} />
+            </Route>
             <Route path='profile' element={<SideBar all={{ user, setUser }} />} >
               <Route index element={<Profile all={{ user, setUser }} />} />
             </Route>

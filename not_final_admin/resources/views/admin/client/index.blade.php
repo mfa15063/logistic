@@ -67,7 +67,7 @@
                                 <tbody>
                                     @foreach ($clients as $client)
                                         <tr>
-                                            <td>{{ $client->id }}</td>
+                                            <td>{{ $client->client_id }}</td>
                                             <td>{{ $client->name }}</td>
                                             <td>{{ $client->email }}</td>
                                             <td>{{ $client->contact_no }}</td>

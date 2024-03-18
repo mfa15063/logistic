@@ -4,20 +4,20 @@
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
-document.getElementById('image-input').addEventListener('change', function (event) {
-    var input = event.target;
-    var imagePreview = document.getElementById('image-preview');
+// document.getElementById('image-input').addEventListener('change', function (event) {
+//     var input = event.target;
+//     var imagePreview = document.getElementById('image-preview');
 
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
+//     if (input.files && input.files[0]) {
+//         var reader = new FileReader();
 
-        reader.onload = function (e) {
-            imagePreview.src = e.target.result;
-        };
+//         reader.onload = function (e) {
+//             imagePreview.src = e.target.result;
+//         };
 
-        reader.readAsDataURL(input.files[0]);
-    }
-});
+//         reader.readAsDataURL(input.files[0]);
+//     }
+// });
 (function () {
     "use strict";
 
@@ -54,11 +54,18 @@ document.getElementById('image-input').addEventListener('change', function (even
     /**
      * Sidebar toggle
      */
-    if (select('.toggle-sidebar-btn')) {
-        on('click', '.toggle-sidebar-btn', function (e) {
-            select('body').classList.toggle('toggle-sidebar')
-        })
-    }
+// Assuming select() and on() functions are defined elsewhere
+
+// Check if the element exists before adding the event listener
+const toggleBtn = select('.toggle-sidebar-btn');
+if (toggleBtn) {
+    // Use the on() function to attach the click event listener
+    on('click', '.toggle-sidebar-btn', function (e) {
+        // Toggle the class on the body element
+        select('body').classList.toggle('toggle-sidebar');
+    });
+}
+
 
     /**
      * Search bar toggle

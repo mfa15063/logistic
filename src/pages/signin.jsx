@@ -61,21 +61,27 @@ export default function SignIn(props) {
             wrapperClass="mb-4"
             size="lg"
             id="email"
-            required
             type="email"
             label="Email: "
             value={user.email}
             onChange={(e) => setUser({ ...user, email: e.target.value })}
+            disabled={loading}
+            onKeyDown={(e) => {
+              e.key === "Enter" && handleLogin(e);
+            }}
           />
           <div className="input-group mb-4">
             <MDBInput
               size="lg"
               id="email"
-              required
               type={showPassword ? "text" : "password"}
               label="Password: "
               value={user.password}
               onChange={(e) => setUser({ ...user, password: e.target.value })}
+              disabled={loading}
+              onKeyDown={(e) => {
+                e.key === "Enter" && handleLogin(e);
+              }}
             />
             <button
               disabled={loading}

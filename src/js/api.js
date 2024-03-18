@@ -123,6 +123,7 @@ export const loginUser = async (email, password, remember = false) => {
         delete res.created_at;
         delete res.updated_at;
         delete res.status;
+        console.log(res)
         return {
             success: true,
             message: res.message,

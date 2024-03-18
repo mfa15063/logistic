@@ -53,7 +53,7 @@ class orderController extends Controller
     {
         $request->validate(
             [
-                'user_id'        => 'required|exists:users,id',
+                'user_id'        => 'required|exists:users,client_id',
                 'price'            => 'required',
                 'received_country' => 'required',
                 'received_city'    => 'required',
@@ -109,7 +109,7 @@ class orderController extends Controller
     {
         $request->validate(
             [
-                'user_id'        => 'required|exists:users,id',
+                'user_id'        => 'required|exists:users,client_id',
                 'price'            => 'required',
                 'received_country' => 'required',
                 'received_city'    => 'required',

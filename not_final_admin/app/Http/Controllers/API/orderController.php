@@ -11,13 +11,13 @@ use Illuminate\Support\Facades\Validator;
 
 class orderController extends Controller
 {
-    public $user_id;
+    public $user_id,$user;
     public function __construct()
     {
-        $user = auth()->user();
+        $this->user = auth()->user();
 
         // Check if the user is authenticated before accessing the id property
-        $this->user_id = $user ? $user->id : null;
+        $this->user_id = $this->user ? $this->user->id : null;
     }
     public function store(Request $request)
     {
@@ -55,7 +55,7 @@ class orderController extends Controller
                 $payment_recipt = null;
             }
             $order = order::create([
-                'user_id'    => $this->user_id,
+                'user_id'    => $this->user->client_id,
                 'receiver_name'    => $request->receiver_name,
                 'received_country' => $request->received_country,
                 'received_city'    => $request->received_city,

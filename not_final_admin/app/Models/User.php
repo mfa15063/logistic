@@ -20,6 +20,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array<int, string>
      */
     protected $fillable = [
+        'client_id',
         'name',
         'email',
         'contact_no',
@@ -29,9 +30,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'profile_img',
         'password',
     ];
-    protected $primaryKey = 'id'; // Specify the custom primary key
-    public $incrementing = false; // Indicates that primary key is not auto-incrementing
-
     protected static function boot()
     {
         parent::boot();

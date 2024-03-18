@@ -263,7 +263,7 @@ class userController extends Controller
     {
         try{
         $user_id = auth()->user()->id;
-        $user = User::select('id','name', 'email', 'profile_img', 'address', 'contact_no', 'city', 'country')->find($user_id);
+        $user = User::select('id','client_id','name', 'email', 'profile_img', 'address', 'contact_no', 'city', 'country')->find($user_id);
         return $this->json_response('success', 'profile_show', 'User Fetch Succeccfully', 200, $user);
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 404);
@@ -273,10 +273,10 @@ class userController extends Controller
     public function profileUpdate(Request $request)
     {
         $validateRule = [
-            'name' => 'required|int|max:11',
+            'name' => 'required|string',
             'address' => 'required|string|max:255',
-            'contact_no' => 'required|string|digits_between:1,50',
-            'city' => 'required|string|digits_between:1,50',
+            'contact_no' => 'required',
+            'city' => 'required|string',
             'profile_image' => 'required|image|max:20480'
         ];
         $data = [
@@ -298,7 +298,7 @@ class userController extends Controller
             Storage::disk('public')->put($folderPath . '/' . $imageName, file_get_contents($file));
             $storedImagePath = $folderPath . "/" . $imageName;
             // Create URL for the stored image
-            $data['profile_image'] = asset('storage/' . $storedImagePath);
+            $data['profile_img'] = asset('storage/' . $storedImagePath);
         }
         try {
             $profile_data = User::updateOrCreate(['id' => $request->user_id], $data);

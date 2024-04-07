@@ -2,30 +2,20 @@ import React, { useEffect, useRef, useState } from "react";
 import "../styles/track-shipment.scss";
 import StatusBar from "../components/status-bar";
 import { fetchShipmentDetails } from "../js/api";
-import { useParams, Link } from "react-router-dom";
+import {useParams, Link, useNavigate} from "react-router-dom";
 
 const TrackShipment = () => {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [shipmentData, setShipmentData] = useState(null);
   const { clientID } = useParams();
   const inputID = useRef();
-  const handleTracking = async (e, clientID = null) => {
+  const navigate = useNavigate();
+  const handleTracking = async (e) => {
     e && e.preventDefault();
-    if (!clientID) clientID = inputID.current.value;
-    try {
-      setLoading(true);
-      const orders = await fetchShipmentDetails(clientID.trim());
-
-      if (orders.success) {
-        setShipmentData(orders.data);
-      } else {
-        throw Error(orders.message);
-      }
-    } catch (error) {
-      e && alert(error.message);
-      setShipmentData(null);
-    } finally {
-      setLoading(false);
+    let clientID = inputID.current?.value;
+    if (clientID?.trim()) {
+      navigate("/track-shipment/" + clientID);
     }
   };
   const formatDateAndTime = (dateTimeString) => {
@@ -42,10 +32,27 @@ const TrackShipment = () => {
     return { date: formattedDate, time: formattedTime };
   };
   useEffect(() => {
+    console.log(clientID);
     if (clientID) {
-      handleTracking(null, clientID);
-    }
-  }, []);
+      setLoading(true);
+      fetchShipmentDetails(clientID).then(orders => {
+        try {
+
+          if (orders.success) {
+            setShipmentData(orders.data);
+          } else {
+            throw Error(orders.message);
+          }
+          setError(null);
+        } catch (error) {
+          setShipmentData(null);
+          setError("Shipment not found!");
+        } finally {
+          setLoading(false);
+        }
+      });
+    } else setError(null);
+  }, [clientID]);
   return (
     <main id="main" className="track-shipment">
       {/* ======= Breadcrumbs ======= */}
@@ -104,6 +111,10 @@ const TrackShipment = () => {
           display-if={loading}
           style={{ position: "relative" }}
         ></div>
+
+        <div className="alert alert-danger mt-5" display-if={error} role="alert">
+          {error}
+        </div>
 
         {!loading &&
           shipmentData &&

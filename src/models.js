@@ -11,4 +11,15 @@ const User = {
     password: ""
 }
 
-export { User };
+const ContactDetails = {
+    "id": 1,
+    "email": "loading...",
+    "address": "loading...",
+    "location": "loading...",
+    "phone_no": "loading...",
+    "whatsapp_no": "loading...",
+    "facebook_profile": "loading...",
+    "instagram_profile": "loading..."
+}
+
+export {User, ContactDetails};

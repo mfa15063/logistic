@@ -44,7 +44,6 @@ export const fetchShipmentDetails = async (id) => {
             };
         }
         const res = await response.json();
-        console.log(res);
         return {
             success: true,
             message: res.message,
@@ -70,7 +69,7 @@ export const fetchContactDetails = async () => {
             };
         }
         const res = await response.json();
-        console.log(res);
+        localStorage.contactDetails = JSON.stringify(res.data);
         return {
             success: true,
             message: res.message,

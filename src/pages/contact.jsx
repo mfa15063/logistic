@@ -1,4 +1,9 @@
 let Contact = () => {
+    let embeded = `                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3477.0448507150404!2d71.70229397460321!3d29.368975950259646!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x393b913f9b54fb89%3A0x8c6d9ca4809a6d3b!2sTech%20Thrill!5e0!3m2!1sen!2sus!4v1712471376061!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    `;
+    let parser = new DOMParser();
+    embeded = parser.parseFromString(embeded, 'text/html');
+    embeded.url = embeded.querySelector('iframe').getAttribute('src');
     return (
         <>
             {/* ======= #main ======= */}
@@ -48,9 +53,7 @@ let Contact = () => {
                         </div>
                         <div className="row gy-4 mt-1">
                             <div className="col-lg-6 ">
-                                <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621"
-                                    frameBorder={0} style={{border: 0, width: '100%', height: 384}} allowFullScreen/>
+                                <iframe src={embeded.url} style={{border: 0, width: '100%', height: 384}} allowFullScreen/>
                             </div>
                             {/* End Google Maps */}
                             <div className="col-lg-6">

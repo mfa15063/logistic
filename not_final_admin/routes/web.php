@@ -36,6 +36,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/change/password',     [UserController::class, 'changePassword'])->name('password.change');
     Route::get('/edit/site_setting',    [UserController::class, 'edit_site_setting'])->name('site_setting.edit');
     Route::post('/update/site_setting', [UserController::class, 'update_site_setting'])->name('site_setting.update');
+    Route::get('/contact-us',    [GeneralController::class, 'contactUs'])->name('contact_us');
+    Route::delete('/contact-us/{id}',    [GeneralController::class, 'deleteContactUs'])->name('contact_us.delete');
 
     Route::get('/order/create', [orderController::class, 'create'])->name('order.create');
     Route::get('/order', [orderController::class, 'index'])->name('order.index');
@@ -58,11 +60,11 @@ Route::middleware('auth')->group(function () {
     Route::match(['put', 'patch'], '/client/update/{id}', [clientController::class, 'update'])->name('client.update');
     Route::delete('/client/{id}', [clientController::class, 'delete'])->name('client.delete');
     // inqueries
-    Route::get('/inquery', [GeneralController::class, 'indexInquery'])->name('inquery.index');
-    Route::get('/inquery/create', [GeneralController::class, 'createInquery'])->name('inquery.create');
-    Route::post('/inquery/store', [GeneralController::class, 'storeInquery'])->name('inquery.store');
-    Route::get('/inquery/edit/{id}', [GeneralController::class, 'editInquery'])->name('inquery.edit');
-    Route::match(['put', 'patch'], '/inquery/update/{id}', [GeneralController::class, 'updateInquery'])->name('inquery.update');
-    Route::delete('/inquery/{id}', [GeneralController::class, 'deleteInquery'])->name('inquery.delete');
+    Route::get('/inquiry', [GeneralController::class, 'indexInquiry'])->name('inquiry.index');
+    Route::get('/inquiry/create', [GeneralController::class, 'createInquiry'])->name('inquiry.create');
+    Route::post('/inquiry/store', [GeneralController::class, 'storeInquiry'])->name('inquiry.store');
+    Route::get('/inquiry/edit/{id}', [GeneralController::class, 'editInquiry'])->name('inquiry.edit');
+    Route::match(['put', 'patch'], '/inquiry/update/{id}', [GeneralController::class, 'updateInquiry'])->name('inquiry.update');
+    Route::delete('/inquiry/{id}', [GeneralController::class, 'deleteInquiry'])->name('inquiry.delete');
 
 });

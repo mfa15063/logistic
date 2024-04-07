@@ -71,30 +71,37 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link {{ Route::is('inquery.*') ? '' : 'collapsed' }}" data-bs-target="#components-inquery-nav"
+            <a class="nav-link {{ Route::is('inquiry.*') ? '' : 'collapsed' }}" data-bs-target="#components-inquery-nav"
                 data-bs-toggle="collapse" href="#">
                 <i class="bi bi-people"></i><span>Inquery</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="components-inquery-nav" class="nav-content collapse {{ Route::is('inquery.*') ? 'show' : '' }}"
+            <ul id="components-inquery-nav" class="nav-content collapse {{ Route::is('inquiry.*') ? 'show' : '' }}"
                 data-bs-parent="#sidebar-nav">
                 <li>
-                    <a class="{{ Route::currentRouteName() == 'inquery.create' ? 'active' : '' }}"
-                        href="{{ route('inquery.create') }}">
+                    <a class="{{ Route::currentRouteName() == 'inquiry.create' ? 'active' : '' }}"
+                        href="{{ route('inquiry.create') }}">
                         <i class="bi bi-circle"></i><span>Add a Inquery </span>
                     </a>
                 </li>
                 <li>
-                    <a class="{{ Route::currentRouteName() == 'inquery.index' ? 'active' : '' }}"
-                        href="{{ route('inquery.index') }}">
+                    <a class="{{ Route::currentRouteName() == 'inquiry.index' ? 'active' : '' }}"
+                        href="{{ route('inquiry.index') }}">
                         <i class="bi bi-circle"></i><span>View All Inqueries</span>
                     </a>
                 </li>
             </ul>
         </li>
+        <li class="nav-item ">
+            <a class="nav-link single-items {{ Route::currentRouteName() == 'contact_us' ? 'active' : '' }}"
+                href="{{ route('contact_us') }}">
+                <i class="single-items-i bi bi-chat-left-text"></i>
+                <span>Contact Us</span>
+            </a>
+        </li>
         <li class="nav-item">
-            <a class="nav-link {{ Route::currentRouteName() == 'site_setting.edit' ? 'active' : '' }}"
+            <a class="nav-link single-items  {{ Route::currentRouteName() == 'site_setting.edit' ? 'active' : '' }}"
                 href="{{ route('site_setting.edit') }}">
-                <i class="bi bi-gear"></i>
+                <i class="single-items-i  bi bi-gear"></i>
                 <span>Site Settings</span>
             </a>
         </li>

@@ -21,7 +21,11 @@ class ContactUs extends Model
         'company_address',
         'company_country',
         'company_city',
-        'inquery_id',
+        'inquiry_id',
         'message',
     ];
+    public function inquiry(){
+        return $this->belongsTo(Inquery::class,'inquiry_id');
+    }
+
 }

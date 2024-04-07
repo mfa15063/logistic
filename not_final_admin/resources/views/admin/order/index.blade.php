@@ -28,6 +28,7 @@
     </style>
 @endsection
 @section('content')
+<x-model></x-model>
     <div class="pagetitle">
         <h1>View {{ $page }} Orders</h1>
         <nav>
@@ -349,27 +350,28 @@
                                                     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md"
                                                         role="document">
                                                         <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title"
-                                                                    id="modaldelete{{ $order->id }}">
-                                                                    Delete Order
-                                                                </h5>
-                                                                <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">Are you sure you want to delete</div>
-                                                            <div class="modal-footer">
-                                                                <form action="{{ route('order.delete', $order->id) }}"
-                                                                    method="POST">
-                                                                    @csrf
-                                                                    @method('delete')
-                                                                    <button type="button" class="btn btn-secondary"
-                                                                        data-bs-dismiss="modal">
-                                                                        Close
-                                                                    </button>
-                                                                    <button type="submit"
-                                                                        class="btn btn-danger">Delete</button>
-                                                                </form>
+                                                            <div class="modal-body">
+                                                                <div class="text-center">
+                                                                    <span class="success-icon py-3 px-3">
+                                                                        <i style="font-size: 80px;color:#ff0000ad;" class="bi bi-x-circle"></i>
+                                                                        </span>
+                                                                </div>
+                                                                <div class="text-center my-2 mb-2">
+                                                                    <h3 class="model_title">
+                                                                        Are you sure you want to delete
+                                                                    </h3>
+                                                                        <form action="{{ route('order.delete', $order->id) }}"
+                                                                            method="POST">
+                                                                            @csrf
+                                                                            @method('delete')
+                                                                            <button type="button" class="btn btn-secondary"
+                                                                                data-bs-dismiss="modal">
+                                                                                Close
+                                                                            </button>
+                                                                            <button type="submit"
+                                                                                class="btn btn-danger">Delete</button>
+                                                                        </form>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>

@@ -29,10 +29,10 @@
 @section('content')
     <x-model></x-model>
     <div class="pagetitle">
-        <h1>View All Inqueries</h1>
+        <h1>View All Inquiries</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href={{route('inquery.index')}}>Inquery</a></li>
+                <li class="breadcrumb-item"><a href={{route('inquiry.index')}}>Inquiry</a></li>
                 <li class="breadcrumb-item active">View</li>
             </ol>
         </nav>
@@ -47,9 +47,9 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-6">
-                                <h5 class="card-title">Inquery<span></h5>
+                                <h5 class="card-title">Inquiry<span></h5>
                             </div>
-                            <div class="col-6 text-end mt-2"><a href="{{ route('inquery.create') }}"
+                            <div class="col-6 text-end mt-2"><a href="{{ route('inquiry.create') }}"
                                     class="btn btn-primary">Create Inquery</a></div>
                         </div>
                         <div class="table-responsive">
@@ -61,21 +61,21 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($inqueries as $inquery)
+                                    @foreach ($inquiries as $inquery)
                                         <tr>
                                             <td>{{ $inquery->name }}</td>
                                             <td>
-                                                <a href="{{ route('inquery.edit', $inquery->id) }}" class="btn btn-sm btn-success mt-1"><i
+                                                <a href="{{ route('inquiry.edit', $inquery->id) }}" class="btn btn-sm btn-success mt-1"><i
                                                         class="bi bi-pencil-square"></i></a>
                                                 <!-- Modal trigger button -->
                                                 <button type="button" class="btn btn-danger btn-sm mt-1"
-                                                    data-bs-toggle="modal" data-bs-target="#modalId">
+                                                    data-bs-toggle="modal" data-bs-target="#modalId{{ $inquery->id }}">
                                                     <i class="bi bi-trash"></i>
                                                 </button>
 
                                                 <!-- Modal Body -->
                                                 <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
-                                                <div class="modal fade" id="modalId" tabindex="-1"
+                                                <div class="modal fade" id="modalId{{ $inquery->id }}" tabindex="-1"
                                                     data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
                                                     aria-labelledby="modaldelete{{ $inquery->id }}" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md"
@@ -91,7 +91,7 @@
                                                                     <h3 class="model_title">
                                                                         Are you sure you want to delete
                                                                     </h3>
-                                                                        <form action="{{ route('inquery.delete', $inquery->id) }}"
+                                                                        <form action="{{ route('inquiry.delete', $inquery->id) }}"
                                                                             method="POST">
                                                                             @csrf
                                                                             @method('delete')

@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\API\orderController;
 use App\Http\Controllers\API\userController;
-use App\Http\Controllers\API\utellityController;
+use App\Http\Controllers\API\utillityController;
 use App\Http\Controllers\GeneralController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\VerificationController;
@@ -25,7 +25,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 // utilities routes
-Route::get('admin/contact-details', [utellityController::class, 'getAdminContactDetails']);
+Route::get('admin/contact-details', [utillityController::class, 'getAdminContactDetails']);
+Route::post('contact-us', [utillityController::class, 'contactUs']);
 
 Route::post('register', [userController::class, 'register']);
 Route::post('login', [userController::class, 'authenticate']);

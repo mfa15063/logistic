@@ -67,7 +67,7 @@ class orderController extends Controller
                 'product_pic'      => $product_pic,
                 'payment_recipt'   => $payment_recipt,
             ]);
-            return $this->json_response('success', 'order_created', 'Order Created Successfully', 422);
+            return $this->json_response('success', 'order_created', 'Order Created Successfully', 200);
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 404);
         }
@@ -76,7 +76,7 @@ class orderController extends Controller
     {
         try {
             $order = order::where('user_id', $this->user_id)->get();
-            return $this->json_response('success', 'my_order', 'My Orders get Successfully', 422, $order);
+            return $this->json_response('success', 'my_order', 'My Orders get Successfully', 200, $order);
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 404);
         }

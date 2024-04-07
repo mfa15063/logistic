@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\orderController;
 use App\Http\Controllers\API\userController;
 use App\Http\Controllers\API\utellityController;
+use App\Http\Controllers\GeneralController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\VerificationController;
 use Illuminate\Support\Facades\Auth;
@@ -33,6 +34,8 @@ Route::post('forget-password', [userController::class, 'forgetPassword']);
 Route::post('verify-otp',   [userController::class, 'verifyOtp']);
 Route::post('change-password', [userController::class, 'changePasswordOTP']);
 Route::get('order/by-id', [orderController::class, 'orderById']);
+// get inqueries
+Route::get('inqueries', [GeneralController::class, 'getListOfInquery']);
 // protected routes
 Route::group(['middleware' => ['auth:api']], function () {
     Route::get('profile', [userController::class, 'profile']);

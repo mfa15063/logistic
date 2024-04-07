@@ -66,7 +66,7 @@ class UserController extends Controller
             ]
         );
         // dd($request);
-        $user = User::findorFail(auth()->user()->id);
+        $user = User::find(auth()->user()->id);
         if ($user) {
             $user->name = $request->name;
             $user->email = $request->email;
@@ -79,9 +79,11 @@ class UserController extends Controller
             }
             $user->update();
         } else {
+            return redirect()->route('profile')->with(['type'=>'success','message'=>"Profile updated successfully."]);
+
             echo 'undefined';
         }
-        return redirect()->back();
+        return redirect()->back()->with(['type'=>'success','message'=>"Profile updated successfully."]);
     }
     // change password
     public function changePassword(Request $request)
@@ -113,7 +115,7 @@ class UserController extends Controller
     public function edit_site_setting()
     {
         $site = siteInfo::first();
-        return view('admin.siteSetting', compact('site'));
+        return redirect()->route('site_setting.edit');
     }
     public function update_site_setting(Request $request)
     {
@@ -123,7 +125,7 @@ class UserController extends Controller
         } else {
             siteInfo::create($request->all());
         }
-        return view('admin.siteSetting', compact('site'));
+        return view('admin.siteSetting', compact('site'))->with(['type'=>'success','message'=>"site setting successfully."]);
     }
     public function logout()
     {

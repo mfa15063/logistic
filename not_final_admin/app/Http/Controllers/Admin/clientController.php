@@ -44,11 +44,14 @@ class clientController extends Controller
             'address'    => $request->address,
             'password' => Hash::make($request->password)
         ]);
-        return redirect()->route('client.index');
+        return redirect()->route('client.index')->with(['type'=>'success','message'=>"Client created successfully."]);
     }
     public function edit($id)
     {
         $client = User::find($id);
+        if(!$client){
+            return redirect()->route('client.index')->with(['type'=>'error','message'=>"Client not found."]);
+        }
         return view('admin.client.edit',compact('client'));
     }
     public function update(Request $request,$id)
@@ -60,7 +63,11 @@ class clientController extends Controller
                 'phone_no'            => 'required|string|max:250'
             ]
         );
-        $client = User::find($id)->Update([
+        $client = User::find($id);
+        if(!$client){
+            return redirect()->route('client.index')->with(['type'=>'error','message'=>"Client not found."]);
+        }
+        $client->Update([
             'name' => $request->name,
             'email' => $request->email,
             'contact_no' => $request->phone_no,
@@ -68,14 +75,15 @@ class clientController extends Controller
             'city'    => $request->city,
             'address'    => $request->address
         ]);
-        return redirect()->route('client.index');
+        return redirect()->route('client.index')->with(['type'=>'success','message'=>"Client updated successfully."]);
     }
     public function delete($id)
     {
         $client = User::find($id);
-        if ($client) {
-            $client->delete();
+        if(!$client){
+            return redirect()->route('client.index')->with(['type'=>'error','message'=>"Client not found."]);
         }
-        return redirect()->route('client.index');
+        $client->delete();
+        return redirect()->route('client.index')->with(['type'=>'success','message'=>"Client deleted successfully."]);
     }
 }

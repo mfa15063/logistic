@@ -70,8 +70,27 @@
             </ul>
         </li>
 
-
-
+        <li class="nav-item">
+            <a class="nav-link {{ Route::is('inquery.*') ? '' : 'collapsed' }}" data-bs-target="#components-inquery-nav"
+                data-bs-toggle="collapse" href="#">
+                <i class="bi bi-people"></i><span>Inquery</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-inquery-nav" class="nav-content collapse {{ Route::is('inquery.*') ? 'show' : '' }}"
+                data-bs-parent="#sidebar-nav">
+                <li>
+                    <a class="{{ Route::currentRouteName() == 'inquery.create' ? 'active' : '' }}"
+                        href="{{ route('inquery.create') }}">
+                        <i class="bi bi-circle"></i><span>Add a Inquery </span>
+                    </a>
+                </li>
+                <li>
+                    <a class="{{ Route::currentRouteName() == 'inquery.index' ? 'active' : '' }}"
+                        href="{{ route('inquery.index') }}">
+                        <i class="bi bi-circle"></i><span>View All Inqueries</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
         <li class="nav-item">
             <a class="nav-link {{ Route::currentRouteName() == 'site_setting.edit' ? 'active' : '' }}"
                 href="{{ route('site_setting.edit') }}">

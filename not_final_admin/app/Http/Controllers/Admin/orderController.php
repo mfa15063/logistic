@@ -91,7 +91,7 @@ class orderController extends Controller
                 'status' => 'Panding'
             ]);
         }
-        return redirect()->route('order.index');
+        return redirect()->route('order.index')->with(['type'=>'success','message'=>"Order created successfully."]);
     }
     public function edit($id)
     {
@@ -99,11 +99,12 @@ class orderController extends Controller
         return view('admin.order.edit', compact('order'));
     }
     public function update_status(Request $request,$id){
-        $order = order::findorFail($id);
-        if ($order) {
-            $order->update(['status'=>$request->status]);
+        $order = order::find($id);
+        if(!$order){
+            return redirect()->route('order.index')->with(['type'=>'error','message'=>"Order not found."]);
         }
-        return redirect()->back();
+        $order->update(['status'=>$request->status]);
+        return redirect()->route('order.index')->with(['type'=>'success','message'=>"Order status updated successfully."]);
     }
     public function update(Request $request, $id)
     {
@@ -122,6 +123,10 @@ class orderController extends Controller
                 'payment_recipt' => 'image',
             ]
         );
+        $order = order::find($id);
+        if(!$order){
+            return redirect()->route('order.index')->with(['type'=>'error','message'=>"Order not found."]);
+        }
         $data = $request->all();
         if ($request->hasFile('product_pic')) {
             $product_pic = $request->file('product_pic');
@@ -135,12 +140,15 @@ class orderController extends Controller
             $payment_recipt->move(public_path('admin/img/order_attachment/'), $fileName);
             $data['payment_recipt'] = '/admin/img/order_attachment/' . $fileName;
         }
-        $order = order::find($id)->update($data);
-        return redirect()->route('order.index');
+        $order->update($data);
+        return redirect()->route('order.index')->with(['type'=>'success','message'=>"Order updated successfully."]);
     }
     public function updateApproved(Request $request,$type,$id)
     {
-        $order = order::findorFail($id);
+        $order = order::find($id);
+        if(!$order){
+            return redirect()->route('order.index')->with(['type'=>'error','message'=>"Order not found."]);
+        }
         $currentDate = Carbon::now()->format('Y-m-d');
         if ($order) {
             if($type == 'accept'){
@@ -179,9 +187,10 @@ class orderController extends Controller
     public function delete($id)
     {
         $order = order::find($id);
-        if ($order) {
-            $order->delete();
+        if (!$order) {
+            return redirect()->route('order.index')->with(['type'=>'error','message'=>"Order not found."]);
         }
-        return redirect()->route('order.index');
+        $order->delete();
+        return redirect()->route('order.index')->with(['type'=>'success','message'=>"Order deleted successfully."]);
     }
 }

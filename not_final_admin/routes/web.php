@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\clientController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\orderController;
+use App\Http\Controllers\GeneralController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -53,6 +54,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/client/create', [clientController::class, 'create'])->name('client.create');
     Route::post('/client/store', [clientController::class, 'store'])->name('client.store');
     Route::get('/client/edit/{id}', [clientController::class, 'edit'])->name('client.edit');
-    Route::match(['put', 'patch'], '/client/update{id}', [clientController::class, 'update'])->name('client.update');
+    Route::match(['put', 'patch'], '/client/update/{id}', [clientController::class, 'update'])->name('client.update');
     Route::delete('/client/{id}', [clientController::class, 'delete'])->name('client.delete');
+    // inqueries
+    Route::get('/inquery', [GeneralController::class, 'indexInquery'])->name('inquery.index');
+    Route::get('/inquery/create', [GeneralController::class, 'createInquery'])->name('inquery.create');
+    Route::post('/inquery/store', [GeneralController::class, 'storeInquery'])->name('inquery.store');
+    Route::get('/inquery/edit/{id}', [GeneralController::class, 'editInquery'])->name('inquery.edit');
+    Route::match(['put', 'patch'], '/inquery/update/{id}', [GeneralController::class, 'updateInquery'])->name('inquery.update');
+    Route::delete('/inquery/{id}', [GeneralController::class, 'deleteInquery'])->name('inquery.delete');
+
 });

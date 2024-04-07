@@ -53,8 +53,7 @@
                                 <div class="row mb-3">
                                     <label for="location" class="col-md-4 col-lg-3 col-form-label">Location</label>
                                     <div class="col-md-8 col-lg-9">
-                                        <input name="location" type="text" class="form-control" id="location"
-                                            value="{{ old('location', $site->location ?? '') }}">
+                                            <textarea class="form-control"  name="location" id="location" cols="30" rows="5">{{ old('location', $site->location ?? '') }}</textarea>
                                     </div>
                                 </div>
 

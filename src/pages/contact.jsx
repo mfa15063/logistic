@@ -1,16 +1,28 @@
 import {useEffect, useState} from "react";
 import {ContactDetails} from "../models";
-import {fetchContactDetails} from "../js/api";
+import {fetchContactDetails, fetchInquiries} from "../js/api";
 import {getMapUrl} from "../js/constants";
 
 let Contact = () => {
     const [contactDetails, setContactDetails] = useState(JSON.parse(localStorage.contactDetails || null) || ContactDetails);
+    const [inquiries, setInquiries] = useState(JSON.parse(localStorage.inquiries || null) || []);
 
     useEffect(() => {
         fetchContactDetails().then(res => {
             try {
                 if (res.success) {
                     setContactDetails(res.data);
+                } else {
+                    throw Error(res.message);
+                }
+            } catch (error) {
+                console.log(error.message);
+            }
+        });
+        fetchInquiries().then(res => {
+            try {
+                if (res.success) {
+                    setInquiries(res.data);
                 } else {
                     throw Error(res.message);
                 }
@@ -88,6 +100,9 @@ let Contact = () => {
                                         <select className="form-control" name="email" id="email"
                                                 required>
                                             <option value="">Select Inquiry Title</option>
+                                            {inquiries && inquiries.map((inquiry)=>{
+                                                return <option value={inquiry.id}>{inquiry.name}</option>;
+                                            })}
                                         </select>
                                     </div>
                                 </div>

@@ -83,6 +83,32 @@ export const fetchContactDetails = async () => {
     }
 };
 
+export const fetchInquiries = async () => {
+    try {
+        const response = await fetch(API_SERVER + "/inquiries");
+
+        if (response.status !== 200) {
+            const errorData = await response.json();
+            return {
+                success: false,
+                message: errorData.message
+            };
+        }
+        const res = await response.json();
+        localStorage.inquiries = JSON.stringify(res.data);
+        return {
+            success: true,
+            message: res.message,
+            data: res.data
+        }
+    } catch (error) {
+        return {
+            success: false,
+            message: error.message
+        }
+    }
+};
+
 export const logoutUser = async () => {
     try {
         const response = await fetch(API_SERVER + "/logout", {

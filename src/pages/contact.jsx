@@ -52,8 +52,8 @@ let Contact = () => {
                             {/* End Info Item */}
                         </div>
                         <div className="row gy-4 mt-1">
-                            <div className="col-lg-6 ">
-                                <iframe src={embeded.url} style={{border: 0, width: '100%', height: 384}} allowFullScreen/>
+                            <div className="col-lg-12 ">
+                                <iframe src={embeded.url} style={{border: 0, width: '100%', height: 200}} allowFullScreen/>
                             </div>
                             {/* End Google Maps */}
                             <div className="col-lg-6">

@@ -58,11 +58,11 @@ class GeneralController extends Controller
             return   redirect()->route('inquery.index')->with(['type'=>'success','message'=>"Inquery deleted Successfully."]);
         }
     }
-    // api for show list of inquery
-    public function  getListOfInquery(){
+    // api for show list of inquiry
+    public function  getListOfInquiry(){
         try {
-            $inqueries = Inquery::all();
-            return $this->json_response('success', 'inqueries', 'Inquery Listing.', 200, $inqueries);
+            $inquiries = Inquery::all();
+            return $this->json_response('success', 'inquiries', 'Inquiry Listing.', 200, $inquiries);
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 404);
         }

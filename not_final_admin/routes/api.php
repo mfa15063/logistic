@@ -24,8 +24,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-// utellities routes
-Route::get('admin/contect-details', [utellityController::class, 'getAdminContactDetails']);
+// utilities routes
+Route::get('admin/contact-details', [utellityController::class, 'getAdminContactDetails']);
 
 Route::post('register', [userController::class, 'register']);
 Route::post('login', [userController::class, 'authenticate']);
@@ -34,8 +34,8 @@ Route::post('forget-password', [userController::class, 'forgetPassword']);
 Route::post('verify-otp',   [userController::class, 'verifyOtp']);
 Route::post('change-password', [userController::class, 'changePasswordOTP']);
 Route::get('order/by-id', [orderController::class, 'orderById']);
-// get inqueries
-Route::get('inqueries', [GeneralController::class, 'getListOfInquery']);
+// get inquiries
+Route::get('inquiries', [GeneralController::class, 'getListOfInquiry']);
 // protected routes
 Route::group(['middleware' => ['auth:api']], function () {
     Route::get('profile', [userController::class, 'profile']);

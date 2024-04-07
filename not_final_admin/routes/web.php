@@ -17,10 +17,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('admin.auth.login');
-})->name('login');
+// Route::get('/', function () {
+//     return view('admin.auth.login');
+// })->name('login');
 
+Route::get('/', [UserController::class, 'login'])->name('login');
 Route::post('/login/auth', [UserController::class, 'authenticate'])->name('login.auth');
 Route::get('logout', [UserController::class, 'logout'])->name('logout');
 Route::middleware('auth')->group(function () {

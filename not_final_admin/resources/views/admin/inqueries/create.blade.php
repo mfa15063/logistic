@@ -4,7 +4,7 @@
         <h1>Create Inquery</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Inquery</a></li>
+                <li class="breadcrumb-item"><a href={{route('inquery.index')}}>Inquery</a></li>
                 <li class="breadcrumb-item active">Create</li>
             </ol>
         </nav>

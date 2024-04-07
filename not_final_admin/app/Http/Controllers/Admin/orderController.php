@@ -88,7 +88,7 @@ class orderController extends Controller
             order::find($order->id)->update([
                 'product_pic' => $product_pic,
                 'payment_recipt' => $payment_recipt,
-                'status' => 'Panding'
+                'status' => 'Pending'
             ]);
         }
         return redirect()->route('order.index')->with(['type'=>'success','message'=>"Order created successfully."]);
@@ -150,36 +150,37 @@ class orderController extends Controller
             return redirect()->route('order.index')->with(['type'=>'error','message'=>"Order not found."]);
         }
         $currentDate = Carbon::now()->format('Y-m-d');
-        if ($order) {
-            if($type == 'accept'){
-                $order->approved = 1;
-                $order->received_date = $currentDate;
-                if($request->has('price')){
-                    $order->price = $request->input('price');
-                }
+        if($type == 'accept'){
+            $order->approved = 1;
+            $order->received_date = $currentDate;
+            $order->status = 'Accepted';
+            if($request->has('price')){
+                $order->price = $request->input('price');
             }
-            elseif($type == 'reject'){
-                $order->approved = 2;
-                $order->rejection_reason = $request->rejection_reason;
-                $order->status = 'Rejected';
-            }
+        }
+        elseif($type == 'reject'){
+            $order->approved = 2;
+            $order->rejection_reason = $request->rejection_reason;
+            $order->status = 'Rejected';
         }
         $order->update();
         return redirect()->route('order.index');
     }
     public function updateDelivered($id)
     {
-        $order = order::findorFail($id);
+        $order = order::find($id);
+        if(!$order){
+            return redirect()->route('order.index')->with(['type'=>'error','message'=>"Order not found."]);
+        }
         $currentDate = Carbon::now()->format('Y-m-d');
-        if ($order) {
-            if ($order->order_delivered) {
-                $order->order_delivered = false;
-                $order->delivered_date = null;
-            } else {
-                $order->order_delivered = true;
-                $order->delivered_date = $currentDate;
-                $order->status = 'Delivered';
-            }
+        if ($order->order_delivered) {
+            $order->order_delivered = false;
+            $order->delivered_date = null;
+            $order->status = 'Not delivered yet';
+        } else {
+            $order->order_delivered = true;
+            $order->delivered_date = $currentDate;
+            $order->status = 'Delivered';
         }
         $order->update();
         return redirect()->route('order.index');

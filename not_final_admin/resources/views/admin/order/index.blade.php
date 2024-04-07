@@ -32,7 +32,7 @@
         <h1>View {{ $page }} Orders</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Order</a></li>
+                <li class="breadcrumb-item"><a href={{route('order.index')}}>Order</a></li>
                 <li class="breadcrumb-item active">{{ $page }}</li>
             </ol>
         </nav>

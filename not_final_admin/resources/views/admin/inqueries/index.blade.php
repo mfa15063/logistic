@@ -32,7 +32,7 @@
         <h1>View All Inqueries</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Inquery</a></li>
+                <li class="breadcrumb-item"><a href={{route('inquery.index')}}>Inquery</a></li>
                 <li class="breadcrumb-item active">View</li>
             </ol>
         </nav>

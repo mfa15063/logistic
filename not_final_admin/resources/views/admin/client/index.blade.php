@@ -31,7 +31,7 @@
         <h1>View All Clients</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Client</a></li>
+                <li class="breadcrumb-item"><a href="{{route('client.index')}}">Client</a></li>
                 <li class="breadcrumb-item active">View</li>
             </ol>
         </nav>

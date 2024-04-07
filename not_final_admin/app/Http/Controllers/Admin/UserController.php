@@ -24,6 +24,12 @@ use function Laravel\Prompts\error;
 
 class UserController extends Controller
 {
+    public function login(){
+        if(Auth::check()){
+            return  redirect()->route('order.index');
+        }
+        return view('admin.auth.login');
+    }
     // This function for authentication / login
     public function authenticate(Request $request)
     {
@@ -115,7 +121,7 @@ class UserController extends Controller
     public function edit_site_setting()
     {
         $site = siteInfo::first();
-        return redirect()->route('site_setting.edit');
+        return view('admin.siteSetting', compact('site'))->with(['type'=>'success','message'=>"site setting successfully."]);
     }
     public function update_site_setting(Request $request)
     {
@@ -125,7 +131,8 @@ class UserController extends Controller
         } else {
             siteInfo::create($request->all());
         }
-        return view('admin.siteSetting', compact('site'))->with(['type'=>'success','message'=>"site setting successfully."]);
+        return redirect()->route('site_setting.edit');
+
     }
     public function logout()
     {

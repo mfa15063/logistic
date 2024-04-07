@@ -4,7 +4,7 @@
         <h1>Create Client</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Client</a></li>
+                <li class="breadcrumb-item"><a href={{route('client.index')}}>Client</a></li>
                 <li class="breadcrumb-item active">Create</li>
             </ol>
         </nav>

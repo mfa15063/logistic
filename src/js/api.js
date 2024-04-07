@@ -109,6 +109,36 @@ export const fetchInquiries = async () => {
     }
 };
 
+export const submitContactForm = async (request) => {
+    try {
+        const response = await fetch(API_SERVER + "/contact-us", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(request)
+        });
+
+        if (response.status !== 200) {
+            const errorData = await response.json();
+            return {
+                success: false,
+                message: errorData.message
+            };
+        }
+        const res = await response.json();
+        return {
+            success: true,
+            message: res.message
+        }
+    } catch (error) {
+        return {
+            success: false,
+            message: error.message
+        }
+    }
+};
+
 export const logoutUser = async () => {
     try {
         const response = await fetch(API_SERVER + "/logout", {

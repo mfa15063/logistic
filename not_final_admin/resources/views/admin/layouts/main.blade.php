@@ -63,6 +63,8 @@
     <script src="{{ asset('admin/js/main.js') }}"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
     <!-- Include jQuery via CDN -->
+    @yield('script')
+
     <script>
 
     $(document).ready( function () {

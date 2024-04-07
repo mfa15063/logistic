@@ -24,6 +24,7 @@ function Main() {
             <Route index element={<Home />} />
             <Route path='portfolio' element={<Portfolio />} />
             <Route path='about' element={<About />} />
+            <Route path='contact' element={<Contact />} />
             <Route path='track-shipment' >
               <Route index element={<TrackShipment />} />
               <Route path=':clientID' element={<TrackShipment />} />
@@ -40,7 +41,6 @@ function Main() {
           </Route>
           <Route path='*' element={<LayoutWithOutHeader />} >
             <Route path='*' element={<FourZeroFour />} />
-            <Route path='contact' element={<Contact />} />
           </Route>
         </Routes>
       </BrowserRouter>

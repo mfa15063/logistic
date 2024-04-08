@@ -15,6 +15,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call([
+            EmailTemplatesSeeder::class
+        ]);
         User::updateOrCreate(['email'=>'admin123@gmail.com',
         'is_admin'=>1],[
             'name'=>'Super Admin',

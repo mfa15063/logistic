@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\clientController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\orderController;
 use App\Http\Controllers\GeneralController;
+use App\Mail\GeneralMail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,9 +19,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('admin.auth.login');
-// })->name('login');
 
 Route::get('/', [UserController::class, 'login'])->name('login');
 Route::post('/login/auth', [UserController::class, 'authenticate'])->name('login.auth');
@@ -38,6 +37,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/update/site_setting', [UserController::class, 'update_site_setting'])->name('site_setting.update');
     Route::get('/contact-us',    [GeneralController::class, 'contactUs'])->name('contact_us');
     Route::delete('/contact-us/{id}',    [GeneralController::class, 'deleteContactUs'])->name('contact_us.delete');
+    Route::get('contact-us/compose-mail/{id}',[GeneralController::class,'contactUsComposeMail'])->name('contact_us.compose');
+    Route::post('contact-us/send-mail/{id}',[GeneralController::class,'contactUsSendMail'])->name('contact_us.sendMail');
 
     Route::get('/order/create', [orderController::class, 'create'])->name('order.create');
     Route::get('/order', [orderController::class, 'index'])->name('order.index');

@@ -169,13 +169,7 @@
                                                     </div>
                                                 </div>
 
-                                                <!-- Optional: Place to the bottom of scripts -->
-                                                <script>
-                                                    const myModal = new bootstrap.Modal(
-                                                        document.getElementById("modalId"),
-                                                        options,
-                                                    );
-                                                </script>
+                                                <a href="{{route('contact_us.compose',$contactUs->id)}}" class="btn btn-sm btn-primary  mt-1"><i class="bi bi-envelope"></i></a>
 
                                             </td>
                                         </tr>

@@ -1,7 +1,25 @@
 import { Link } from "react-router-dom";
 import { HeroSection, Chat } from "../components/exports";
+import {getMapUrl} from "../js/constants";
+import {useEffect, useState} from "react";
+import {ContactDetails} from "../models";
+import {fetchContactDetails} from "../js/api";
 
 function Home() {
+  let [contactDetails, setContactDetails] = useState(JSON.parse(localStorage.contactDetails || null) || ContactDetails);
+  useEffect(() => {
+    fetchContactDetails().then(res => {
+      try {
+        if (res.success) {
+          setContactDetails(res.data);
+        } else {
+          throw Error(res.message);
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    });
+  }, []);
   return (
     <>
       <HeroSection />
@@ -37,57 +55,16 @@ function Home() {
                   method="post"
                   className="php-email-form"
                 >
-                  <h3>Get a quote</h3>
+                  <h3>Location</h3>
                   <p>
                     Vel nobis odio laboriosam et hic voluptatem. Inventore vitae
                     totam. Rerum repellendus enim linead sero park flows.
                   </p>
                   <div className="row gy-3">
                     <div className="col-md-12">
-                      <input
-                        type="text"
-                        name="name"
-                        className="form-control"
-                        placeholder="Name"
-                        required
-                      />
-                    </div>
-                    <div className="col-md-12 ">
-                      <input
-                        type="email"
-                        className="form-control"
-                        name="email"
-                        placeholder="Email"
-                        required
-                      />
-                    </div>
-                    <div className="col-md-12">
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="phone"
-                        placeholder="Phone"
-                        required
-                      />
-                    </div>
-                    <div className="col-md-12">
-                      <textarea
-                        className="form-control"
-                        name="message"
-                        rows={6}
-                        placeholder="Message"
-                        required
-                        defaultValue={""}
-                      />
-                    </div>
-                    <div className="col-md-12 text-center">
-                      <div className="loading">Loading</div>
-                      <div className="error-message" />
-                      <div className="sent-message">
-                        Your quote request has been sent successfully. Thank
-                        you!
-                      </div>
-                      <button type="submit">Get a quote</button>
+                      <iframe src={getMapUrl(contactDetails.location)}
+                              style={{border: 0, width: '100%', height: 200}} allowFullScreen/>
+
                     </div>
                   </div>
                 </form>

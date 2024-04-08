@@ -1,101 +1,191 @@
+import {useEffect, useState} from "react";
+import {ContactDetails} from "../models";
+import {fetchContactDetails, fetchInquiries, submitContactForm} from "../js/api";
+import {getMapUrl} from "../js/constants";
+
 let Contact = () => {
-    let embeded = `                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3477.0448507150404!2d71.70229397460321!3d29.368975950259646!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x393b913f9b54fb89%3A0x8c6d9ca4809a6d3b!2sTech%20Thrill!5e0!3m2!1sen!2sus!4v1712471376061!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    `;
-    let parser = new DOMParser();
-    embeded = parser.parseFromString(embeded, 'text/html');
-    embeded.url = embeded.querySelector('iframe').getAttribute('src');
-    return (
-        <>
-            {/* ======= #main ======= */}
-            <main id="main">
-                {/* ======= Breadcrumbs ======= */}
-                <div className="breadcrumbs d-flex align-items-center"
-                     style={{backgroundImage: 'url("/assets/img/breadcrumbs-bg.jpg")'}}>
-                    <div className="container position-relative d-flex flex-column align-items-center">
-                        <h2>Contact</h2>
-                        <ol>
-                            <li><a href="index.html">Home</a></li>
-                            <li>Contact</li>
-                        </ol>
+    const [contactDetails, setContactDetails] = useState(JSON.parse(localStorage.contactDetails || null) || ContactDetails);
+    const [inquiries, setInquiries] = useState(JSON.parse(localStorage.inquiries || null) || []);
+    const [formData, setFormData] = useState({first_name: "Ali"});
+    const [loading, setLoading] = useState(false);
+    const [successMessage, setSuccessMessage] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(null);
+
+    function _submitContactForm(e) {
+        setLoading(true)
+        e.preventDefault();
+        submitContactForm(formData).then(res=>{
+            setLoading(false);
+            if (res.success) {
+                setErrorMessage(null);
+                setSuccessMessage(true);
+            } else {
+                setErrorMessage(res?.message);
+            }
+        });
+    }
+
+    useEffect(() => {
+        fetchContactDetails().then(res => {
+            try {
+                if (res.success) {
+                    setContactDetails(res.data);
+                } else {
+                    throw Error(res.message);
+                }
+            } catch (error) {
+                console.log(error.message);
+            }
+        });
+        fetchInquiries().then(res => {
+            try {
+                if (res.success) {
+                    setInquiries(res.data);
+                } else {
+                    throw Error(res.message);
+                }
+            } catch (error) {
+                console.log(error.message);
+            }
+        });
+    }, []);
+    return (<>
+        {/* ======= #main ======= */}
+        <main id="main">
+            {/* ======= Breadcrumbs ======= */}
+            <div className="breadcrumbs d-flex align-items-center"
+                 style={{backgroundImage: 'url("/assets/img/breadcrumbs-bg.jpg")'}}>
+                <div className="container position-relative d-flex flex-column align-items-center">
+                    <h2>Contact</h2>
+                    <ol>
+                        <li><a href="index.html">Home</a></li>
+                        <li>Contact</li>
+                    </ol>
+                </div>
+            </div>
+            {/* End Breadcrumbs */}
+            {/* ======= Contact Section ======= */}
+            <section id="contact" className="contact py-4">
+                <div className="container" data-aos="fade-up" data-aos-delay={100}>
+                    <div className="row gy-4">
+                        <div className="col-lg-12">
+                            <form action="forms/contact.php" method="post" role="form" className="php-email-form" onSubmit={_submitContactForm}>
+                                <div className="row gy-4">
+                                    <h2>Personal Information</h2>
+                                    <div className="col-lg-6 form-group">
+                                        <input type="text" name="name" className="form-control" id="name"
+                                               placeholder="First Name" required onChange={(e) => setFormData({ ...formData, first_name: e.target.value })}/>
+                                    </div>
+                                    <div className="col-lg-6 form-group">
+                                        <input type="text" name="name" className="form-control" id="name"
+                                               placeholder="Last Name" required onChange={(e) => setFormData({ ...formData, last_name: e.target.value })}/>
+                                    </div>
+                                    <div className="col-lg-6 form-group">
+                                        <input type="email" className="form-control" name="email" id="email"
+                                               placeholder="Your Email" required onChange={(e) => setFormData({ ...formData, email: e.target.value })}/>
+                                    </div>
+                                    <div className="col-lg-6 form-group">
+                                        <input type="tel" className="form-control" name="email" id="email"
+                                               placeholder="Mobile Number" required onChange={(e) => setFormData({ ...formData, phone_number: e.target.value })}/>
+                                    </div>
+                                </div>
+                                <div className="row gy-4">
+                                    <h2>Company Information</h2>
+                                    <div className="col-lg-6 form-group">
+                                        <input type="text" className="form-control" name="email" id="email"
+                                               placeholder="Company Name" required onChange={(e) => setFormData({ ...formData, company_name: e.target.value })}/>
+                                    </div>
+                                    <div className="col-lg-6 form-group">
+                                        <input type="url" className="form-control" name="email" id="email"
+                                               placeholder="Website URL" required onChange={(e) => setFormData({ ...formData, company_url: e.target.value })}/>
+                                    </div>
+                                    <div className="col-lg-12 form-group">
+                                        <input type="text" className="form-control" name="email" id="email"
+                                               placeholder="Address" required onChange={(e) => setFormData({ ...formData, company_address: e.target.value })}/>
+                                    </div>
+                                    <div className="col-lg-6 form-group">
+                                        <input type="text" className="form-control" name="email" id="email"
+                                               placeholder="City" required onChange={(e) => setFormData({ ...formData, company_city: e.target.value })}/>
+                                    </div>
+                                    <div className="col-lg-6 form-group">
+                                        <input type="text" className="form-control" name="email" id="email"
+                                               placeholder="Country" required onChange={(e) => setFormData({ ...formData, company_country: e.target.value })}/>
+                                    </div>
+                                </div>
+                                <div className="row gy-4">
+                                    <h2>Inquiry</h2>
+                                    <div className="col-lg-6 form-group">
+                                        <select className="form-control" name="email" id="email"
+                                                required onChange={(e) => setFormData({ ...formData, inquiry_id: e.target.value })}>
+                                            <option value="">Select Inquiry Title</option>
+                                            {inquiries && inquiries.map((inquiry)=>{
+                                                return <option value={inquiry.id}>{inquiry.name}</option>;
+                                            })}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className="form-group">
+                                    <div className="col-lg-12 form-group">
+                                            <textarea className="form-control" name="message" rows={6}
+                                                      placeholder="Inquery Details"
+                                                      required defaultValue={""} onChange={(e) => setFormData({ ...formData, message: e.target.value })}/>
+                                    </div>
+                                </div>
+                                <div className="my-3">
+                                    <div className="error-message text-center" style={{display: (errorMessage && "block") || "none"}}>{errorMessage}</div>
+                                </div>
+                                <div className="my-3">
+                                    <div className="sent-message text-center" style={{display: (successMessage && "block") || "none"}}>Your message has been sent. Thank you!</div>
+                                </div>
+                                <div className="text-center">
+                                    <button type="submit" display-if={!successMessage} disabled={loading}>
+                                        {(!loading && "Send Message") || "Loading..."}
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        {/* End Contact Form */}
+                        <div className="col-lg-6">
+                            <div
+                                className="info-item  d-flex flex-column justify-content-center align-items-center">
+                                <i className="bi bi-map"/>
+                                <h3>Our Address</h3>
+                                <p>{contactDetails.address}</p>
+                            </div>
+                        </div>
+                        {/* End Info Item */}
+                        <div className="col-lg-3 col-md-6">
+                            <div className="info-item d-flex flex-column justify-content-center align-items-center">
+                                <i className="bi bi-envelope"/>
+                                <h3>Email Us</h3>
+                                <p>{contactDetails.email}</p>
+                            </div>
+                        </div>
+                        {/* End Info Item */}
+                        <div className="col-lg-3 col-md-6">
+                            <div
+                                className="info-item  d-flex flex-column justify-content-center align-items-center">
+                                <i className="bi bi-telephone"/>
+                                <h3>Call Us</h3>
+                                <p>{contactDetails.phone_no}</p>
+                            </div>
+                        </div>
+                        {/* End Info Item */}
+                    </div>
+                    <div className="row gy-4 mt-1">
+                        <div className="col-lg-12 ">
+                            <iframe src={getMapUrl(contactDetails.location)}
+                                    style={{border: 0, width: '100%', height: 200}} allowFullScreen/>
+                        </div>
+                        {/* End Google Maps */}
                     </div>
                 </div>
-                {/* End Breadcrumbs */}
-                {/* ======= Contact Section ======= */}
-                <section id="contact" className="contact">
-                    <div className="container" data-aos="fade-up" data-aos-delay={100}>
-                        <div className="row gy-4">
-                            <div className="col-lg-6">
-                                <div
-                                    className="info-item  d-flex flex-column justify-content-center align-items-center">
-                                    <i className="bi bi-map"/>
-                                    <h3>Our Address</h3>
-                                    <p>A108 Adam Street, New York, NY 535022</p>
-                                </div>
-                            </div>
-                            {/* End Info Item */}
-                            <div className="col-lg-3 col-md-6">
-                                <div className="info-item d-flex flex-column justify-content-center align-items-center">
-                                    <i className="bi bi-envelope"/>
-                                    <h3>Email Us</h3>
-                                    <p>contact@example.com</p>
-                                </div>
-                            </div>
-                            {/* End Info Item */}
-                            <div className="col-lg-3 col-md-6">
-                                <div
-                                    className="info-item  d-flex flex-column justify-content-center align-items-center">
-                                    <i className="bi bi-telephone"/>
-                                    <h3>Call Us</h3>
-                                    <p>+1 5589 55488 55</p>
-                                </div>
-                            </div>
-                            {/* End Info Item */}
-                        </div>
-                        <div className="row gy-4 mt-1">
-                            <div className="col-lg-12 ">
-                                <iframe src={embeded.url} style={{border: 0, width: '100%', height: 200}} allowFullScreen/>
-                            </div>
-                            {/* End Google Maps */}
-                            <div className="col-lg-6">
-                                <form action="forms/contact.php" method="post" role="form" className="php-email-form">
-                                    <div className="row gy-4">
-                                        <div className="col-lg-6 form-group">
-                                            <input type="text" name="name" className="form-control" id="name"
-                                                   placeholder="Your Name" required/>
-                                        </div>
-                                        <div className="col-lg-6 form-group">
-                                            <input type="email" className="form-control" name="email" id="email"
-                                                   placeholder="Your Email" required/>
-                                        </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <input type="text" className="form-control" name="subject" id="subject"
-                                               placeholder="Subject" required/>
-                                    </div>
-                                    <div className="form-group">
-                                        <textarea className="form-control" name="message" rows={5} placeholder="Message"
-                                                  required defaultValue={""}/>
-                                    </div>
-                                    <div className="my-3">
-                                        <div className="loading">Loading</div>
-                                        <div className="error-message"/>
-                                        <div className="sent-message">Your message has been sent. Thank you!</div>
-                                    </div>
-                                    <div className="text-center">
-                                        <button type="submit">Send Message</button>
-                                    </div>
-                                </form>
-                            </div>
-                            {/* End Contact Form */}
-                        </div>
-                    </div>
-                </section>
-                {/* End Contact Section */}
-            </main>
-            {/* End #main */}
+            </section>
+            {/* End Contact Section */}
+        </main>
+        {/* End #main */}
 
-        </>
-    );
+    </>);
 }
 
 export default Contact;

@@ -218,7 +218,7 @@ export const loginUser = async (email, password, remember = false) => {
     }
 };
 
-export const signupUser = async (name, email, password, confirm_password) => {
+export const signupUser = async (name, email, password, password_confirmation) => {
     try {
         const response = await fetch(API_SERVER + "/register", {
             method: "POST",
@@ -226,8 +226,10 @@ export const signupUser = async (name, email, password, confirm_password) => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
+                name,
                 email,
-                password
+                password,
+                password_confirmation
             })
         });
 

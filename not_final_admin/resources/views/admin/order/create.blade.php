@@ -162,6 +162,10 @@
                                 <input type="number" class="form-control" name="packet_length" id="packet_length"
                                 value="{{old('packet_length')}}"   placeholder="Packet Lenght">
                             </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="location" class="form-label">Location</label>
+                                <textarea class="form-control"  name="location" id="location" cols="30" rows="5">{{ old('location') }}</textarea>
+                            </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                                 <button type="reset" class="btn btn-secondary">Reset</button>

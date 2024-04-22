@@ -67,6 +67,7 @@ class orderController extends Controller
                 'status'           => 'Pending',
                 'product_pic'      => $product_pic,
                 'payment_recipt'   => $payment_recipt,
+                'location'         =>$request->location
             ]);
             return $this->json_response('success', 'order_created', 'Order Created Successfully', 200);
         } catch (\Exception $e) {

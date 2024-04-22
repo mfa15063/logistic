@@ -29,7 +29,8 @@ class order extends Model
        'packet_width',
        'packet_weight',
        'no_of_packet',
-       'rejection_reason'
+       'rejection_reason',
+       'location'
     ];
     protected $primaryKey = 'id'; // Specify the custom primary key
     public $incrementing = false; // Indicates that primary key is not auto-incrementing

@@ -92,11 +92,9 @@ class userController extends Controller
                     'hash' => sha1($user->email),
                 ]
                 );
-            $data=['url'=>$verifyUrl];
-            Mail::to($request->input('email'))->send(new GeneralMail('verify_mail',$request->input('name'),$data));
-
-            $token = $user->createToken('auth_api', ['*'])->accessToken;
-            return $this->json_response('success', 'user created', 'User Created Successfully. Verification mail send to your provider email.', 200, $user, $token);
+            $data=['url'=>$verifyUrl,'name'=>$request->input('name')];
+            Mail::to($request->input('email'))->send(new GeneralMail('verify_mail','',$data));
+            return $this->json_response('success', 'user created', 'User Created Successfully. Verification mail send to your provider email.', 200, $user);
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 404);
         }
@@ -128,8 +126,8 @@ class userController extends Controller
             'hash' => sha1($user->email),
         ]
         );
-        $data=['url'=>$verifyUrl];
-        Mail::to($user->email)->send(new GeneralMail('verify_mail',$user->name,$data));
+        $data=['url'=>$verifyUrl,'name'=>$user->name];
+        Mail::to($user->email)->send(new GeneralMail('verify_mail','',$data));
         return $this->json_response('success', 'resed', 'Verification mail send to your provider email.', 200, $user, $token);
     }
     /*

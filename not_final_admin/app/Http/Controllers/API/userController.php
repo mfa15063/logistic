@@ -112,12 +112,14 @@ class userController extends Controller
         $user->save();
         return redirect()->away('https://carryshipment.com/signin');
     }
-    public function resend() {
-        if (auth()->user()->hasVerifiedEmail()) {
-            return $this->respondBadRequest(253);
+    public function resend($email) {
+        $user = User::where('email',$email)->first();
+        if(!$user) {
+            return $this->json_response('error', 'not_found', 'Not Found', 404);
         }
-
-        $user = auth()->user();
+        if(!$user->status == 1) {
+            return $this->json_response('success', 'verified', 'Email is verfied!', 422);
+        }
         $verifyUrl = URL::temporarySignedRoute('verification.verify',
         Carbon::now()->addMinutes(
             Config::get('auth.verification.expire', 60)),

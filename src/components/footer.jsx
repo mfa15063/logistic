@@ -1,6 +1,8 @@
 import {useEffect, useState} from "react";
 import {fetchContactDetails} from "../js/api";
 import {ContactDetails} from "../models";
+import {Link} from "react-router-dom";
+import {scrollToElement, scrollToTop} from "../js/constants";
 
 export default function Footer() {
     const [contactDetails, setContactDetails] = useState(JSON.parse(localStorage.contactDetails || null) || ContactDetails);
@@ -65,50 +67,56 @@ export default function Footer() {
                                 </div>
                             </div>
                             {/* End footer info column*/}
-                            <div className="col-lg-2 col-md-3 footer-links">
+                            <div className="col-lg-3 col-md-3 footer-links">
                                 <h4>Useful Links</h4>
                                 <ul>
                                     <li>
-                                        <a href="/">Home</a>
+                                        <Link to="/" onClick={scrollToTop}>Home</Link>
                                     </li>
                                     <li>
-                                        <a href="/about">About us</a>
+                                        <Link to="/about" onClick={scrollToTop}>About us</Link>
                                     </li>
                                     <li>
-                                        <a href="#">Services</a>
+                                        <Link to="/services" onClick={scrollToTop}>Services</Link>
                                     </li>
                                     <li>
-                                        <a href="#">Terms of service</a>
+                                        <Link to="/contact" onClick={scrollToTop}>Contact us</Link>
                                     </li>
                                     <li>
-                                        <a href="#">Privacy policy</a>
+                                        <Link to="/track-shipment" onClick={scrollToTop}>Track Shipment</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/policies" onClick={scrollToTop}>Privacy policy</Link>
                                     </li>
                                 </ul>
                             </div>
                             {/* End footer links column*/}
-                            <div className="col-lg-2 col-md-3 footer-links">
+                            <div className="col-lg-3 col-md-3 footer-links">
                                 <h4>Our Services</h4>
                                 <ul>
                                     <li>
-                                        <a href="#">Web Design</a>
+                                        <Link to="/services" scroll-to="#service-1" onClick={scrollToElement}>Land Freight</Link>
                                     </li>
                                     <li>
-                                        <a href="#">Web Development</a>
+                                        <Link to="/services" scroll-to="#service-4" onClick={scrollToElement}>Reverse Supply Chain</Link>
                                     </li>
                                     <li>
-                                        <a href="#">Product Management</a>
+                                        <Link to="/services" scroll-to="#service-5" onClick={scrollToElement}>Hazardous Freight</Link>
                                     </li>
                                     <li>
-                                        <a href="#">Marketing</a>
+                                        <Link to="/services" scroll-to="#service-6" onClick={scrollToElement}>Integration</Link>
                                     </li>
                                     <li>
-                                        <a href="#">Graphic Design</a>
+                                        <Link to="/services" scroll-to="#service-7" onClick={scrollToElement}>Freight Insurance</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/services" scroll-to="#service-8" onClick={scrollToElement}>Exceptional cargo</Link>
                                     </li>
                                 </ul>
                             </div>
                             {/* End footer links column*/}
-                            <div className="col-lg-2 col-md-3 footer-links">
-                                <h4>Hic solutasetp</h4>
+                            <div className="col-lg-2 col-md-3 footer-links" style={{display: 'none'}}>
+                                <h4>Client Account</h4>
                                 <ul>
                                     <li>
                                         <a href="#">Molestiae accusamus iure</a>
@@ -124,27 +132,6 @@ export default function Footer() {
                                     </li>
                                     <li>
                                         <a href="#">Sit quas consectetur</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            {/* End footer links column*/}
-                            <div className="col-lg-2 col-md-3 footer-links">
-                                <h4>Nobis illum</h4>
-                                <ul>
-                                    <li>
-                                        <a href="#">Ipsam</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Laudantium dolorum</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Dinera</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Trodelas</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Flexo</a>
                                     </li>
                                 </ul>
                             </div>

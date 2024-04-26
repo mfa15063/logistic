@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { HeroSection, Chat } from "../components/exports";
-import {getMapUrl} from "../js/constants";
+import { HeroSection } from "../components/exports";
+import {getMapUrl, scrollToElement} from "../js/constants";
 import {useEffect, useState} from "react";
 import {ContactDetails} from "../models";
 import {fetchContactDetails} from "../js/api";
@@ -42,11 +42,6 @@ function Home() {
                     sourcing to delivery. Our experts provide customizable
                     solutions that drive efficiency and growth.
                   </p>
-                  <p>
-                    Aliquam velit deserunt autem. Inventore et saepe. Tenetur
-                    suscipit eligendi labore culpa eos. Deserunt porro magni qui
-                    necessitatibus dolorem at animi cupiditate.
-                  </p>
                 </div>
               </div>
               <div className="col-lg-5" data-aos="fade">
@@ -78,7 +73,7 @@ function Home() {
         <section id="constructions" className="constructions">
           <div className="container" data-aos="fade-up">
             <div className="section-header">
-              <h2>Welcome to Shipment</h2>
+              <h3>Welcome to <span className="site-name-primary">Carry Shipment</span></h3>
               <p></p>
             </div>
             <div className="row gy-4">
@@ -87,11 +82,11 @@ function Home() {
                   <div className="row" style={{ margin: 0, padding: 0 }}>
                     <div className="col-xl-5" style={{ margin: 0, padding: 0 }}>
                       <div
-                        className="card-bg"
-                        style={{
-                          backgroundImage: "url(assets/img/Sone.png.jpg)",
-                          height: "340px",
-                        }}
+                          className="card-bg"
+                          style={{
+                            backgroundImage: "url(assets/img/Sone.png.jpg)",
+                            height: "340px",
+                          }}
                       />
                     </div>
                     <div className="col-xl-7 d-flex align-items-start">
@@ -102,10 +97,14 @@ function Home() {
                           experience in Road and Rail Transport. Utilizing our
                           extensive network, we excel in identifying the optimal
                           balance of time, cost, and perfortrailersmance to meet
-                          customer requirements. Our services encompass: Inland
-                          haulage Specialized equipment movements using semi or
-                          low bed
+                          customer requirements.
                         </p>
+                        <Link
+                            to="/services" scroll-to="#service-1" onClick={scrollToElement}
+                            className="readmore stretched-link learn-more-link"
+                        >
+                          Learn more <i className="bi bi-arrow-right fs-4 ps-2 learn-more-icon" />
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -117,30 +116,31 @@ function Home() {
                   <div className="row" style={{ margin: 0, padding: 0 }}>
                     <div className="col-xl-5" style={{ margin: 0, padding: 0 }}>
                       <div
-                        className="card-bg"
-                        style={{
-                          backgroundImage: "url(assets/img/Stwo.jpg)",
-                          height: "340px",
-                        }}
+                          className="card-bg"
+                          style={{
+                            backgroundImage: "url(assets/img/Stwo.jpg)",
+                            height: "340px",
+                          }}
                       />
                     </div>
                     <div className="col-xl-7 d-flex align-items-center">
                       <div className="card-body  lh-1">
                         <h4 className="card-title">
-                          Warehousing distribution:
+                          Warehousing Distribution:
                         </h4>
                         <p>
                           Warehousing solutions made simple. Freight
                           consolidation with a logistics partner reduces
                           unnecessary costs. Whether you have one pallet or one
                           hundred pallets, carry shipment provides an integrated
-                          supply chain logistics solution for you. If you spend
-                          more time worrying about the logistics of your
-                          business than actually doing business, our supply
-                          chain specialists will bring their years of logistics
-                          experience to enhance and strengthen your supply
-                          chain.
+                          supply chain logistics solution for you.
                         </p>
+                        <Link
+                            to="/services" scroll-to="#service-2" onClick={scrollToElement}
+                            className="readmore stretched-link learn-more-link"
+                        >
+                          Learn more <i className="bi bi-arrow-right fs-4 ps-2 learn-more-icon" />
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -152,28 +152,31 @@ function Home() {
                   <div className="row" style={{ margin: 0, padding: 0 }}>
                     <div className="col-xl-5" style={{ margin: 0, padding: 0 }}>
                       <div
-                        className="card-bg"
-                        style={{
-                          backgroundImage: "url(assets/img/Sthree.jpg)",
-                          height: "340px",
-                        }}
+                          className="card-bg"
+                          style={{
+                            backgroundImage: "url(assets/img/Sthree.jpg)",
+                            height: "340px",
+                          }}
                       />
                     </div>
                     <div className="col-xl-7 d-flex align-items-start">
                       <div className="card-body  lh-1">
                         <h4 className="card-title">
-                          intermodal/multimodal freight
+                          Intermodal/Multimodal Freight
                         </h4>
                         <p>
                           Carry’s inter modal transportation services
                           encompasses both road and rail options and offer
                           several benefits such as greater flexibility,
                           increased capacity, reliable lead times, and a
-                          significantly reduced carbon footprint. Our multi
-                          modal transportation services with a single contract
-                          and a single point of contact offers moving the
-                          shipments across all legs in all modes.
+                          significantly reduced carbon footprint.
                         </p>
+                        <Link
+                            to="/services" scroll-to="#service-3" onClick={scrollToElement}
+                            className="readmore stretched-link learn-more-link"
+                        >
+                          Learn more <i className="bi bi-arrow-right fs-4 ps-2 learn-more-icon" />
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -185,12 +188,12 @@ function Home() {
                   <div className="row" style={{ margin: 0, padding: 0 }}>
                     <div className="col-xl-5" style={{ margin: 0, padding: 0 }}>
                       <div
-                        className="card-bg"
-                        style={{
-                          backgroundImage: "url(assets/img/Sfour.jpg)",
-                          height: "340px",
-                         
-                        }}
+                          className="card-bg"
+                          style={{
+                            backgroundImage: "url(assets/img/Sfour.jpg)",
+                            height: "340px",
+
+                          }}
                       />
                     </div>
                     <div className="col-xl-7 d-flex align-items-start">
@@ -200,11 +203,14 @@ function Home() {
                           CarryShipment has developed an end-to-end reverse
                           logistics program that provides a system for managing
                           your product returns, allowing you to recoup revenue
-                          while limiting your environmental impacts, including a
-                          zero-landfill solution. Our expert management of
-                          products’ aftermarket life cycle ensures the maximum
-                          recovery value for reused goods.
+                          while limiting your environmental impacts.
                         </p>
+                        <Link
+                            to="/services" scroll-to="#service-4" onClick={scrollToElement}
+                            className="readmore stretched-link learn-more-link"
+                        >
+                          Learn more <i className="bi bi-arrow-right fs-4 ps-2 learn-more-icon" />
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -215,11 +221,11 @@ function Home() {
                   <div className="row" style={{ margin: 0, padding: 0 }}>
                     <div className="col-xl-5" style={{ margin: 0, padding: 0 }}>
                       <div
-                        className="card-bg"
-                        style={{
-                          backgroundImage: "url(assets/img/Sfive.jpg)",
-                          height: "340px",
-                        }}
+                          className="card-bg"
+                          style={{
+                            backgroundImage: "url(assets/img/Sfive.jpg)",
+                            height: "340px",
+                          }}
                       />
                     </div>
                     <div className="col-xl-7 d-flex align-items-start">
@@ -231,6 +237,12 @@ function Home() {
                           of everyday use such as perfumes, batteries, hair
                           spray and other chemicals.
                         </p>
+                        <Link
+                            to="/services" scroll-to="#service-5" onClick={scrollToElement}
+                            className="readmore stretched-link learn-more-link"
+                        >
+                          Learn more <i className="bi bi-arrow-right fs-4 ps-2 learn-more-icon" />
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -241,11 +253,11 @@ function Home() {
                   <div className="row" style={{ margin: 0, padding: 0 }}>
                     <div className="col-xl-5" style={{ margin: 0, padding: 0 }}>
                       <div
-                        className="card-bg"
-                        style={{
-                          backgroundImage: "url(assets/img/Ssix.jpg)",
-                          height: "340px",
-                        }}
+                          className="card-bg"
+                          style={{
+                            backgroundImage: "url(assets/img/Ssix.jpg)",
+                            height: "340px",
+                          }}
                       />
                     </div>
                     <div className="col-xl-7 d-flex align-items-start">
@@ -257,8 +269,14 @@ function Home() {
                           shipments, regardless of the mode of transport.
                           Freight consolidation proves to be a cost-effective
                           and time-saving solution, ensuring the safety of
-                          shipments
+                          shipments.
                         </p>
+                        <Link
+                            to="/services" scroll-to="#service-6" onClick={scrollToElement}
+                            className="readmore stretched-link learn-more-link"
+                        >
+                          Learn more <i className="bi bi-arrow-right fs-4 ps-2 learn-more-icon" />
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -269,11 +287,11 @@ function Home() {
                   <div className="row" style={{ margin: 0, padding: 0 }}>
                     <div className="col-xl-5" style={{ margin: 0, padding: 0 }}>
                       <div
-                        className="card-bg"
-                        style={{
-                          backgroundImage: "url(assets/img/Sseven.jpg)",
-                          height: "357px",
-                        }}
+                          className="card-bg"
+                          style={{
+                            backgroundImage: "url(assets/img/Sseven.jpg)",
+                            height: "357px",
+                          }}
                       />
                     </div>
                     <div className="col-xl-7 d-flex align-items-start">
@@ -286,8 +304,14 @@ function Home() {
                           providing a comprehensive insurance cover that
                           safeguards against all potential external causes
                           resulting in physical loss or damage to freight during
-                          shipping
+                          shipping.
                         </p>
+                        <Link
+                            to="/services" scroll-to="#service-7" onClick={scrollToElement}
+                            className="readmore stretched-link learn-more-link"
+                        >
+                          Learn more <i className="bi bi-arrow-right fs-4 ps-2 learn-more-icon" />
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -298,11 +322,11 @@ function Home() {
                   <div className="row" style={{ margin: 0, padding: 0 }}>
                     <div className="col-xl-5" style={{ margin: 0, padding: 0 }}>
                       <div
-                        className="card-bg"
-                        style={{
-                          backgroundImage: "url(assets/img/Seight.jpg)",
-                          height: "100%",
-                        }}
+                          className="card-bg"
+                          style={{
+                            backgroundImage: "url(assets/img/Seight.jpg)",
+                            height: "100%",
+                          }}
                       />
                     </div>
                     <div className="col-xl-7 d-flex align-items-start">
@@ -310,16 +334,21 @@ function Home() {
                         <h4 className="card-title">Exceptional cargo</h4>
                         <p className="col-12">
                           Fueled by a deep passion, we tackle our customers'
-                          singular logistical hurdles. Our global project cargo
-                          team excels in: Navigating bulk & break bulk shipments
-                          Expertly managing heavy lifts and over-dimensional
-                          cargo Orchestrating seamless relocations of entire
-                          plants Mastering the art of lashing & chocking
-                          Conducting precise survey services We seamlessly
-                          oversee diverse transportation modes worldwide,
-                          offering tailored expertise to meet specific industry
-                          demands
+                          singular logistical hurdles.
                         </p>
+                        <p>
+                          Navigating bulk & break bulk shipments <br/>
+                          Expertly managing heavy lifts and over-dimensional
+                          cargo <br/> Orchestrating seamless relocations of entire
+                          plants <br/> Mastering the art of lashing & chocking
+                          Conducting precise survey services
+                        </p>
+                        <Link
+                            to="/services" scroll-to="#service-8" onClick={scrollToElement}
+                            className="readmore stretched-link learn-more-link"
+                        >
+                          Learn more <i className="bi bi-arrow-right fs-4 ps-2 learn-more-icon" />
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -335,287 +364,147 @@ function Home() {
           <div className="container" data-aos="fade-up">
             <div className="section-header">
               <h2>HOW WE DO IT</h2>
-              <p>Leverage Possibilities and Opportunities</p>
+              <p>Our experienced, knowledgeable experts offer optimal solutions to help you meet your business challenges.</p>
             </div>
             <div className="row gy-4">
               <div
-                className="col-lg-4 col-md-6"
-                data-aos="fade-up"
-                data-aos-delay={100}
+                  className="col-lg-4 col-md-6"
+                  data-aos="fade-up"
+                  data-aos-delay={100}
               >
                 <div className="service-item  position-relative">
                   <div className="icon p-2">
                     <i className="fa-solid fa-mountain-city fs-3 ps-2" />
                   </div>
-                  <h3>Occuen Fright Forwarding</h3>
+                  <h3>Your ocean freight Solution</h3>
                   <p>
-                    we will ship your valuable cargo to the destination
-                    punctually in the most cost-effectibe method by occuen
+                    We ensure the timely and cost-effective shipment of your valuable cargo to its destination via ocean transport with CarryShipment.
                   </p>
-                  <a
-                    href="service-details.html"
-                    className="readmore stretched-link"
-                  >
-                    Learn more <i className="bi bi-arrow-right" />
-                  </a>
                 </div>
               </div>
               {/* End Service Item */}
               <div
-                className="col-lg-4 col-md-6"
-                data-aos="fade-up"
-                data-aos-delay={200}
+                  className="col-lg-4 col-md-6"
+                  data-aos="fade-up"
+                  data-aos-delay={200}
               >
                 <div className="service-item position-relative">
                   <div className="icon p-2 ">
                     <i className="fa-solid fa-arrow-up-from-ground-water fs-3 ps-2" />
                   </div>
-                  <h3>our occen fright solution </h3>
+                  <h3>Land transportation services </h3>
                   <p>
-                    Ut autem aut autem non a. Sint sint sit facilis nam iusto
-                    sint. Libero corrupti neque eum hic non ut nesciunt dolorem.
+                    Optimize your supply chain with CarryShipment's international road freight services tailored for efficient ground transportation.
                   </p>
-                  <a
-                    href="service-details.html"
-                    className="readmore stretched-link"
-                  >
-                    Learn more <i className="bi bi-arrow-right" />
-                  </a>
                 </div>
               </div>
               {/* End Service Item */}
               <div
-                className="col-lg-4 col-md-6"
-                data-aos="fade-up"
-                data-aos-delay={300}
+                  className="col-lg-4 col-md-6"
+                  data-aos="fade-up"
+                  data-aos-delay={300}
               >
                 <div className="service-item position-relative">
                   <div className="icon  p-2">
                     <i className="fa-solid fa-compass-drafting fs-3 ps-3" />
                   </div>
-                  <h3>Your ocean freight Solution</h3>
+                  <h3>Warehousing</h3>
                   <p>
-                    We ensure the timely and cost-effective shipment of your
-                    valuable cargo to its destination via ocean transport with
-                    CarryShipment.
+                    Ensure the effective and secure storage of your items by utilizing our warehousing services, expertly packaging and safeguarding your belongings.
                   </p>
-                  <a
-                    href="service-details.html"
-                    className="readmore stretched-link"
-                  >
-                    Learn more <i className="bi bi-arrow-right" />
-                  </a>
                 </div>
               </div>
               {/* End Service Item */}
               <div
-                className="col-lg-4 col-md-6"
-                data-aos="fade-up"
-                data-aos-delay={400}
+                  className="col-lg-4 col-md-6"
+                  data-aos="fade-up"
+                  data-aos-delay={400}
               >
                 <div className="service-item position-relative">
                   <div className="icon  p-2">
                     <i className="fa-solid fa-trowel-bricks fs-3 ps-3" />
                   </div>
-                  <h3>Land transportation services</h3>
+                  <h3>Our exclusive services</h3>
                   <p>
-                    Optimize your supply chain with CarryShipment's
-                    international road freight services tailored for efficient
-                    ground transportation.
+                    Our warehousing services have gained a global reputation for being exceptionally reliable, secure, and cost-effective. We take pride in consistently providing top-notch warehousing solutions at the most competitive prices in the industry.
                   </p>
-                  <a
-                    href="service-details.html"
-                    className="readmore stretched-link"
-                  >
-                    Learn more <i className="bi bi-arrow-right " />
-                  </a>
                 </div>
               </div>
               {/* End Service Item */}
               <div
-                className="col-lg-4 col-md-6"
-                data-aos="fade-up"
-                data-aos-delay={500}
+                  className="col-lg-4 col-md-6"
+                  data-aos="fade-up"
+                  data-aos-delay={500}
               >
                 <div className="service-item position-relative">
                   <div className="icon  p-2">
                     <i className="fa-solid fa-helmet-safety fs-3 ps-3" />
                   </div>
-                  <h3>Warehousing</h3>
+                  <h3>Packaging And Safe Storage</h3>
                   <p>
-                    Ensure the effective and secure storage of your items by
-                    utilizing our warehousing services, expertly packaging and
-                    safeguarding your belongings.
+                    Efficiently and securely pack and store your belongings to ensure their safety in storage.
                   </p>
-                  <a
-                    href="service-details.html"
-                    className="readmore stretched-link"
-                  >
-                    Learn more <i className="bi bi-arrow-right fs-3 ps-2" />
-                  </a>
                 </div>
               </div>
               {/* End Service Item */}
               <div
-                className="col-lg-4 col-md-6"
-                data-aos="fade-up"
-                data-aos-delay={600}
+                  className="col-lg-4 col-md-6"
+                  data-aos="fade-up"
+                  data-aos-delay={600}
               >
                 <div className="service-item position-relative">
                   <div className="icon  p-2 ">
                     <i className="fa-solid fa-arrow-up-from-ground-water fs-3 ps-3" />
                   </div>
-                  <h3> Our exclusive services</h3>
+                  <h3> Cargo</h3>
                   <p>
-                    Our warehousing services have gained a global reputation for
-                    being exceptionally reliable, secure, and cost-effective. We
-                    take pride in consistently providing top-notch warehousing
-                    solutions at the most competitive prices in the industry..
+                    Efficiently transport any cargo from one location to another promptly, saving both time and costs.
                   </p>
-                  <a
-                    href="service-details.html"
-                    className="readmore stretched-link"
-                  >
-                    Learn more <i className="bi bi-arrow-right fs-3 ps-2" />
-                  </a>
                 </div>
               </div>
               <div
-                className="col-lg-4 col-md-6"
-                data-aos="fade-up"
-                data-aos-delay={600}
+                  className="col-lg-4 col-md-6"
+                  data-aos="fade-up"
+                  data-aos-delay={600}
               >
                 <div className="service-item position-relative">
                   <div className="icon  p-2 ">
                     <i className="bi bi-cone-striped fs-3 ps-3" />
                   </div>
-                  <h3> Packaging And Safe Storage</h3>
+                  <h3> Ground Transport</h3>
                   <p>
-                    Efficiently and securely pack and store your belongings to
-                    ensure their safety in storage.
+                    Explore ground transportation choices suitable for all visitors, regardless of your requirements, timetable, or destination.
                   </p>
-                  <a
-                    href="service-details.html"
-                    className="readmore stretched-link"
-                  >
-                    Learn more <i className="bi bi-arrow-right" />
-                  </a>
                 </div>
               </div>
               <div
-                className="col-lg-4 col-md-6"
-                data-aos="fade-up"
-                data-aos-delay={600}
-              >
-                <div className="service-item position-relative">
-                  <div className="icon  p-2 ">
-                    <i className="bi bi-backpack fs-3 ps-3" />
-                  </div>
-                  <h3> Cargo</h3>
-                  <p>
-                    Efficiently transport any cargo from one location to another
-                    promptly, saving both time and costs.
-                  </p>
-                  <a
-                    href="service-details.html"
-                    className="readmore stretched-link"
-                  >
-                    Learn more <i className="bi bi-arrow-right fs-3 ps-2" />
-                  </a>
-                </div>
-              </div>
-              <div
-                className="col-lg-4 col-md-6"
-                data-aos="fade-up"
-                data-aos-delay={600}
+                  className="col-lg-4 col-md-6"
+                  data-aos="fade-up"
+                  data-aos-delay={600}
               >
                 <div className="service-item position-relative">
                   <div className="icon  p-2 ">
                     <i className="bi bi-airplane fs-3 ps-3" />
                   </div>
-                  <h3> Ground Transport</h3>
+                  <h3>Delivery from one door to another</h3>
                   <p>
-                    Explore ground transportation choices suitable for all
-                    visitors, regardless of your requirements, timetable, or
-                    destination.
+                    Our proficiency in transportation management and strategic planning enables us to create a tailored solution.
                   </p>
-                  <a
-                    href="service-details.html"
-                    className="readmore stretched-link"
-                  >
-                    Learn more <i className="bi bi-arrow-right" />
-                  </a>
                 </div>
               </div>
               <div
-                className="col-lg-4 col-md-6"
-                data-aos="fade-up"
-                data-aos-delay={600}
+                  className="col-lg-4 col-md-6"
+                  data-aos="fade-up"
+                  data-aos-delay={600}
               >
                 <div className="service-item position-relative">
                   <div className="icon  p-2 ">
                     <i className="bi bi-person-wheelchair fs-3 ps-3" />
                   </div>
-                  <h3> Warehousing</h3>
-                  <p>
-                    Effectively and securely package and store your belongings
-                    to ensure their safety in our storage facilities.
-                  </p>
-                  <a
-                    href="service-details.html"
-                    className="readmore stretched-link"
-                  >
-                    Learn more <i className="bi bi-arrow-right" />
-                  </a>
-                </div>
-              </div>
-              <div
-                className="col-lg-4 col-md-6"
-                data-aos="fade-up"
-                data-aos-delay={600}
-              >
-                <div className="service-item position-relative">
-                  <div className="icon  p-2 ">
-                    <i className="bi bi-truck fs-3 ps-3" />
-                  </div>
-                  <h3> Delivery from one door to another</h3>
-                  <p>
-                    Our proficiency in transportation management and strategic
-                    planning enables us to create a tailored solution.
-                  </p>
-                  <a
-                    href="service-details.html"
-                    className="readmore stretched-link"
-                  >
-                    Learn more <i className="bi bi-arrow-right" />
-                  </a>
-                </div>
-              </div>
-              <div
-                className="col-lg-4 col-md-6"
-                data-aos="fade-up"
-                data-aos-delay={600}
-              >
-                <div className="service-item position-relative">
-                  <div className="icon  p-2 ">
-                    <i className="bi bi-airplane fs-3 ps-3" />
-                  </div>
                   <h3> Global Transportation</h3>
                   <p>
-                    Our proficiency in transportation management and strategic
-                    planning enables us to create a tailored solution.At
-                    CarryShipment, headquartered in the USA, and our subsidiary
-                    Shipment based in USA, we create highly optimized and
-                    customized supply chain solutions for our clients. Our
-                    unified technology systems are integrated through a
-                    collaborative global environment that we have established.
+                    Specializing in the international forwarding of goods and providing related comprehensive logistic services.
                   </p>
-                  <a
-                    href="service-details.html"
-                    className="readmore stretched-link"
-                  >
-                    Learn more <i className="bi bi-arrow-right" />
-                  </a>
                 </div>
               </div>
 

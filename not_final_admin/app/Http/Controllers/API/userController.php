@@ -3,14 +3,18 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Mail\GeneralMail;
 use App\Mail\OtpEmail;
 use App\Models\otp;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
@@ -35,6 +39,9 @@ class userController extends Controller
                 return $this->json_response('error', 'invalid_credential', 'The user email & password were incorrect.', 401);
             }
             $user = Auth::user();
+            if ($user->status == 0) {
+                return $this->json_response('error', 'email_verification_pending', 'Your verification is pending please verify your email', 200);
+            }
             $token = $user->createToken('auth_api', ['*'])->accessToken;
             return $this->json_response('success', 'user_login', 'User login Successfully.', 200, $user, $token);
         } catch (\Exception $e) {
@@ -64,10 +71,10 @@ class userController extends Controller
             $email = $request->input('email');
             $is_user = User::where('email', $email)->first();
             if (!empty($is_user)) {
-                if ($is_user->status == 2) {
+                if ($is_user->status == 0) {
                     return $this->json_response('error', 'email verification pending', 'You are already register. Please verify your email', 200);
                 }
-                if (in_array($is_user->status, [0, 1])) {
+                if ($is_user->status == 1) {
                     return $this->json_response('error', 'user_exist', 'You are already register.', 200);
                 }
             }
@@ -77,11 +84,53 @@ class userController extends Controller
                 'status' => 2,
                 'password' => Hash::make($request->input('password')),
             ]);
-            $token = $user->createToken('auth_api', ['*'])->accessToken;
-            return $this->json_response('success', 'user created', 'User Created Successfully. Verification mail send to your provider email.', 200, $user, $token);
+            $verifyUrl = URL::temporarySignedRoute('verification.verify',
+                Carbon::now()->addMinutes(
+                    Config::get('auth.verification.expire', 60)),
+                [
+                    'id' => $user->id,
+                    'hash' => sha1($user->email),
+                ]
+                );
+            $data=['url'=>$verifyUrl,'name'=>$request->input('name')];
+            Mail::to($request->input('email'))->send(new GeneralMail('verify_mail','',$data));
+            return $this->json_response('success', 'user created', 'User Created Successfully. Verification mail send to your provider email.', 200, $user);
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 404);
         }
+    }
+    public function verify($user_id, Request $request)
+    {
+        if (! $request->hasValidSignature()) {
+            return $this->respondUnAuthorizedRequest(254);
+        }
+        $user = User::findOrFail($user_id);
+        $user->status = 1;
+        if (!$user->hasVerifiedEmail()) {
+            $user->markEmailAsVerified();
+        }
+        $user->save();
+        return redirect()->away('https://carryshipment.com/signin');
+    }
+    public function resend($email) {
+        $user = User::where('email',$email)->first();
+        if(!$user) {
+            return $this->json_response('error', 'not_found', 'Not Found', 404);
+        }
+        if(!$user->status == 1) {
+            return $this->json_response('success', 'verified', 'Email is verfied!', 422);
+        }
+        $verifyUrl = URL::temporarySignedRoute('verification.verify',
+        Carbon::now()->addMinutes(
+            Config::get('auth.verification.expire', 60)),
+        [
+            'id' => $user->id,
+            'hash' => sha1($user->email),
+        ]
+        );
+        $data=['url'=>$verifyUrl,'name'=>$user->name];
+        Mail::to($user->email)->send(new GeneralMail('verify_mail','',$data));
+        return $this->json_response('success', 'resed', 'Verification mail send to your provider email.', 200, $user, $token);
     }
     /*
         Description: This is function will used to send Otp to valid email for forgetPassword

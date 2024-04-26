@@ -11,13 +11,14 @@ use Illuminate\Support\Facades\Validator;
 
 class orderController extends Controller
 {
-    public $user_id,$user;
+    public $user_id,$client_id,$user;
     public function __construct()
     {
         $this->user = auth()->user();
 
         // Check if the user is authenticated before accessing the id property
         $this->user_id = $this->user ? $this->user->id : null;
+        $this->client_id = $this->user ? $this->user->client_id : null;
     }
     public function store(Request $request)
     {
@@ -66,6 +67,7 @@ class orderController extends Controller
                 'status'           => 'Pending',
                 'product_pic'      => $product_pic,
                 'payment_recipt'   => $payment_recipt,
+                'location'         =>$request->location
             ]);
             return $this->json_response('success', 'order_created', 'Order Created Successfully', 200);
         } catch (\Exception $e) {
@@ -75,7 +77,7 @@ class orderController extends Controller
     public function myOrder()
     {
         try {
-            $order = order::where('user_id', $this->user_id)->get();
+            $order = order::where('user_id', $this->client_id)->get();
             return $this->json_response('success', 'my_order', 'My Orders get Successfully', 200, $order);
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 404);
@@ -85,11 +87,14 @@ class orderController extends Controller
     public function orderById(Request $request)
     {
         try {
+            $query = Order::query();
+            $query->with('client');
             if (strpos($request->id, 'client_') === 0) {
-                $order = Order::with('client')->where('user_id', $request->id)->get();
+                $query->where('user_id', $request->id);
             } else {
-                $order = order::with('client')->where('id', $request->id)->get();
+                $query->where('id', $request->id);
             }
+            $order = $query->get();
             if (count($order) > 0)
                 return $this->json_response('success', 'my_order', 'My Orders get Successfully', 200, $order);
             else return $this->json_response('fail', 'not_found', 'Order Not Found!', 404);

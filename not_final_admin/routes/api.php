@@ -30,6 +30,8 @@ Route::post('contact-us', [utillityController::class, 'contactUs']);
 
 Route::post('register', [userController::class, 'register']);
 Route::post('login', [userController::class, 'authenticate']);
+Route::get('email/verify/{id}', [userController::class, 'verify'])->name('verification.verify');
+Route::get('email/resend/{email}', [userController::class, 'resend'])->name('verification.resend');
 
 Route::post('forget-password', [userController::class, 'forgetPassword']);
 Route::post('verify-otp',   [userController::class, 'verifyOtp']);

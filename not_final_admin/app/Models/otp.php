@@ -13,7 +13,7 @@ class otp extends Model
         'id',
         'user_id',
         'otp',
-        'expired_at',
+        'expire_at',
         'created_at',
         'updated_at',
     ];

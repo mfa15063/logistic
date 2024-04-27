@@ -150,6 +150,7 @@ class userController extends Controller
             if (!empty($user)) {
                 $param['user_id'] = $user->id;
                 $param['email'] = $user->email;
+                $param['name'] = $user->name;
                 $this->SendOTP($param);
                 return $this->json_response('success', 'otp_sent', 'OTP has been sent to your registered email.', 200);
             } else {
@@ -183,8 +184,9 @@ class userController extends Controller
         );
         // send OTP via email
         $data['otp'] = $otp;
+        $data['name'] = $param['name'];
 
-        Mail::to($email)->send(new OtpEmail($data));
+        Mail::to($email)->send(new GeneralMail('forget_password','',$data));
         return true;
     }
     public function verifyOtp(Request $request)

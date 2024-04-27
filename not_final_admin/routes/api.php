@@ -35,7 +35,7 @@ Route::get('email/resend/{email}', [userController::class, 'resend'])->name('ver
 
 Route::post('forget-password', [userController::class, 'forgetPassword']);
 Route::post('verify-otp',   [userController::class, 'verifyOtp']);
-Route::post('change-password', [userController::class, 'changePasswordOTP']);
+Route::post('change-password-otp', [userController::class, 'changePasswordOTP']);
 Route::get('order/by-id', [orderController::class, 'orderById']);
 // get inquiries
 Route::get('inquiries', [GeneralController::class, 'getListOfInquiry']);

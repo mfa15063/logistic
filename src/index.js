@@ -4,8 +4,8 @@ import './index.scss';
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Home, Portfolio, About, Contact, Profile, SignIn, SignUp, FourZeroFour, TrackShipment, Services, Policies } from './pages/exports';
-import { LayoutWithHeader, LayoutWithOutHeader, SideBar } from './layouts/exports';
+import { Home, Portfolio, About, Contact, Profile, SignIn, SignUp, EditProfile, FourZeroFour, TrackShipment, Services, Policies } from './pages/exports';
+import { LayoutWithHeader, LayoutWithOutHeader, LayoutSideBar } from './layouts/exports';
 import { User } from './models';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -31,15 +31,12 @@ function Main() {
               <Route index element={<TrackShipment />} />
               <Route path=':clientID' element={<TrackShipment />} />
             </Route>
-            <Route path='profile' element={<SideBar all={{ user, setUser }} />} >
-              <Route index element={<Profile all={{ user, setUser }} />} />
-            </Route>
-            <Route path='signup' element={<SideBar all={{ user, setUser }} />} >
-              <Route index element={<SignUp all={{ cameFrom, user, setUser }} />} />
-            </Route>
-            <Route path='signin' element={<SideBar all={{ user, setUser }} />} >
-              <Route index element={<SignIn all={{ cameFrom, user, setUser }} />} />
-            </Route>
+            <Route path='signup' element={<SignUp all={{ cameFrom, user, setUser }} />} />
+            <Route path='signin' element={<SignIn all={{ cameFrom, user, setUser }} />} />
+          </Route>
+          <Route path='/' element={<LayoutSideBar  all={{ user, setUser }} />} >
+              <Route path='/profile' element={<Profile all={{ user, setUser }} />} />
+              <Route path='/edit-profile' element={<EditProfile all={{ user, setUser }} />} />
           </Route>
           <Route path='*' element={<LayoutWithOutHeader />} >
             <Route path='*' element={<FourZeroFour />} />

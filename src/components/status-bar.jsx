@@ -9,7 +9,7 @@ export default function StatusBar(props) {
   else if (status === "accepted") position = 33.33;
   else if (status === "delivered") position = 100;
   return (
-    <div className="d-flex px-5 pt-5 pb-5 ">
+    <div className="d-flex px-4 pt-5 pb-5 ">
       <div className="delivery-status-bar">
         <div className="line-success" style={{ width: `${position}%` }}></div>
         <div className="line-gray"></div>

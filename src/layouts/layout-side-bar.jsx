@@ -1,13 +1,14 @@
 import {Component} from "react";
 import {Outlet} from "react-router-dom";
-import {Footer, Header, WhatsappBtn} from "../components/exports";
+import {Footer, Header, WhatsappBtn, SideBar} from "../components/exports";
 
 class LayoutWithHeader extends Component {
+
     render() {
         return (
             <>
-                <Header/>
-                <Outlet/>
+                <Header className='profile-header'/>
+                <SideBar all={this.props.all}/>
                 <Footer/>
                 <WhatsappBtn/>
             </>

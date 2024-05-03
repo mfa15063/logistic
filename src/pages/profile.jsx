@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { logoutUser } from "../js/api";
 import { User } from "../models";
-import { SERVER_IMAGE_PATH } from "../js/constants";
+import { PROFILE_IMAGE_PATH } from "../js/constants";
 
 export default function Profile(props) {
   const { user, setUser } = props.all;
@@ -32,7 +32,7 @@ export default function Profile(props) {
   };
 
   const editProfile = () => {
-    // Edit Profile
+    navigate("/edit-profile");
   };
 
   useEffect(() => {
@@ -59,13 +59,11 @@ export default function Profile(props) {
               >
                 <MDBCardImage
                   src={
-                    (user?.profile_img && SERVER_IMAGE_PATH + user?.profile_img) ||
+                    (user?.profile_img && PROFILE_IMAGE_PATH + user?.profile_img) ||
                     "./assets/img/avatar.svg"
                   }
                   alt="Profile Image"
-                  className="mt-4 mb-2 img-thumbnail"
-                  fluid
-                  style={{ width: "150px", minHeight: "175px", objectFit: "cover", objectPosition: "top", zIndex: "1" }}
+                  className="img-thumbnail image-profile profile-page"
                 />
               </div>
               <div className="ms-3" style={{ marginTop: "130px" }}>

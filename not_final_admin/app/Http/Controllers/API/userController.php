@@ -27,7 +27,7 @@ class userController extends Controller
         //Validate data
         $validator = Validator::make($request->all(), [
             'email' => ['required', 'email'],
-            'password'  =>  ['required', Password::min(8)]
+            'password' => ['required', Password::min(8)]
         ]);
         if ($validator->fails()) {
             return $this->json_response('error', 'validation_failed', $validator->errors()->first(), 422);
@@ -45,9 +45,10 @@ class userController extends Controller
             $token = $user->createToken('auth_api', ['*'])->accessToken;
             return $this->json_response('success', 'user_login', 'User login Successfully.', 200, $user, $token);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'could_not_create_token : ' . $e->getMessage(),'line'=>$e->getLine(),'file'=>$e->getFile()], 500);
+            return response()->json(['error' => 'could_not_create_token : ' . $e->getMessage(), 'line' => $e->getLine(), 'file' => $e->getFile()], 500);
         }
     }
+
     // This function for register users
     public function register(Request $request)
     {
@@ -56,7 +57,7 @@ class userController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'max:255', 'string'],
             'email' => ['required', 'max:255', 'email', Rule::unique('users', 'email')],
-            'password'  =>  ['required', Password::min(8)
+            'password' => ['required', Password::min(8)
                 ->letters()
                 ->mixedCase()
                 ->numbers()
@@ -91,17 +92,18 @@ class userController extends Controller
                     'id' => $user->id,
                     'hash' => sha1($user->email),
                 ]
-                );
-            $data=['url'=>$verifyUrl,'name'=>$request->input('name')];
-            Mail::to($request->input('email'))->send(new GeneralMail('verify_mail','',$data));
+            );
+            $data = ['url' => $verifyUrl, 'name' => $request->input('name')];
+            Mail::to($request->input('email'))->send(new GeneralMail('verify_mail', '', $data));
             return $this->json_response('success', 'user created', 'User Created Successfully. Verification mail send to your provider email.', 200, $user);
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 404);
         }
     }
+
     public function verify($user_id, Request $request)
     {
-        if (! $request->hasValidSignature()) {
+        if (!$request->hasValidSignature()) {
             return $this->respondUnAuthorizedRequest(254);
         }
         $user = User::findOrFail($user_id);
@@ -112,26 +114,29 @@ class userController extends Controller
         $user->save();
         return redirect()->away('https://carryshipment.com/signin');
     }
-    public function resend($email) {
-        $user = User::where('email',$email)->first();
-        if(!$user) {
+
+    public function resend($email)
+    {
+        $user = User::where('email', $email)->first();
+        if (!$user) {
             return $this->json_response('error', 'not_found', 'Not Found', 404);
         }
-        if(!$user->status == 1) {
+        if (!$user->status == 1) {
             return $this->json_response('success', 'verified', 'Email is verfied!', 422);
         }
         $verifyUrl = URL::temporarySignedRoute('verification.verify',
-        Carbon::now()->addMinutes(
-            Config::get('auth.verification.expire', 60)),
-        [
-            'id' => $user->id,
-            'hash' => sha1($user->email),
-        ]
+            Carbon::now()->addMinutes(
+                Config::get('auth.verification.expire', 60)),
+            [
+                'id' => $user->id,
+                'hash' => sha1($user->email),
+            ]
         );
-        $data=['url'=>$verifyUrl,'name'=>$user->name];
-        Mail::to($user->email)->send(new GeneralMail('verify_mail','',$data));
+        $data = ['url' => $verifyUrl, 'name' => $user->name];
+        Mail::to($user->email)->send(new GeneralMail('verify_mail', '', $data));
         return $this->json_response('success', 'resed', 'Verification mail send to your provider email.', 200, $user, $token);
     }
+
     /*
         Description: This is function will used to send Otp to valid email for forgetPassword
     */
@@ -160,6 +165,7 @@ class userController extends Controller
             return response()->json($e->getMessage(), 404);
         }
     }
+
     public function SendOTP($param = [])
     {
         $user_id = $param['user_id'];
@@ -186,9 +192,10 @@ class userController extends Controller
         $data['otp'] = $otp;
         $data['name'] = $param['name'];
 
-        Mail::to($email)->send(new GeneralMail('forget_password','',$data));
+        Mail::to($email)->send(new GeneralMail('forget_password', '', $data));
         return true;
     }
+
     public function verifyOtp(Request $request)
     {
         try {
@@ -227,13 +234,14 @@ class userController extends Controller
             return response()->json($e->getMessage(), 404);
         }
     }
+
     // change password by otp
     public function changePasswordOTP(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'otp' => 'required|numeric|digits_between:6,6',
             'email' => 'required|email',
-            'password'  =>  ['required', Password::min(8)
+            'password' => ['required', Password::min(8)
                 ->letters()
                 ->mixedCase()
                 ->numbers()
@@ -273,12 +281,13 @@ class userController extends Controller
             return response()->json($e->getMessage(), 404);
         }
     }
+
     // change password by current password
     public function changePassword(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'current_password' => 'required|numeric|digits_between:6,6',
-            'password'  =>  ['required', Password::min(8)
+            'password' => ['required', Password::min(8)
                 ->letters()
                 ->mixedCase()
                 ->numbers()
@@ -309,17 +318,19 @@ class userController extends Controller
             return response()->json($e->getMessage(), 404);
         }
     }
+
     // show loggedIn user profile
     public function profile()
     {
-        try{
-        $user_id = auth()->user()->id;
-        $user = User::select('id','client_id','name', 'email', 'profile_img', 'address', 'contact_no', 'city', 'country')->find($user_id);
-        return $this->json_response('success', 'profile_show', 'User Fetch Succeccfully', 200, $user);
+        try {
+            $user_id = auth()->user()->id;
+            $user = User::select('id', 'client_id', 'name', 'email', 'profile_img', 'address', 'contact_no', 'city', 'country')->find($user_id);
+            return $this->json_response('success', 'profile_show', 'User Fetch Succeccfully', 200, $user);
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 404);
         }
     }
+
     // update profile
     public function profileUpdate(Request $request)
     {
@@ -328,37 +339,99 @@ class userController extends Controller
             'address' => 'required|string|max:255',
             'contact_no' => 'required',
             'city' => 'required|string',
-            'profile_image' => 'required|image|max:20480'
+            'profile_image' => 'sometimes|file|image'
         ];
         $data = [
             'name' => $request->input('name'),
             'address' => $request->input('address'),
             'contact_no' => $request->input('contact_no'),
             'city' => $request->input('city'),
-            'country' => $request->input('country'),
+            'country' => $request->input('country')
         ];
+        if (!empty($request->file('profile_image')))
+            $data['profile_image'] = $request->file('profile_image');
         $validator = Validator::make($data, $validateRule);
         if ($validator->fails()) {
             return $this->json_response('error', 'validation_failed', $validator->errors()->first(), 422);
         }
+        if (!$request->id) return $this->json_response('error', 'validation_failed', "Internal Server Error", 500);
         $user_id = Auth::user()->id;
         $file = $request->file('profile_image');
         if ($file) {
-            $folderPath = "images/users";
-            $imageName = time() . "." . $file->getClientOriginalExtension();
-            Storage::disk('public')->put($folderPath . '/' . $imageName, file_get_contents($file));
-            $storedImagePath = $folderPath . "/" . $imageName;
+            $folderPath = "/img/profile/";
+            $imageName = "profile_" . $request->id . "." . $file->getClientOriginalExtension();
+            $imagePath = $file->getPathName(); // Get the path of the file
+
+            // Load the image
+            $originalImage = imagecreatefromstring(file_get_contents($file));
+            // Correct orientation
+            $exif = @exif_read_data($imagePath);
+            if ($exif !== false && !empty($exif['Orientation'])) {
+                switch ($exif['Orientation']) {
+                    case 3:
+                        $originalImage = imagerotate($originalImage, 180, 0);
+                        break;
+                    case 6:
+                        $originalImage = imagerotate($originalImage, -90, 0);
+                        break;
+                    case 8:
+                        $originalImage = imagerotate($originalImage, 90, 0);
+                        break;
+                }
+            }
+            // Get original dimensions
+            $originalWidth = imagesx($originalImage);
+            $originalHeight = imagesy($originalImage);
+
+            // Calculate new height maintaining the aspect ratio
+            $newWidth = 200;
+            $newHeight = ($originalHeight / $originalWidth) * $newWidth;
+
+            // Create a new true color image
+            $newImage = imagecreatetruecolor($newWidth, $newHeight);
+            // Preserve transparency for PNG
+            if ($file->getClientOriginalExtension() == 'png') {
+                imagealphablending($newImage, false); // Disable blending
+                imagesavealpha($newImage, true); // Save alpha channel
+            }
+            // Copy and resize the old image into the new image
+            imagecopyresampled($newImage, $originalImage, 0, 0, 0, 0, $newWidth, $newHeight, $originalWidth, $originalHeight);
+
+            // Save the resized image to disk
+            $filePath = storage_path('app/public/' . $folderPath . '/' . $imageName);
+            switch ($file->getClientOriginalExtension()) {
+                case 'jpeg':
+                case 'jpg':
+                    imagejpeg($newImage, $filePath);
+                    break;
+                case 'png':
+                    imagepng($newImage, $filePath);
+                    break;
+                case 'gif':
+                    imagegif($newImage, $filePath);
+                    break;
+                default:
+                    imagejpeg($newImage, $filePath . ".jpeg");
+                    $imageName .= ".jpeg";
+                    break;
+            }
+
+            // Free up memory
+            imagedestroy($originalImage);
+            imagedestroy($newImage);
+
             // Create URL for the stored image
-            $data['profile_img'] = asset('storage/' . $storedImagePath);
+            $data['profile_img'] = $imageName;
         }
         try {
-            $profile_data = User::updateOrCreate(['id' => $request->user_id], $data);
+            $profile_data = User::updateOrCreate(['id' => $request->id], $data);
 
             return $this->json_response('success', 'user_profile_update', 'User Profile Updated Successfully', 200, $profile_data);
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+            return $this->json_response('error', 'validation_failed', "Internal Server Error", 500);
         }
     }
+
     public function logout()
     {
         $user = Auth::user();

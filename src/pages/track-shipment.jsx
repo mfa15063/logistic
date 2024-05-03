@@ -164,6 +164,7 @@ const TrackShipment = () => {
                               <h4 className={statusColor + " track-shipment"}>
                                 {shipment.status}
                               </h4>
+                              <StatusBar status={shipment.status} />
                               <small className="mt-2 track-shipment">
                                 {statusUpdatedAt.time}{" "}
                                 <i className="bi bi-dot"></i>{" "}
@@ -179,7 +180,7 @@ const TrackShipment = () => {
                     </div>
                   </div>
                 </div>
-                <StatusBar status={shipment.status} />
+
                 <div className="mt-5">
                   <div className="p-4 border border-2 mt-5 track-shipment">
                     <h4 className="text-primary py-5">Shipping Information:</h4>

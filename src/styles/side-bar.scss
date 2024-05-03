@@ -12,7 +12,15 @@ header nav {
 
 .profile-header {
     background: $bg_primary;
+    width: 100%;
+    height: 70px;
+    left: 0;
+    top: 0;
     position  : fixed;
+}
+
+input[type="file"] + .form-notch {
+    display: none !important;
 }
 
 .profile-page {

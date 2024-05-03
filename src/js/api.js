@@ -261,3 +261,43 @@ export const signupUser = async (name, email, password, password_confirmation) =
         };
     }
 };
+
+export const updateUserProfile = async (profileData, profileImage) => {
+    const formData = new FormData();
+    for (const key in profileData) {
+        formData.append(key, profileData[key]);
+    }
+    if (profileImage) {
+        formData.append('profile_image', profileImage);
+    }
+
+    try {
+        const response = await fetch(API_SERVER + "/profile-update", {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${window.sessionStorage.authToken}` // Remove 'Content-Type': 'application/json'
+            },
+            body: formData
+        });
+
+        if (response.status !== 200) {
+            const errorData = await response.json();
+            return {
+                success: false,
+                message: errorData.message || "Failed to update profile"
+            };
+        }
+
+        const res = await response.json();
+        return {
+            success: true,
+            message: 'Profile updated successfully',
+            data: res.data
+        };
+    } catch (error) {
+        return {
+            success: false,
+            message: error.message
+        };
+    }
+};

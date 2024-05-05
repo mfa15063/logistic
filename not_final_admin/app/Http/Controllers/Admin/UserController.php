@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\otp;
 use App\Models\siteInfo;
 use App\Models\User;
 use Illuminate\Auth\AuthenticationException;
@@ -10,6 +11,7 @@ use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -59,6 +61,46 @@ class UserController extends Controller
                 'password' => 'The password is invalid.',
             ])->withInput();
             // ->withInput();
+        }
+    }
+
+    public  function client_change_password(Request $request)
+    {
+        return view('update_client_password',compact('request'));
+    }
+    public  function client_change_password_submit(Request $request)
+    {
+        $data = $request->only('otp', 'password', 'password_confirmation');
+        $request->validate(
+            [
+                'otp'=>'required',
+                'password' => ['required', Password::min(8)
+                ->letters()
+                ->mixedCase()
+                ->numbers()
+                ->symbols()],
+                'password_confirmation' => ['required_with:password', 'same:password', Password::min(8)]
+            ],
+            [
+            ]
+        );
+        $otp_response = otp::where('otp', $request->otp)->first();
+        // dd($otp_response);
+        if ($otp_response) {
+            if ($otp_response->expire_at < date('Y-m-d H:i:s')) {
+                return redirect()->back()->withErrors(['invalid' => 'Otp invalid.']);
+            } else {
+                $user_id = $otp_response->user_id;
+                $user = User::find($user_id);
+                if($user){
+                    $user->update([
+                        'password'=>Hash::make($request->password)
+                    ]);
+                }
+                return redirect('https://carryshipment.com/signin');
+            }
+        } else {
+            return redirect()->back()->withErrors(['invalid' => 'Otp invalid.']);
         }
     }
     //

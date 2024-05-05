@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [UserController::class, 'login'])->name('login');
+Route::get('/client/change/password', [UserController::class, 'client_change_password'])->name('client_change_password');
+Route::post('/client/change/password/api', [UserController::class, 'client_change_password_submit'])->name('client_change_password_submit');
 Route::post('/login/auth', [UserController::class, 'authenticate'])->name('login.auth');
 Route::get('logout', [UserController::class, 'logout'])->name('logout');
 Route::middleware('auth')->group(function () {

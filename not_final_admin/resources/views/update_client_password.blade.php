@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Carry Shipment - Login</title>
+    <title>Carry Shipment - Change Password</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -47,59 +47,64 @@
 
                             <div class="d-flex justify-content-center py-4">
                                 <a href="index.html" class="logo d-flex align-items-center w-auto">
-                                    <img src="{{asset('admin/img/logo.png')}}" alt="">
+                                    <img src="{{ asset('admin/img/logo.png') }}" alt="">
                                 </a>
                             </div><!-- End Logo -->
 
                             <div class="card mb-3">
-
                                 <div class="card-body">
-
                                     <div class="pt-4 pb-2">
-                                        <h5 class="card-title text-center pb-0 fs-4">Login </h5>
-                                        <p class="text-center small">Enter your email & password to login</p>
+                                        <h5 class="card-title text-center pb-0 fs-4">Change Password </h5>
+                                        <p class="text-center small">Enter your password and confirm password to Change
+                                        </p>
                                     </div>
-                                    <form class="row g-3 needs-validation" method="POST"
-                                        action="{{ route('login.auth') }}">
-                                        @csrf
-                                        <div class="col-12">
-                                            <label for="email" class="form-label">Email</label>
-                                            <input type="text" name="email" value="{{ old('email') }}"
-                                                class="form-control @error('email') is-invalid @enderror @if (!$errors->has('email') && old('email')) is-valid @endif"
-                                                id="email">
-                                            @error('email')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                    @if ($errors->has('invalid'))
+                                        <div class="alert alert-danger">
+                                            {{ $errors->first('invalid') }}
                                         </div>
+                                    @endif
 
+                                    <form class="row g-3 needs-validation" method="POST"
+                                        action="{{ route('client_change_password_submit') }}">
+                                        @csrf
+                                        <input type="hidden" name="otp"
+                                            value="{{ $request->has('otp') ? $request->otp : '' }}">
                                         <div class="col-12">
                                             <label for="password" class="form-label">Password</label>
-
-                                                <div class="input-group mb-3">
-                                                    <input type="password" name="password"
+                                            <div class="input-group mb-3">
+                                                <input type="password" name="password"
                                                     class="form-control  @error('password') is-invalid @enderror @if (!$errors->has('password') && old('password')) is-valid @endif"
                                                     id="password">
-                                                    <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-                                                        <i class="bi bi-eye" id="eyeIcon"></i>
-                                                      </button>                                                  </div>
+                                                <button class="btn btn-outline-secondary" type="button"
+                                                    id="togglePassword">
+                                                    <i class="bi bi-eye" id="eyeIcon"></i>
+                                                </button>
+                                            </div>
                                             @error('password')
-                                                <span class="invalid-feedback" role="alert">
+                                                <span class="invalid text-danger" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
                                         </div>
-
                                         <div class="col-12">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="remember"
-                                                    value="true" id="rememberMe">
-                                                <label class="form-check-label" for="rememberMe">Remember me</label>
+                                            <label for="password" class="form-label">Confirm Password</label>
+                                            <div class="input-group mb-3">
+                                                <input type="password" name="password_confirmation"
+                                                    class="form-control  @error('password_confirmation') is-invalid @enderror @if (!$errors->has('password_confirmation') && old('password_confirmation')) is-valid @endif"
+                                                    id="password_confirmation">
+                                                <button class="btn btn-outline-secondary" type="button"
+                                                    id="togglepassword_confirmation">
+                                                    <i class="bi bi-eye" id="eyeIconc"></i>
+                                                </button>
                                             </div>
+                                            @error('password_confirmation')
+                                                <span class="invalid text-danger" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                         <div class="col-12">
-                                            <button class="btn btn-primary w-100" type="submit">Login</button>
+                                            <button class="btn btn-primary w-100" type="submit">Submit</button>
                                         </div>
 
                                     </form>
@@ -131,20 +136,34 @@
     <script src="{{ asset('admin/js/main.js') }}"></script>
     <script>
         document.getElementById('togglePassword').addEventListener('click', function() {
-          var passwordInput = document.getElementById('password');
-          var eyeIcon = document.getElementById('eyeIcon');
+            var passwordInput = document.getElementById('password');
+            var eyeIcon = document.getElementById('eyeIcon');
 
-          if (passwordInput.type === 'password') {
-            passwordInput.type = 'text';
-            eyeIcon.classList.remove('bi','bi-eye');
-            eyeIcon.classList.add('bi','bi-eye-slash');
-          } else {
-            passwordInput.type = 'password';
-            eyeIcon.classList.remove('bi','bi-eye-slash');
-            eyeIcon.classList.add('bi','bi-eye');
-          }
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.classList.remove('bi', 'bi-eye');
+                eyeIcon.classList.add('bi', 'bi-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.classList.remove('bi', 'bi-eye-slash');
+                eyeIcon.classList.add('bi', 'bi-eye');
+            }
         });
-      </script>
+        document.getElementById('togglepassword_confirmation').addEventListener('click', function() {
+            var passwordInput = document.getElementById('password_confirmation');
+            var eyeIcon = document.getElementById('eyeIconc');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.classList.remove('bi', 'bi-eye');
+                eyeIcon.classList.add('bi', 'bi-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.classList.remove('bi', 'bi-eye-slash');
+                eyeIcon.classList.add('bi', 'bi-eye');
+            }
+        });
+    </script>
 </body>
 
 </html>

@@ -156,8 +156,8 @@ class userController extends Controller
                 $param['user_id'] = $user->id;
                 $param['email'] = $user->email;
                 $param['name'] = $user->name;
-                $this->SendOTP($param);
-                return $this->json_response('success', 'otp_sent', 'OTP has been sent to your registered email.', 200);
+                $response = $this->SendOTP($param);
+                return $this->json_response('success', 'otp_sent', 'Link For reset password send to your registered email.', 200);
             } else {
                 return $this->json_response('error', 'invalid_user', 'User not found against this email.', 404);
             }
@@ -179,21 +179,21 @@ class userController extends Controller
         $otp = $randomString;
         $result = Otp::where('user_id', $user_id)->first();
         $expired_at = date("Y-m-d H:i:s", strtotime('+15 minutes'));
-
+        // dd($expired_at);
         otp::updateOrCreate(
             ['user_id' => $user_id],
             [
                 'user_id' => $user_id,
                 'otp' => $otp,
-                'expired_at' => $expired_at,
+                'expire_at' => $expired_at,
             ]
         );
         // send OTP via email
         $data['otp'] = $otp;
-        $data['name'] = $param['name'];
-
+        $data['username'] = $param['name'];
+        $data['url'] = URL::to('/client/change/password?otp='.$otp);
         Mail::to($email)->send(new GeneralMail('forget_password', '', $data));
-        return true;
+        return $data;
     }
 
     public function verifyOtp(Request $request)

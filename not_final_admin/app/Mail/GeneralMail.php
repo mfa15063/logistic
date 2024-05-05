@@ -23,7 +23,7 @@ class GeneralMail extends Mailable
         $data['date'] = date('Y');
         $emailtemplates = EmailTemplate::where('type',$type)->first();
 
-        $this->subject = $subject ?? $emailtemplates->subject;
+        $this->subject =  $emailtemplates->subject ?? $subject;
         $this->body = $this->replacePlaceholders($emailtemplates->body,$data);
     }
     private function replacePlaceholders($content, $data)

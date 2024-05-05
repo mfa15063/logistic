@@ -73,7 +73,7 @@ class userController extends Controller
             $is_user = User::where('email', $email)->first();
             if (!empty($is_user)) {
                 if ($is_user->status == 0) {
-                    return $this->json_response('error', 'email verification pending', 'You are already register. Please verify your email', 200);
+                    return $this->json_response('error', 'email_verification_pending', 'You are already register. Please verify your email', 200);
                 }
                 if ($is_user->status == 1) {
                     return $this->json_response('error', 'user_exist', 'You are already register.', 200);

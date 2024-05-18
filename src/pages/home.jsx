@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { HeroSection } from "../components/exports";
-import {getMapUrl, scrollToElement} from "../js/constants";
+import { scrollToElement } from "../js/constants";
 import {useEffect, useState} from "react";
 import {ContactDetails} from "../models";
 import {fetchContactDetails} from "../js/api";
@@ -57,8 +57,8 @@ function Home() {
                   </p>
                   <div className="row gy-3">
                     <div className="col-md-12">
-                      <iframe src={getMapUrl(contactDetails.location)}
-                              style={{border: 0, width: '100%', height: 200}} allowFullScreen/>
+                      <iframe src={"https://www.google.com/maps/embed/v1/place?key=AIzaSyA5DW0zd4-Myw4JuPdAEqYA3Es8cRlza7c&q=" + contactDetails.location}
+                              style={{border: 0, width: '100%', height: 200}} frameborder="0" allowFullScreen/>
 
                     </div>
                   </div>

@@ -185,7 +185,9 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="location" class="form-label">Location</label>
-                                <textarea class="form-control"  name="location" id="location" cols="30" rows="5">{{ old('location',$order->location) }}</textarea>
+                                <input type="text" name="location" class="form-control" id="location" value="{{ old('location',$order->location) }}">
+
+                                {{-- <textarea class="form-control"  name="location" id="location" cols="30" rows="5">{{ old('location',$order->location) }}</textarea> --}}
                             </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary">Submit</button>

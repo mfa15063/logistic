@@ -47,4 +47,6 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('order/store', [orderController::class, 'store']);
     Route::get('order/my', [orderController::class, 'myOrder']);
     Route::post('logout', [userController::class, 'logout']);
+    Route::delete('order/{id}', [orderController::class, 'orderDelete']);
+
 });

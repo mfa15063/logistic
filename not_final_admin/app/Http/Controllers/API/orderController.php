@@ -102,4 +102,17 @@ class orderController extends Controller
             return response()->json($e->getMessage(), 404);
         }
     }
+    public function orderDelete($id)
+    {
+        try {
+            $order = Order::find($id);
+            if(!$order){
+                return $this->json_response('fail', 'not_found', 'Order Not Found!', 404);
+            }
+            $order->delete();
+            return $this->json_response('success', 'order_deleted', 'Orders Deleted Successfully', 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 404);
+        }
+    }
 }

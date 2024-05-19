@@ -71,7 +71,7 @@ class orderController extends Controller
             ]);
             return $this->json_response('success', 'order_created', 'Order Created Successfully', 200);
         } catch (\Exception $e) {
-            return response()->json($e->getMessage(), 404);
+            return response()->json(['type'=>'internal_error','message'=>$e->getMessage()], 404);
         }
     }
     public function myOrder()
@@ -80,7 +80,7 @@ class orderController extends Controller
             $order = order::where('user_id', $this->client_id)->get();
             return $this->json_response('success', 'my_order', 'My Orders get Successfully', 200, $order);
         } catch (\Exception $e) {
-            return response()->json($e->getMessage(), 404);
+            return response()->json(['type'=>'internal_error','message'=>$e->getMessage()], 404);
         }
     }
 
@@ -99,7 +99,7 @@ class orderController extends Controller
                 return $this->json_response('success', 'my_order', 'My Orders get Successfully', 200, $order);
             else return $this->json_response('fail', 'not_found', 'Order Not Found!', 404);
         } catch (\Exception $e) {
-            return response()->json($e->getMessage(), 404);
+            return response()->json(['type'=>'internal_error','message'=>$e->getMessage()], 404);
         }
     }
     public function orderDelete($id)
@@ -112,7 +112,7 @@ class orderController extends Controller
             $order->delete();
             return $this->json_response('success', 'order_deleted', 'Orders Deleted Successfully', 200);
         } catch (\Exception $e) {
-            return response()->json($e->getMessage(), 404);
+            return response()->json(['type'=>'internal_error','message'=>$e->getMessage()], 404);
         }
     }
 }

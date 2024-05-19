@@ -45,7 +45,7 @@ class userController extends Controller
             $token = $user->createToken('auth_api', ['*'])->accessToken;
             return $this->json_response('success', 'user_login', 'User login Successfully.', 200, $user, $token);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'could_not_create_token : ' . $e->getMessage(), 'line' => $e->getLine(), 'file' => $e->getFile()], 500);
+            return response()->json(['error' => 'could_not_create_token : ' . ['type'=>'internal_error','message'=>$e->getMessage()], 'line' => $e->getLine(), 'file' => $e->getFile()], 500);
         }
     }
 
@@ -97,7 +97,7 @@ class userController extends Controller
             Mail::to($request->input('email'))->send(new GeneralMail('verify_mail', '', $data));
             return $this->json_response('success', 'user created', 'User Created Successfully. Verification mail send to your provider email.', 200, $user);
         } catch (\Exception $e) {
-            return response()->json($e->getMessage(), 404);
+            return response()->json(['type'=>'internal_error','message'=>$e->getMessage()], 404);
         }
     }
 
@@ -162,7 +162,7 @@ class userController extends Controller
                 return $this->json_response('error', 'invalid_user', 'User not found against this email.', 404);
             }
         } catch (\Exception $e) {
-            return response()->json($e->getMessage(), 404);
+            return response()->json(['type'=>'internal_error','message'=>$e->getMessage()], 404);
         }
     }
 
@@ -231,7 +231,7 @@ class userController extends Controller
                 return $this->json_response('error', 'otp_invalid', 'Invalid OTP', 401);
             }
         } catch (\Exception $e) {
-            return response()->json($e->getMessage(), 404);
+            return response()->json(['type'=>'internal_error','message'=>$e->getMessage()], 404);
         }
     }
 
@@ -278,7 +278,7 @@ class userController extends Controller
                 return $this->json_response('error', 'invalid_user', 'User not found.', 404);
             }
         } catch (\Exception $e) {
-            return response()->json($e->getMessage(), 404);
+            return response()->json(['type'=>'internal_error','message'=>$e->getMessage()], 404);
         }
     }
 
@@ -315,7 +315,7 @@ class userController extends Controller
                 return $this->json_response('error', 'invalid_user', 'User not found.', 404);
             }
         } catch (\Exception $e) {
-            return response()->json($e->getMessage(), 404);
+            return response()->json(['type'=>'internal_error','message'=>$e->getMessage()], 404);
         }
     }
 
@@ -327,7 +327,7 @@ class userController extends Controller
             $user = User::select('id', 'client_id', 'name', 'email', 'profile_img', 'address', 'contact_no', 'city', 'country')->find($user_id);
             return $this->json_response('success', 'profile_show', 'User Fetch Succeccfully', 200, $user);
         } catch (\Exception $e) {
-            return response()->json($e->getMessage(), 404);
+            return response()->json(['type'=>'internal_error','message'=>$e->getMessage()], 404);
         }
     }
 

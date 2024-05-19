@@ -20,7 +20,7 @@ class utillityController extends Controller
             $siteInfo = siteInfo::first();
             return $this->json_response('success', 'user created', 'Admin Contact Details.', 200, $siteInfo);
         } catch (\Exception $e) {
-            return response()->json($e->getMessage(), 404);
+            return response()->json(['type'=>'internal_error','message'=>$e->getMessage()], 404);
         }
     }
     // create contact detail
@@ -71,7 +71,7 @@ class utillityController extends Controller
             Mail::to('zeeshanmushtaq7878cs@gmail.com')->send(new GeneralMail('contact_us_admin',$contact_us->inquiry->name,$data));
             return $this->json_response('success', 'contact_us_created', 'Contact us created Successfully', 200, $contact_us);
         } catch (\Exception $e) {
-            return response()->json($e->getMessage(), 404);
+            return response()->json(['type'=>'internal_error','message'=>$e->getMessage()], 404);
         }
     }
 }

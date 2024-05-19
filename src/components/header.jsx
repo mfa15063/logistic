@@ -1,13 +1,14 @@
 import {useEffect, useRef, useState} from "react";
 import {fetchContactDetails} from "../js/api";
 import {ContactDetails} from "../models";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {scrollToElement, scrollToTop} from "../js/constants";
 
 export default function Header(props) {
     const mobileNavShow = useRef(null);
     const mobileNavHide = useRef(null);
     const [userLogin, setUserLogin] = useState(false);
+    const location = useLocation();
 
     const mobileNavToggle = (e) => {
         e = e.target;
@@ -41,11 +42,11 @@ export default function Header(props) {
                     <i className="mobile-nav-toggle mobile-nav-hide d-none bi bi-x" ref={mobileNavHide} onClick={mobileNavToggle}/>
                     <nav id="navbar" className="navbar">
                         <ul>
-                            <li><a href="/">Home</a></li>
-                            <li><a href="/about">About</a></li>
-                            <li><Link to="/services">Services</Link></li>
-                            <li><a href="/track-shipment">Track Shipment</a></li>
-                            <li><a href="/contact">Contact</a></li>
+                            <li><Link className={location.pathname === "/" ? "active" : ""} to="/">Home</Link></li>
+                            <li><Link className={location.pathname === "/about" ? "active" : ""} to="/about">About</Link></li>
+                            <li><Link className={location.pathname === "/services" ? "active" : ""} to="/services">Services</Link></li>
+                            <li><Link className={location.pathname === "/track-shipment" ? "active" : ""} to="/track-shipment">Track Shipment</Link></li>
+                            <li><Link className={location.pathname === "/contact" ? "active" : ""} to="/contact">Contact</Link></li>
                             <li className="dropdown d-none d-lg-block"><Link to="/profile"><span>Account</span> <i
                                 className="bi bi-chevron-down dropdown-indicator"/></Link>
                                 <ul>

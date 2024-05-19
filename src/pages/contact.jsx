@@ -1,7 +1,6 @@
 import {useEffect, useState} from "react";
 import {ContactDetails} from "../models";
 import {fetchContactDetails, fetchInquiries, submitContactForm} from "../js/api";
-import {getMapUrl} from "../js/constants";
 
 let Contact = () => {
     const [contactDetails, setContactDetails] = useState(JSON.parse(localStorage.contactDetails || null) || ContactDetails);
@@ -174,8 +173,8 @@ let Contact = () => {
                     </div>
                     <div className="row gy-4 mt-1">
                         <div className="col-lg-12 ">
-                            <iframe src={getMapUrl(contactDetails.location)}
-                                    style={{border: 0, width: '100%', height: 200}} allowFullScreen/>
+                            <iframe src={"https://www.google.com/maps/embed/v1/place?key=AIzaSyA5DW0zd4-Myw4JuPdAEqYA3Es8cRlza7c&q=" + contactDetails.location}
+                                    style={{border: 0, width: '100%', height: 300}} frameborder="0" allowFullScreen/>
                         </div>
                         {/* End Google Maps */}
                     </div>

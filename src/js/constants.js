@@ -3,12 +3,6 @@ export const API_SERVER = 'http://127.0.0.1:8000/api';
 // export const PROFILE_IMAGE_PATH = "https://admin.carryshipment.com/admin/img/profile/";export const API_SERVER = 'https://admin.carryshipment.com/api';
 export const PROFILE_IMAGE_PATH = "http://127.0.0.1:8000/storage/img/profile/";
 
-export const getMapUrl = (mapCode) => {
-    let parser = new DOMParser();
-    mapCode = parser.parseFromString(mapCode, 'text/html');
-    return mapCode?.querySelector('iframe')?.getAttribute('src') || "https://www.google.com/maps/";
-}
-
 export const scrollToTop = () => {
     window.scrollTo(0, 0);
 }

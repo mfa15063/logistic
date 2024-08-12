@@ -1,0 +1,34 @@
+Header menu edits
+Sidebar options edits
+Add Order
+Edit Order
+Delete Order
+
+On login signup:
+generate token and send verification mail
+if not verified also generate token but restrict to access all pages and redirect to verification page
+
+In View Order:
+Delivery status of bold id
+Status OK
+Status Updated at: datetime
+Order located at: map-location
+
+Buttons options at top right corner:
+view more info
+If rejected edit and delete options
+
+In view more info: 
+1. Edit pickup address and delivery address only if status pending/new
+	otherwise disable option and show error in arrow title
+2. Show All Info in two columns. 1 for Received from 2nd for delivered to
+3. Show additional details like weight etc after <hr>
+	And then show button of Edit pickup address and delivery address defined in 1.
+
+
+In Backend: 
+
+Change status and map-location both same time
+if status is in pending/new, rejected, or delivered map-location should empty
+send mail to admin if client change order details
+send mail to client if admin change main status of order (underprocess, reject, delivered, pending/new)

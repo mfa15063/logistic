@@ -1,0 +1,7 @@
+Google map key: AIzaSyA5DW0zd4-Myw4JuPdAEqYA3Es8cRlza7c
+client user pass: hokivo6494@jadsys.com Qwerty-1122
+admin user pass: admin123@gmail.com admin123
+DB: auth-db902.hstgr.io u117560748_logistic Logistic@1122
+cmd: php artisan passport:client --personal
+
+for accessing storage path php artisan storage:link

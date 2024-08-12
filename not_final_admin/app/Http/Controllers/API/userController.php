@@ -398,7 +398,9 @@ class userController extends Controller
             imagecopyresampled($newImage, $originalImage, 0, 0, 0, 0, $newWidth, $newHeight, $originalWidth, $originalHeight);
 
             // Save the resized image to disk
-            $filePath = storage_path('app/public/' . $folderPath . '/' . $imageName);
+            $filePath = public_path() . '/clients/img';
+            $file->move($filePath, $imageName);
+            $filePath .= "/".$imageName;
             switch ($file->getClientOriginalExtension()) {
                 case 'jpeg':
                 case 'jpg':

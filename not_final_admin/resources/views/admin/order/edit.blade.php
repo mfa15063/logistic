@@ -71,6 +71,12 @@
                                     value="{{ old('status', $order->status) }}" id="status"
                                     placeholder="Status of Order">
                             </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="location" class="form-label">Location</label>
+                                <input type="text" name="location" class="form-control" id="location" value="{{ old('location',$order->location) }}">
+
+                                {{-- <textarea class="form-control"  name="location" id="location" cols="30" rows="5">{{ old('location',$order->location) }}</textarea> --}}
+                            </div>
                             <h5 class="form_title">Received From</h5>
 
                             <div class="col-md-6">
@@ -183,12 +189,7 @@
                                 <input type="number" class="form-control" name="packet_length" id="packet_length"
                                 value="{{old('packet_length',$order->packet_length)}}"   placeholder="Packet Lenght">
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="location" class="form-label">Location</label>
-                                <input type="text" name="location" class="form-control" id="location" value="{{ old('location',$order->location) }}">
 
-                                {{-- <textarea class="form-control"  name="location" id="location" cols="30" rows="5">{{ old('location',$order->location) }}</textarea> --}}
-                            </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                                 <button type="reset" class="btn btn-secondary">Reset</button>

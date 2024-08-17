@@ -29,6 +29,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'country',
         'city',
         'profile_img',
+        'status',
         'password',
     ];
     protected static function boot()

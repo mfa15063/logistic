@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Mail\GeneralMail;
 use App\Models\order;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class orderController extends Controller
@@ -69,6 +72,12 @@ class orderController extends Controller
                 'payment_recipt'   => $payment_recipt,
                 'location'         =>$request->location
             ]);
+        $email = User::where('is_admin',1)->first()->email;
+        $data = $order->toArray();
+        $data['client_id'] = $order->user_id;
+        $data['message'] = '';
+        $data['client_id'] = $order->user_id;
+        Mail::to($email)->send(new GeneralMail('order_update_to_client','Order: '.$order->id.' is created.',$data));
             return $this->json_response('success', 'order_created', 'Order Created Successfully', 200);
         } catch (\Exception $e) {
             return response()->json(['type'=>'internal_error','message'=>$e->getMessage()], 404);

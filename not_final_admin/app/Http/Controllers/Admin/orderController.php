@@ -103,7 +103,7 @@ class orderController extends Controller
         if(!$order){
             return redirect()->route('order.index')->with(['type'=>'error','message'=>"Order not found."]);
         }
-        $order->update(['status'=>$request->status]);
+        $order->update(['status'=>$request->status,'location'=>$request->location]);
         return redirect()->route('order.index')->with(['type'=>'success','message'=>"Order status updated successfully."]);
     }
     public function update(Request $request, $id)
@@ -162,6 +162,7 @@ class orderController extends Controller
             $order->approved = 2;
             $order->rejection_reason = $request->rejection_reason;
             $order->status = 'Rejected';
+            $order->location = null;
         }
         $order->update();
         return redirect()->route('order.index');
@@ -181,6 +182,7 @@ class orderController extends Controller
             $order->order_delivered = true;
             $order->delivered_date = $currentDate;
             $order->status = 'Delivered';
+            $order->location = null;
         }
         $order->update();
         return redirect()->route('order.index');

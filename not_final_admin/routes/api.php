@@ -31,7 +31,6 @@ Route::post('contact-us', [utillityController::class, 'contactUs']);
 Route::post('register', [userController::class, 'register']);
 Route::post('login', [userController::class, 'authenticate']);
 Route::get('email/verify/{id}', [userController::class, 'verify'])->name('verification.verify');
-Route::get('email/resend/{email}', [userController::class, 'resend'])->name('verification.resend');
 
 Route::post('forget-password', [userController::class, 'forgetPassword']);
 Route::post('verify-otp',   [userController::class, 'verifyOtp']);
@@ -41,6 +40,7 @@ Route::get('order/by-id', [orderController::class, 'orderById']);
 Route::get('inquiries', [GeneralController::class, 'getListOfInquiry']);
 // protected routes
 Route::group(['middleware' => ['auth:api']], function () {
+    Route::get('email/resend', [userController::class, 'resend'])->name('verification.resend');
     Route::get('profile', [userController::class, 'profile']);
     Route::post('profile-update', [userController::class, 'profileUpdate']);
     Route::post('change-password', [userController::class, 'changePassword']);

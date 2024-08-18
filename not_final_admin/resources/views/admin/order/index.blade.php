@@ -1,39 +1,50 @@
 @extends('admin.layouts.main')
 @section('style')
     <style>
-    .long-text {
-        max-width: 400px;
-        min-width: 250px;
-        white-space: normal !important;
-        word-wrap: break-word;
-    }
-    tbody, td, tfoot, th, thead, tr {
-        border-color: #3633336b;
-        border-style: solid;
-        border-width: 1px !important;
-    }
+        .long-text {
+            max-width: 400px;
+            min-width: 250px;
+            white-space: normal !important;
+            word-wrap: break-word;
+        }
 
-    #myTableDatatable {
-        border-collapse: collapse; /* Ensure borders are collapsed */
-        border: 1px solid #3633336b; /* Set border properties */
-    }
-    .long-th {
-        min-width: 67px !important;
-        word-wrap: break-word;
-        margin-top: 10px
-    }
-    .dataTables_filter {
-        margin-bottom: 20px; /* Change the value according to your requirement */
-    }
+        tbody,
+        td,
+        tfoot,
+        th,
+        thead,
+        tr {
+            border-color: #3633336b;
+            border-style: solid;
+            border-width: 1px !important;
+        }
+
+        #myTableDatatable {
+            border-collapse: collapse;
+            /* Ensure borders are collapsed */
+            border: 1px solid #3633336b;
+            /* Set border properties */
+        }
+
+        .long-th {
+            min-width: 67px !important;
+            word-wrap: break-word;
+            margin-top: 10px
+        }
+
+        .dataTables_filter {
+            margin-bottom: 20px;
+            /* Change the value according to your requirement */
+        }
     </style>
 @endsection
 @section('content')
-<x-model></x-model>
+    <x-model></x-model>
     <div class="pagetitle">
         <h1>View {{ $page }} Orders</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href={{route('order.index')}}>Order</a></li>
+                <li class="breadcrumb-item"><a href={{ route('order.index') }}>Order</a></li>
                 <li class="breadcrumb-item active">{{ $page }}</li>
             </ol>
         </nav>
@@ -78,129 +89,172 @@
                                             <td>{{ $order->price }}</td>
                                             <td class="">
                                                 @if ($order->approved == 0 && $order->status == 'Pending')
-                                                    <span  class="badge  bg-secondary">{{ $order->status }}</span>
+                                                    <span class="badge  bg-secondary">{{ $order->status }}</span>
                                                 @elseif ($order->approved == 1 && $order->order_delivered == 1 && $order->status == 'Delivered')
                                                     <span class="badge bg-success">{{ $order->status }}</span>
                                                 @elseif ($order->approved == 2 && $order->status == 'Rejected')
                                                     <span class="badge bg-danger">{{ $order->status }}</span>
                                                 @else
                                                     @if (str_word_count($order->status) > 4)
-                                                        <span class="long-text badge bg-info" style="max-width: 400px; min-width: 250px; white-space: normal !important; word-wrap: break-word;">{{ $order->status }}</span>
+                                                        <span class="long-text badge bg-info"
+                                                            style="max-width: 400px; min-width: 250px; white-space: normal !important; word-wrap: break-word;">{{ $order->status }}</span>
                                                     @else
                                                         <span class="badge bg-info">{{ $order->status }}</span>
                                                     @endif
                                                 @endif
-                                                <span type="button" class="btn btn-white text-info btn-sm mt-1"
-                                                data-bs-toggle="modal" data-bs-target="#modalstatus{{ $order->id }}">
-                                                <i class="bi bi-pencil-square"></i> </span>
-                                            <!-- Modal Body -->
-                                            <div class="modal fade" id="modalstatus{{ $order->id }}" tabindex="-1"
-                                                data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
-                                                aria-labelledby="modalview{{ $order->id }}" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg"
-                                                    role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="modalstatus{{ $order->id }}">
-                                                                Update Order status
-                                                            </h5>
-                                                            <button type="button" class="btn-close"
-                                                                data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <form action="{{route('order.update_status',$order->id)}}" method="POST">
-                                                            @csrf
-                                                            @method('PUT')
-                                                        <div class="modal-body">
-                                                            <label for=""></label>
-                                                            <div class="mb-3">
-                                                                <label for="status" class="form-label">Status</label>
-                                                                <textarea class="form-control" name="status" id="status" rows="3">{{$order->status}}</textarea>
+                                                @if ($order->order_delivered != 1 || $order->status != 'Delivered')
+                                                    <span type="button" class="btn btn-white text-info btn-sm mt-1"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#modalstatus{{ $order->id }}">
+                                                        <i class="bi bi-pencil-square"></i> </span>
+                                                @endif
+                                                <!-- Modal Body -->
+                                                <div class="modal fade" id="modalstatus{{ $order->id }}" tabindex="-1"
+                                                    data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
+                                                    aria-labelledby="modalview{{ $order->id }}" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg"
+                                                        role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title"
+                                                                    id="modalstatus{{ $order->id }}">
+                                                                    Update Order status
+                                                                </h5>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
+                                                            <form action="{{ route('order.update_status', $order->id) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                @method('PUT')
+                                                                <div class="modal-body">
+                                                                    <label for=""></label>
+                                                                    <div class="mb-3">
+                                                                        <label for="status"
+                                                                            class="form-label">Status</label>
+                                                                        <textarea class="form-control" name="status" id="status" rows="3">{{ $order->status }}</textarea>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="location" class="form-label">Location</label>
+                                                                        <input type="text" name="location" class="form-control" id="location" value="{{ $order->location }}">
+
+                                                                        {{-- <textarea class="form-control"  name="location" id="location" cols="30" rows="5">{{ old('location',$order->location) }}</textarea> --}}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">
+                                                                        Close
+                                                                    </button>
+                                                                    <button type="submit" class="btn btn-primary"
+                                                                        data-bs-dismiss="modal">
+                                                                        Update
+                                                                    </button>
+                                                                </div>
+                                                            </form>
                                                         </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">
-                                                                Close
-                                                            </button>
-                                                            <button type="submit" class="btn btn-primary"
-                                                                data-bs-dismiss="modal">
-                                                                Update
-                                                            </button>
-                                                        </div>
-                                                    </form>
                                                     </div>
                                                 </div>
-                                            </div>
                                             </td>
                                             <td class="long-text">
                                                 @if ($order->approved != 1)
-                                                    @if(!is_null($order->price))
-                                                        <a href="{{ route('order.updateApproved', ['type'=>'accept','id'=>$order->id]) }}"
+                                                    @if (!is_null($order->price))
+                                                        <a href="{{ route('order.updateApproved', ['type' => 'accept', 'id' => $order->id]) }}"
                                                             class="btn btn-sm btn-success mt-1">Accept </a>
                                                     @elseif(is_null($order->price))
-                                                        <button type="button" class="btn btn-sm btn-success mt-1" data-bs-toggle="modal" data-bs-target="#updatePriceModal{{$order->id}}">
+                                                        <button type="button" class="btn btn-sm btn-success mt-1"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#updatePriceModal{{ $order->id }}">
                                                             Accept
                                                         </button>
 
                                                         <!-- Modal -->
-                                                        <div class="modal fade" id="updatePriceModal{{$order->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal fade" id="updatePriceModal{{ $order->id }}"
+                                                            tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                            aria-hidden="true">
                                                             <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Reject Order</h1>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                </div>
-                                                                <form action="{{route('order.updateApproved',['type'=>'accept','id'=>$order->id])}}" method="POST">
-                                                                    @csrf
-                                                                    <div class="modal-body">
-                                                                        <div class="row">
-                                                                            <div class="col-12">
-                                                                                <label for="price" class="form-label">Price</label>
-                                                                                <input type="text" class="form-control " name="price"  id="price"
-                                                                                    placeholder="Price">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                                                            Reject Order</h1>
+                                                                        <button type="button" class="btn-close"
+                                                                            data-bs-dismiss="modal"
+                                                                            aria-label="Close"></button>
+                                                                    </div>
+                                                                    <form
+                                                                        action="{{ route('order.updateApproved', ['type' => 'accept', 'id' => $order->id]) }}"
+                                                                        method="POST">
+                                                                        @csrf
+                                                                        <div class="modal-body">
+                                                                            <div class="row">
+                                                                                <div class="col-12">
+                                                                                    <label for="price"
+                                                                                        class="form-label">Price</label>
+                                                                                    <input type="text"
+                                                                                        class="form-control "
+                                                                                        name="price" id="price"
+                                                                                        placeholder="Price">
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                                    <button type="submit" class="btn btn-danger">Reject</button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button"
+                                                                                class="btn btn-secondary"
+                                                                                data-bs-dismiss="modal">Close</button>
+                                                                            <button type="submit"
+                                                                                class="btn btn-danger">Reject</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     @endif
-
                                                 @elseif ($order->approved == 0)
-                                                    <button type="button" class="btn btn-sm btn-danger mt-1" data-bs-toggle="modal" data-bs-target="#rejectionModal{{$order->id}}">
+                                                    <button type="button" class="btn btn-sm btn-danger mt-1"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#rejectionModal{{ $order->id }}">
                                                         Reject
                                                     </button>
 
                                                     <!-- Modal -->
-                                                    <div class="modal fade" id="rejectionModal{{$order->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal fade" id="rejectionModal{{ $order->id }}"
+                                                        tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                        aria-hidden="true">
                                                         <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Reject Order</h1>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <form action="{{route('order.updateApproved',['type'=>'reject','id'=>$order->id])}}" method="POST">
-                                                                @csrf
-                                                                <div class="modal-body">
-                                                                    <div class="row">
-                                                                        <div class="col-12">
-                                                                            <label for="rejection_reason" class="form-label">Reason for rejection</label>
-                                                                            <input type="text" class="form-control " name="rejection_reason"  id="rejection_reason"
-                                                                                placeholder="Reason for rejection">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                                                        Reject Order</h1>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                                </div>
+                                                                <form
+                                                                    action="{{ route('order.updateApproved', ['type' => 'reject', 'id' => $order->id]) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    <div class="modal-body">
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <label for="rejection_reason"
+                                                                                    class="form-label">Reason for
+                                                                                    rejection</label>
+                                                                                <input type="text"
+                                                                                    class="form-control "
+                                                                                    name="rejection_reason"
+                                                                                    id="rejection_reason"
+                                                                                    placeholder="Reason for rejection">
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                                <button type="submit" class="btn btn-danger">Reject</button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-bs-dismiss="modal">Close</button>
+                                                                        <button type="submit"
+                                                                            class="btn btn-danger">Reject</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 @endif
@@ -211,11 +265,14 @@
                                                     <a href="{{ route('order.updateDelivered', $order->id) }}"
                                                         class="btn btn-sm btn-danger mt-1">Undelivered</a>
                                                 @endif
-                                                <a href="{{ route('order.edit', $order->id) }}"
-                                                    class="btn btn-sm btn-success mt-1"><i
-                                                        class="bi bi-pencil-square"></i></a>
+                                                @if ($order->order_delivered != 1 || $order->status != 'Delivered')
+                                                    <a href="{{ route('order.edit', $order->id) }}"
+                                                        class="btn btn-sm btn-success mt-1"><i
+                                                            class="bi bi-pencil-square"></i></a>
+                                                @endif
                                                 <button type="button" class="btn btn-info btn-sm mt-1"
-                                                    data-bs-toggle="modal" data-bs-target="#modalview{{ $order->id }}">
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#modalview{{ $order->id }}">
                                                     <i class="bi bi-eye"></i> </button>
                                                 <!-- Modal Body -->
                                                 <div class="modal fade" id="modalview{{ $order->id }}" tabindex="-1"
@@ -225,7 +282,8 @@
                                                         role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="modalview{{ $order->id }}">
+                                                                <h5 class="modal-title"
+                                                                    id="modalview{{ $order->id }}">
                                                                     View Order
                                                                 </h5>
                                                                 <button type="button" class="btn-close"
@@ -296,31 +354,36 @@
                                                                     @endif
                                                                     @if ($order->no_of_packet)
                                                                         <div class="col-6">
-                                                                            <h5 class="mt-2 mb-2">No of Packet:{{ $order->no_of_packet }}
+                                                                            <h5 class="mt-2 mb-2">No of
+                                                                                Packet:{{ $order->no_of_packet }}
                                                                             </h5>
                                                                         </div>
                                                                     @endif
                                                                     @if ($order->packet_weight)
                                                                         <div class="col-6">
-                                                                            <h5 class="mt-2 mb-2">Packet Weight:{{ $order->packet_weight }}
+                                                                            <h5 class="mt-2 mb-2">Packet
+                                                                                Weight:{{ $order->packet_weight }}
                                                                             </h5>
                                                                         </div>
                                                                     @endif
                                                                     @if ($order->packet_width)
                                                                         <div class="col-6">
-                                                                            <h5 class="mt-2 mb-2">Packet Width:{{ $order->packet_width }}
+                                                                            <h5 class="mt-2 mb-2">Packet
+                                                                                Width:{{ $order->packet_width }}
                                                                             </h5>
                                                                         </div>
                                                                     @endif
                                                                     @if ($order->packet_height)
                                                                         <div class="col-6">
-                                                                            <h5 class="mt-2 mb-2">Packet Height:{{ $order->packet_height }}
+                                                                            <h5 class="mt-2 mb-2">Packet
+                                                                                Height:{{ $order->packet_height }}
                                                                             </h5>
                                                                         </div>
                                                                     @endif
                                                                     @if ($order->packet_length)
                                                                         <div class="col-6">
-                                                                            <h5 class="mt-2 mb-2">Packet Length:{{ $order->packet_length }}
+                                                                            <h5 class="mt-2 mb-2">Packet
+                                                                                Length:{{ $order->packet_length }}
                                                                             </h5>
                                                                         </div>
                                                                     @endif
@@ -353,24 +416,25 @@
                                                             <div class="modal-body">
                                                                 <div class="text-center">
                                                                     <span class="success-icon py-3 px-3">
-                                                                        <i style="font-size: 80px;color:#ff0000ad;" class="bi bi-x-circle"></i>
-                                                                        </span>
+                                                                        <i style="font-size: 80px;color:#ff0000ad;"
+                                                                            class="bi bi-x-circle"></i>
+                                                                    </span>
                                                                 </div>
                                                                 <div class="text-center my-2 mb-2">
                                                                     <h3 class="model_title">
                                                                         Are you sure you want to delete
                                                                     </h3>
-                                                                        <form action="{{ route('order.delete', $order->id) }}"
-                                                                            method="POST">
-                                                                            @csrf
-                                                                            @method('delete')
-                                                                            <button type="button" class="btn btn-secondary"
-                                                                                data-bs-dismiss="modal">
-                                                                                Close
-                                                                            </button>
-                                                                            <button type="submit"
-                                                                                class="btn btn-danger">Delete</button>
-                                                                        </form>
+                                                                    <form action="{{ route('order.delete', $order->id) }}"
+                                                                        method="POST">
+                                                                        @csrf
+                                                                        @method('delete')
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-bs-dismiss="modal">
+                                                                            Close
+                                                                        </button>
+                                                                        <button type="submit"
+                                                                            class="btn btn-danger">Delete</button>
+                                                                    </form>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -383,7 +447,6 @@
                                             </td>
                                         </tr>
                                     @empty
-
                                     @endforelse
 
                                 </tbody>

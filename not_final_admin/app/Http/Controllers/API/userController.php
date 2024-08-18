@@ -39,9 +39,7 @@ class userController extends Controller
                 return $this->json_response('error', 'invalid_credential', 'The user email & password were incorrect.', 401);
             }
             $user = Auth::user();
-            if ($user->status == 0) {
-                return $this->json_response('error', 'email_verification_pending', 'Your verification is pending please verify your email', 200);
-            }
+
             $token = $user->createToken('auth_api', ['*'])->accessToken;
             return $this->json_response('success', 'user_login', 'User login Successfully.', 200, $user, $token);
         } catch (\Exception $e) {
@@ -82,7 +80,6 @@ class userController extends Controller
             $user = User::create([
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
-                'status' => 2,
                 'password' => Hash::make($request->input('password')),
             ]);
             $verifyUrl = URL::temporarySignedRoute('verification.verify',
@@ -95,7 +92,15 @@ class userController extends Controller
             );
             $data = ['url' => $verifyUrl, 'name' => $request->input('name')];
             Mail::to($request->input('email'))->send(new GeneralMail('verify_mail', '', $data));
-            return $this->json_response('success', 'user created', 'User Created Successfully. Verification mail send to your provider email.', 200, $user);
+            $credentials = $request->only('email', 'password');
+            if (!Auth::attempt($credentials)) {
+                // Invalid credentials
+                return $this->json_response('error', 'invalid_credential', 'The user email & password were incorrect.', 401);
+            }
+            $user = Auth::user();
+
+            $token = $user->createToken('auth_api', ['*'])->accessToken;
+            return $this->json_response('success', 'user created', 'User Created Successfully. Verification mail send to your provider email.', 200, $user,$token);
         } catch (\Exception $e) {
             return response()->json(['type'=>'internal_error','message'=>$e->getMessage()], 404);
         }
@@ -115,13 +120,13 @@ class userController extends Controller
         return redirect()->away('https://carryshipment.com/signin');
     }
 
-    public function resend($email)
+    public function resend()
     {
-        $user = User::where('email', $email)->first();
+        $user = Auth::user();
         if (!$user) {
             return $this->json_response('error', 'not_found', 'Not Found', 404);
         }
-        if (!$user->status == 1) {
+        if ($user->status == 1) {
             return $this->json_response('success', 'verified', 'Email is verfied!', 422);
         }
         $verifyUrl = URL::temporarySignedRoute('verification.verify',
@@ -134,7 +139,7 @@ class userController extends Controller
         );
         $data = ['url' => $verifyUrl, 'name' => $user->name];
         Mail::to($user->email)->send(new GeneralMail('verify_mail', '', $data));
-        return $this->json_response('success', 'resed', 'Verification mail send to your provider email.', 200, $user, $token);
+        return $this->json_response('success', 'resed', 'Verification mail send to your provider email.', 200, $user);
     }
 
     /*
@@ -430,7 +435,8 @@ class userController extends Controller
 
             return $this->json_response('success', 'user_profile_update', 'User Profile Updated Successfully', 200, $profile_data);
         } catch (\Exception $e) {
-            return $this->json_response('error', 'validation_failed', "Internal Server Error", 500);
+            dd($e);
+            return $this->json_response('error', 'validation_failed', "Internal Server Error ".$e->getMessage(), 500);
         }
     }
 

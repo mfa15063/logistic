@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\GeneralMail;
 use App\Models\order;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class orderController extends Controller
 {
@@ -91,6 +94,12 @@ class orderController extends Controller
                 'status' => 'Pending'
             ]);
         }
+        $data = $order->toArray();
+        $email = $order->client->email;
+        $data['client_id'] = $order->user_id;
+        $data['message'] = '';
+        Mail::to($email)->send(new GeneralMail('order_update_to_client','Order: '.$order->id.' is Added.',$data));
+
         return redirect()->route('order.index')->with(['type'=>'success','message'=>"Order created successfully."]);
     }
     public function edit($id)
@@ -103,7 +112,14 @@ class orderController extends Controller
         if(!$order){
             return redirect()->route('order.index')->with(['type'=>'error','message'=>"Order not found."]);
         }
+        $email = $order->client->email;
+        $orderId= $order->id;
         $order->update(['status'=>$request->status,'location'=>$request->location]);
+        $order = Order::find($orderId);
+        $data = $order->toArray();
+        $data['client_id'] = $order->user_id;
+        $data['message'] = '';
+        Mail::to($email)->send(new GeneralMail('order_update_to_client','Order: '.$order->id.' status is updated.',$data));
         return redirect()->route('order.index')->with(['type'=>'success','message'=>"Order status updated successfully."]);
     }
     public function update(Request $request, $id)
@@ -140,7 +156,14 @@ class orderController extends Controller
             $payment_recipt->move(public_path('admin/img/order_attachment/'), $fileName);
             $data['payment_recipt'] = '/admin/img/order_attachment/' . $fileName;
         }
+        $orderId= $order->id;
+        $email = $order->client->email;
         $order->update($data);
+        $order = Order::find($orderId);
+        $data = $order->toArray();
+        $data['client_id'] = $order->user_id;
+        $data['message'] = '';
+        Mail::to($email)->send(new GeneralMail('order_update_to_client','Order: '.$order->user_id.' is updated.',$data));
         return redirect()->route('order.index')->with(['type'=>'success','message'=>"Order updated successfully."]);
     }
     public function updateApproved(Request $request,$type,$id)
@@ -164,6 +187,13 @@ class orderController extends Controller
             $order->status = 'Rejected';
             $order->location = null;
         }
+        $email = $order->client->email;
+        $data = $order->toArray();
+        $data['client_id'] = $order->user_id;
+        $data['message'] = '';
+        $data['client_id'] = $order->user_id;
+        Mail::to($email)->send(new GeneralMail('order_update_to_client','Order: '.$order->user_id.' is '.$order->status.'.',$data));
+
         $order->update();
         return redirect()->route('order.index');
     }
@@ -184,6 +214,12 @@ class orderController extends Controller
             $order->status = 'Delivered';
             $order->location = null;
         }
+        $email = $order->client->email;
+        $data = $order->toArray();
+        $data['client_id'] = $order->user_id;
+        $data['message'] = '';
+        $data['client_id'] = $order->user_id;
+        Mail::to($email)->send(new GeneralMail('order_update_to_client','Order: '.$order->user_id.' is '.$order->status.'.',$data));
         $order->update();
         return redirect()->route('order.index');
     }

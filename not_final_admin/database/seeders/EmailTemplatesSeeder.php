@@ -16,10 +16,10 @@ class EmailTemplatesSeeder extends Seeder
         DB::table('email_templates')->truncate();
         $templates = [
             [
-                'id'=>1,
-                'type'=>'contact_us_admin',
-                'subject'=>null,
-                'body'=>'
+                'id' => 1,
+                'type' => 'contact_us_admin',
+                'subject' => null,
+                'body' => '
                 <div style="background-color: #EDF2F7; padding: 40px;">
                     <table style="width: 100%; margin-bottom: 20px;">
                         <tr style="width: 100%;">
@@ -59,10 +59,10 @@ class EmailTemplatesSeeder extends Seeder
                 'updated_at' => null,
             ],
             [
-                'id'=>2,
-                'type'=>'contact_us_customer',
-                'subject'=>null,
-                'body'=>'
+                'id' => 2,
+                'type' => 'contact_us_customer',
+                'subject' => null,
+                'body' => '
                 <div style="background-color: #EDF2F7; padding: 40px;">
                     <table style="width: 100%; margin-bottom: 20px;">
                         <tr style="width: 100%;">
@@ -95,10 +95,10 @@ class EmailTemplatesSeeder extends Seeder
                 'updated_at' => null,
             ],
             [
-                'id'=>3,
-                'type'=>'verify_mail',
-                'subject'=>'CarryShipment.com Verify Email',
-                'body'=>'
+                'id' => 3,
+                'type' => 'verify_mail',
+                'subject' => 'CarryShipment.com Verify Email',
+                'body' => '
                 <div style="background-color: #EDF2F7; padding: 40px;">
                     <table style="width: 100%; margin-bottom: 20px;">
                         <tr style="width: 100%;">
@@ -136,47 +136,85 @@ class EmailTemplatesSeeder extends Seeder
                 'updated_at' => null,
             ],
             [
-                'id'=>4,
-                'type'=>'forget_password',
-                'subject'=>'Reset Password',
-                'body'=>'
+                'id' => 4,
+                'type' => 'forget_password',
+                'subject' => 'Reset Password',
+                'body' => '
                 <div style="background-color: #EDF2F7; padding: 40px;">
-    <table style="width: 100%; margin-bottom: 20px;">
-        <tr style="width: 100%;">
-            <td style="text-align: center;"><a href="{front_url}"><img src="https://admin.carryshipment.com/admin/img/profile/logo.png" alt="" width="100px" height="50px"></a></td>
-        </tr>
-    </table>
-    <table style="background-color: #fff; border-radius: 20px; width: 100%;">
-        <tr>
-            <td style="padding: 20px;">
-                <p style="font-size: 18px;font-weight: bold;">Dear {username},</p>
-                <p style="word-break: break-all;">Please click on the link below to continue. Please dont share it with anyone.</p>
-            </td>
-        </tr>
-        <tr>
-            <td style="text-align: center; padding: 20px 0;">
-                <a href="{url}"
-                    style="display: inline-block; padding: 10px 20px; border-radius: 5px; background-color: #2D3748; color: white; text-decoration: none; border: none;">Reset Password</a>
-            </td>
-        </tr>
-        <tr>
-            <td style="padding: 20px;">
-                <p>Sincerely,</p>
-                <p>CarryShipment.com</p>
-            </td>
-        </tr>
-    </table>
-    <table style="width: 100%;margin-top: 20px;">
-        <tr style="width: 100%;">
-            <td style="text-align: center;font-size: 16px; color: #b0adc5;">Copyright © {date} For All Doctors Inc. All Rights Reserved.</td>
-        </tr>
-    </table>
-</div>',
+                    <table style="width: 100%; margin-bottom: 20px;">
+                        <tr style="width: 100%;">
+                            <td style="text-align: center;"><a href="{front_url}"><img src="https://admin.carryshipment.com/admin/img/profile/logo.png" alt="" width="100px" height="50px"></a></td>
+                        </tr>
+                    </table>
+                    <table style="background-color: #fff; border-radius: 20px; width: 100%;">
+                        <tr>
+                            <td style="padding: 20px;">
+                                <p style="font-size: 18px;font-weight: bold;">Dear {username},</p>
+                                <p style="word-break: break-all;">Please click on the link below to continue. Please dont share it with anyone.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center; padding: 20px 0;">
+                                <a href="{url}"
+                                    style="display: inline-block; padding: 10px 20px; border-radius: 5px; background-color: #2D3748; color: white; text-decoration: none; border: none;">Reset Password</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 20px;">
+                                <p>Sincerely,</p>
+                                <p>CarryShipment.com</p>
+                            </td>
+                        </tr>
+                    </table>
+                    <table style="width: 100%;margin-top: 20px;">
+                        <tr style="width: 100%;">
+                            <td style="text-align: center;font-size: 16px; color: #b0adc5;">Copyright © {date} For All Doctors Inc. All Rights Reserved.</td>
+                        </tr>
+                    </table>
+                </div>',
+                'created_at' => '2024-04-22 11:30:16',
+                'updated_at' => null,
+            ],
+            [
+                'id' => 5,
+                'type' => 'order_update_to_client',
+                'subject' => null,
+                'body' => '
+                <div style="background-color: #EDF2F7; padding: 40px;">
+                    `<table style="width: 100%; margin-bottom: 20px;">
+                        <tr style="width: 100%;">
+                            <td style="text-align: center;"><a href="{front_url}"><img src="https://admin.carryshipment.com/admin/img/profile/logo.png" alt="" width="100px" height="50px"></a></td>
+                        </tr>
+                    </table>
+                    <table style="background-color: #fff; border-radius: 20px; width: 100%;">
+                        <tr>
+                            <td style="padding: 20px;">
+                                <p style="font-size: 18px;font-weight: bold;">Dear {name}</p>
+                                <p>{message}</p>
+                                <p>Order ID: {order_id}</p>
+                                <p>Client ID: {order_id}</p>
+                                <p>Received From: {received_from}</p>
+                                <p>Delevered To: {delevered_to}</p>
+                                <p>Price: {price}</p>
+                                <p>Status: {status}</p>
+                            </td>
+                        </tr>
+                        <tr style="width: 100px;">
+                            <td style="text-align: center; padding: 20px 0;">
+                                <p style="word-break: break-word; margin-left: 20%;margin-right: 20%;">{customer_existing}</p>
+                            </td>
+                        </tr>
+                    </table>
+                    <table style="width: 100%;margin-top: 20px;">
+                        <tr style="width: 100%;">
+                            <td style="text-align: center;font-size: 16px; color: #b0adc5;">Copyright © {date} Carry Shipment Inc. All Rights Reserved.</td>
+                        </tr>
+                    </table>
+                </div>',
                 'created_at' => '2024-04-22 11:30:16',
                 'updated_at' => null,
             ]
-            ];
+        ];
         DB::table('email_templates')->insert($templates);
-
     }
 }

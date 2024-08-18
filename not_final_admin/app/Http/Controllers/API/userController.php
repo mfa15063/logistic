@@ -39,6 +39,9 @@ class userController extends Controller
                 return $this->json_response('error', 'invalid_credential', 'The user email & password were incorrect.', 401);
             }
             $user = Auth::user();
+            if($user->is_admin){
+                return $this->json_response('error', 'invalid_credential', 'The user email & password were incorrect.', 401);
+            }
 
             $token = $user->createToken('auth_api', ['*'])->accessToken;
             return $this->json_response('success', 'user_login', 'User login Successfully.', 200, $user, $token);

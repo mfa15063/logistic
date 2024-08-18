@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { HeroSection } from "../components/exports";
+import {HeroSection, Testimonials} from "../components/exports";
 import { scrollToElement } from "../js/constants";
 import {useEffect, useState} from "react";
 import {ContactDetails} from "../models";
@@ -32,34 +32,30 @@ function Home() {
           <div className="container">
             <div className="row justify-content-between gy-4">
               <div
-                className="col-lg-6 d-flex align-items-center"
-                data-aos="fade-up"
+                  className="col-lg-6 d-flex align-items-center"
+                  data-aos="fade-up"
               >
                 <div className="content">
                   <h3>Welcome to <span className="site-name-primary">Carry Shipment</span></h3>
                   <p>
-                    Beyond shipping, unlock potential Optimize every step, from
-                    sourcing to delivery. Our experts provide customizable
-                    solutions that drive efficiency and growth.
+                    Unlock the full potential of your logistics with Carry Shipment. Beyond shipping, we optimize every step, from sourcing to delivery. Our experts craft customizable solutions that drive efficiency and growth. With our commitment to being <strong>Fast, Reliable, Global</strong>, we ensure your goods reach their destination seamlessly and on time.
                   </p>
                 </div>
               </div>
               <div className="col-lg-5" data-aos="fade">
                 <form
-                  action="forms/quote.php"
-                  method="post"
-                  className="php-email-form"
+                    action="forms/quote.php"
+                    method="post"
+                    className="php-email-form"
                 >
                   <h3>Location</h3>
                   <p>
-                    Vel nobis odio laboriosam et hic voluptatem. Inventore vitae
-                    totam. Rerum repellendus enim linead sero park flows.
+                    Find us easily and plan your visit. Our office is situated in a convenient location, and we are always here to assist with your shipping needs. As part of our commitment to being <strong>Fast, Reliable, Global</strong>, we ensure our services are accessible and responsive.
                   </p>
                   <div className="row gy-3">
                     <div className="col-md-12">
                       <iframe src={"https://www.google.com/maps/embed/v1/place?key=AIzaSyA5DW0zd4-Myw4JuPdAEqYA3Es8cRlza7c&q=" + contactDetails.location}
-                              style={{border: 0, width: '100%', height: 200}} frameborder="0" allowFullScreen/>
-
+                              style={{border: 0, width: '100%', height: 200}} frameBorder="0" allowFullScreen/>
                     </div>
                   </div>
                 </form>
@@ -73,7 +69,7 @@ function Home() {
         <section id="constructions" className="constructions">
           <div className="container" data-aos="fade-up">
             <div className="section-header">
-              <h3>Welcome to <span className="site-name-primary">Carry Shipment</span></h3>
+              <h3 style={{fontSize: "36px"}}>What We <span className="site-name-primary">Offer</span></h3>
               <p></p>
             </div>
             <div className="row gy-4">
@@ -89,15 +85,11 @@ function Home() {
                           }}
                       />
                     </div>
-                    <div className="col-xl-7 d-flex align-items-start">
+                    <div className="col-xl-7 d-flex align-items-center">
                       <div className="card-body  lh-1">
                         <h4 className="card-title">Land Freight</h4>
                         <p>
-                          Carry possesses outstanding expertise and extensive
-                          experience in Road and Rail Transport. Utilizing our
-                          extensive network, we excel in identifying the optimal
-                          balance of time, cost, and perfortrailersmance to meet
-                          customer requirements.
+                          CarryShipment brings exceptional expertise and extensive experience in road and rail transport. Leveraging our vast network, we excel at balancing time, cost, and performance to meet your specific needs efficiently. Our focus is on delivering optimal solutions that align with your logistics goals and operational requirements.
                         </p>
                         <Link
                             to="/services" scroll-to="#service-1" onClick={scrollToElement}
@@ -124,16 +116,12 @@ function Home() {
                       />
                     </div>
                     <div className="col-xl-7 d-flex align-items-center">
-                      <div className="card-body  lh-1">
+                      <div className="card-body lh-1">
                         <h4 className="card-title">
-                          Warehousing Distribution:
+                          Warehousing Distribution
                         </h4>
                         <p>
-                          Warehousing solutions made simple. Freight
-                          consolidation with a logistics partner reduces
-                          unnecessary costs. Whether you have one pallet or one
-                          hundred pallets, carry shipment provides an integrated
-                          supply chain logistics solution for you.
+                          Simplify your warehousing needs with CarryShipment. Our freight consolidation services with a trusted logistics partner help reduce unnecessary costs. Whether you have one pallet or one hundred, we offer integrated supply chain solutions that ensure efficient handling and storage of your goods. Our services are designed to optimize your inventory management and operational efficiency.
                         </p>
                         <Link
                             to="/services" scroll-to="#service-2" onClick={scrollToElement}
@@ -159,17 +147,13 @@ function Home() {
                           }}
                       />
                     </div>
-                    <div className="col-xl-7 d-flex align-items-start">
+                    <div className="col-xl-7 d-flex  align-items-center">
                       <div className="card-body  lh-1">
                         <h4 className="card-title">
                           Intermodal/Multimodal Freight
                         </h4>
                         <p>
-                          Carry’s inter modal transportation services
-                          encompasses both road and rail options and offer
-                          several benefits such as greater flexibility,
-                          increased capacity, reliable lead times, and a
-                          significantly reduced carbon footprint.
+                          CarryShipment’s intermodal transportation services combine both road and rail options to offer you greater flexibility and increased capacity. Our solutions provide reliable lead times and significantly reduce your carbon footprint. By integrating multiple modes of transport, we ensure cost-effective and efficient delivery that meets your logistics needs.
                         </p>
                         <Link
                             to="/services" scroll-to="#service-3" onClick={scrollToElement}
@@ -196,14 +180,11 @@ function Home() {
                           }}
                       />
                     </div>
-                    <div className="col-xl-7 d-flex align-items-start">
+                    <div className="col-xl-7 d-flex  align-items-center">
                       <div className="card-body lh-1">
                         <h4 className="card-title">Reverse Supply Chain</h4>
                         <p>
-                          CarryShipment has developed an end-to-end reverse
-                          logistics program that provides a system for managing
-                          your product returns, allowing you to recoup revenue
-                          while limiting your environmental impacts.
+                          CarryShipment has developed a comprehensive reverse logistics program to manage product returns effectively. Our system allows you to recoup revenue while minimizing environmental impacts. We handle the entire process of returns, ensuring that your reverse logistics operations are streamlined and cost-efficient.
                         </p>
                         <Link
                             to="/services" scroll-to="#service-4" onClick={scrollToElement}
@@ -228,14 +209,11 @@ function Home() {
                           }}
                       />
                     </div>
-                    <div className="col-xl-7 d-flex align-items-start">
+                    <div className="col-xl-7 d-flex  align-items-center">
                       <div className="card-body  lh-1">
                         <h4 className="card-title">Hazardous Freight</h4>
                         <p>
-                          DG goods comes in various forms - solid, liquid & gas.
-                          CarryShipment handles hazardous cargo including items
-                          of everyday use such as perfumes, batteries, hair
-                          spray and other chemicals.
+                          CarryShipment expertly handles dangerous goods, including solids, liquids, and gases. We manage hazardous cargo such as perfumes, batteries, hair spray, and other chemicals with care and compliance. Our specialized services ensure the safe and secure transportation of these sensitive items, adhering to all safety regulations and standards.
                         </p>
                         <Link
                             to="/services" scroll-to="#service-5" onClick={scrollToElement}
@@ -260,16 +238,11 @@ function Home() {
                           }}
                       />
                     </div>
-                    <div className="col-xl-7 d-flex align-items-start">
+                    <div className="col-xl-7 d-flex  align-items-center">
                       <div className="card-body  lh-1">
                         <h4 className="card-title">Integration</h4>
                         <p>
-                          Carry provides personalized consolidation services on
-                          a global scale for both outbound and inbound
-                          shipments, regardless of the mode of transport.
-                          Freight consolidation proves to be a cost-effective
-                          and time-saving solution, ensuring the safety of
-                          shipments.
+                          CarryShipment offers personalized consolidation services on a global scale for both outbound and inbound shipments. No matter the mode of transport, our freight consolidation solutions are cost-effective and time-saving. We ensure the safety of your shipments while optimizing your logistics and reducing overall transportation costs.
                         </p>
                         <Link
                             to="/services" scroll-to="#service-6" onClick={scrollToElement}
@@ -294,17 +267,11 @@ function Home() {
                           }}
                       />
                     </div>
-                    <div className="col-xl-7 d-flex align-items-start">
+                    <div className="col-xl-7 d-flex  align-items-center">
                       <div className="card-body  lh-1">
                         <h4 className="card-title">Freight Insurance</h4>
                         <p>
-                          CarryShipment is adept in navigating the intricacies
-                          of cargo insurance, recognizing the perils associated
-                          with uninsured shipments. We simplify the process by
-                          providing a comprehensive insurance cover that
-                          safeguards against all potential external causes
-                          resulting in physical loss or damage to freight during
-                          shipping.
+                          At CarryShipment, we handle the complexities of cargo insurance, addressing the risks associated with uninsured shipments. Our comprehensive insurance coverage safeguards against potential external causes of loss or damage during transit. We simplify the insurance process, ensuring your freight is protected throughout the shipping journey.
                         </p>
                         <Link
                             to="/services" scroll-to="#service-7" onClick={scrollToElement}
@@ -325,11 +292,11 @@ function Home() {
                           className="card-bg"
                           style={{
                             backgroundImage: "url(assets/img/Seight.jpg)",
-                            height: "100%",
+                            height: "357px",
                           }}
                       />
                     </div>
-                    <div className="col-xl-7 d-flex align-items-start">
+                    <div className="col-xl-7 d-flex  align-items-center">
                       <div className="card-body  lh-1">
                         <h4 className="card-title">Exceptional cargo</h4>
                         <p className="col-12">
@@ -337,11 +304,8 @@ function Home() {
                           singular logistical hurdles.
                         </p>
                         <p>
-                          Navigating bulk & break bulk shipments <br/>
-                          Expertly managing heavy lifts and over-dimensional
-                          cargo <br/> Orchestrating seamless relocations of entire
-                          plants <br/> Mastering the art of lashing & chocking
-                          Conducting precise survey services
+                          Expertly managing bulk and break bulk shipments, CarryShipment specializes in handling heavy lifts and over-dimensional cargo. We orchestrate seamless relocations of entire plants and master the art of lashing and chocking. Our precise survey services ensure that all aspects of your bulk cargo are handled with utmost accuracy and care.
+
                         </p>
                         <Link
                             to="/services" scroll-to="#service-8" onClick={scrollToElement}
@@ -364,7 +328,7 @@ function Home() {
           <div className="container" data-aos="fade-up">
             <div className="section-header">
               <h2>HOW WE DO IT</h2>
-              <p>Our experienced, knowledgeable experts offer optimal solutions to help you meet your business challenges.</p>
+              <p>Our skilled team provides tailored, strategic solutions designed to effectively address and resolve your business challenges.</p>
             </div>
             <div className="row gy-4">
               <div
@@ -374,7 +338,7 @@ function Home() {
               >
                 <div className="service-item  position-relative">
                   <div className="icon p-2">
-                    <i className="fa-solid fa-mountain-city fs-3 ps-2" />
+                    <i className="fa-solid fa-arrow-up-from-ground-water fs-4 ps-3 pt-1" />
                   </div>
                   <h3>Your ocean freight Solution</h3>
                   <p>
@@ -390,7 +354,7 @@ function Home() {
               >
                 <div className="service-item position-relative">
                   <div className="icon p-2 ">
-                    <i className="fa-solid fa-arrow-up-from-ground-water fs-3 ps-2" />
+                    <i className="fa-solid fa-mountain-city fs-4 ps-3 pt-1" />
                   </div>
                   <h3>Land transportation services </h3>
                   <p>
@@ -406,7 +370,7 @@ function Home() {
               >
                 <div className="service-item position-relative">
                   <div className="icon  p-2">
-                    <i className="fa-solid fa-compass-drafting fs-3 ps-3" />
+                    <i className="fa-solid fa-warehouse fs-4 ps-3 pt-1" />
                   </div>
                   <h3>Warehousing</h3>
                   <p>
@@ -438,7 +402,7 @@ function Home() {
               >
                 <div className="service-item position-relative">
                   <div className="icon  p-2">
-                    <i className="fa-solid fa-helmet-safety fs-3 ps-3" />
+                    <i className="fa-solid fa-boxes-packing fs-4 ps-3 pt-1" />
                   </div>
                   <h3>Packaging And Safe Storage</h3>
                   <p>
@@ -454,7 +418,7 @@ function Home() {
               >
                 <div className="service-item position-relative">
                   <div className="icon  p-2 ">
-                    <i className="fa-solid fa-arrow-up-from-ground-water fs-3 ps-3" />
+                    <i className="fa-solid fa-truck-pickup fs-3 ps-3" />
                   </div>
                   <h3> Cargo</h3>
                   <p>
@@ -484,7 +448,7 @@ function Home() {
               >
                 <div className="service-item position-relative">
                   <div className="icon  p-2 ">
-                    <i className="bi bi-airplane fs-3 ps-3" />
+                    <i className="fa-solid fa-map-location-dot fs-3 ps-3" />
                   </div>
                   <h3>Delivery from one door to another</h3>
                   <p>
@@ -499,7 +463,7 @@ function Home() {
               >
                 <div className="service-item position-relative">
                   <div className="icon  p-2 ">
-                    <i className="bi bi-person-wheelchair fs-3 ps-3" />
+                    <i className="fa-solid fa-earth-europe fs-2 ps-3" />
                   </div>
                   <h3> Global Transportation</h3>
                   <p>
@@ -524,85 +488,79 @@ function Home() {
                 data-aos-delay={100}
               />
               <div className="col-lg-5 d-flex flex-column justify-content-center">
-                <h3>Enim quis est voluptatibus aliquid consequatur fugiat</h3>
+                <h3>Dedicated to Delivering Excellence in Every Project</h3>
                 <p>
-                  Esse voluptas cumque vel exercitationem. Reiciendis est hic
-                  accusamus. Non ipsam et sed minima temporibus laudantium.
-                  Soluta voluptate sed facere corporis dolores excepturi
+                  From strategic planning to execution, our team ensures that your project meets the highest standards of quality and efficiency.
                 </p>
                 <div
-                  className="icon-box d-flex position-relative"
-                  data-aos="fade-up"
-                  data-aos-delay={100}
+                    className="icon-box d-flex position-relative"
+                    data-aos="fade-up"
+                    data-aos-delay={100}
                 >
-                  <i className="bi bi-easel flex-shrink-0" />
+                  <i className="bi bi-gear flex-shrink-0" />
                   <div>
                     <h4>
                       <a href className="stretched-link">
-                        Lorem Ipsum
+                        Comprehensive Planning
                       </a>
                     </h4>
                     <p>
-                      Voluptatum deleniti atque corrupti quos dolores et quas
-                      molestias excepturi sint occaecati cupiditate non
-                      provident
+                      We meticulously plan every detail to ensure seamless execution, minimizing risks and maximizing efficiency.
                     </p>
                   </div>
                 </div>
                 {/* End Icon Box */}
                 <div
-                  className="icon-box d-flex position-relative"
-                  data-aos="fade-up"
-                  data-aos-delay={200}
+                    className="icon-box d-flex position-relative"
+                    data-aos="fade-up"
+                    data-aos-delay={200}
                 >
-                  <i className="bi bi-patch-check flex-shrink-0" />
+                  <i className="bi bi-person-lines-fill flex-shrink-0" />
                   <div>
                     <h4>
                       <a href className="stretched-link">
-                        Nemo Enim
+                        Expert Team
                       </a>
                     </h4>
                     <p>
-                      At vero eos et accusamus et iusto odio dignissimos ducimus
-                      qui blanditiis praesentium voluptatum deleniti atque
+                      Our experienced professionals bring their industry expertise to every project, ensuring top-tier results.
                     </p>
                   </div>
                 </div>
                 {/* End Icon Box */}
                 <div
-                  className="icon-box d-flex position-relative"
-                  data-aos="fade-up"
-                  data-aos-delay={300}
+                    className="icon-box d-flex position-relative"
+                    data-aos="fade-up"
+                    data-aos-delay={300}
                 >
-                  <i className="bi bi-brightness-high flex-shrink-0" />
+                  <i className="bi bi-tools flex-shrink-0" />
                   <div>
                     <h4>
                       <a href className="stretched-link">
-                        Dine Pad
+                        Advanced Tools and Technology
                       </a>
                     </h4>
                     <p>
-                      Explicabo est voluptatum asperiores consequatur magnam. Et
-                      veritatis odit. Sunt aut deserunt minus aut eligendi omnis
+                      We utilize cutting-edge tools and technology to streamline processes, reduce costs, and deliver superior outcomes.
                     </p>
                   </div>
                 </div>
                 {/* End Icon Box */}
                 <div
-                  className="icon-box d-flex position-relative"
-                  data-aos="fade-up"
-                  data-aos-delay={400}
+                    className="icon-box d-flex position-relative"
+                    data-aos="fade-up"
+                    data-aos-delay={400}
                 >
-                  <i className="bi bi-brightness-high flex-shrink-0" />
+                  <i className="bi bi-shield-check flex-shrink-0" />
                   <div>
                     <h4>
                       <a href className="stretched-link">
-                        Tride clov
+                        Safety and Compliance
                       </a>
                     </h4>
                     <p>
-                      Est voluptatem labore deleniti quis a delectus et. Saepe
-                      dolorem libero sit non aspernatur odit amet. Et eligendi
+                      Safety is our priority. We adhere to strict safety protocols and regulatory standards to ensure the well-being of our team and
+                      the quality of our work.
                     </p>
                   </div>
                 </div>
@@ -616,43 +574,43 @@ function Home() {
         <section id="features" className="features section-bg">
           <div className="container" data-aos="fade-up">
             <ul className="nav nav-tabs row  g-2 d-flex">
-              <li className="nav-item col-3">
+              <li className="nav-item col-6 col-md-3">
                 <a
                   className="nav-link active show"
                   data-bs-toggle="tab"
                   data-bs-target="#tab-1"
                 >
-                  <h4>Modisit</h4>
+                  <h4>Nationwide Coverage</h4>
                 </a>
               </li>
               {/* End tab nav item */}
-              <li className="nav-item col-3">
+              <li className="nav-item col-6 col-md-3">
                 <a
                   className="nav-link"
                   data-bs-toggle="tab"
                   data-bs-target="#tab-2"
                 >
-                  <h4>Praesenti</h4>
+                  <h4>Dependable Logistics</h4>
                 </a>
                 {/* End tab nav item */}
               </li>
-              <li className="nav-item col-3">
+              <li className="nav-item col-6 col-md-3">
                 <a
                   className="nav-link"
                   data-bs-toggle="tab"
                   data-bs-target="#tab-3"
                 >
-                  <h4>Explica</h4>
+                  <h4>Cost-Effective Strategies</h4>
                 </a>
               </li>
               {/* End tab nav item */}
-              <li className="nav-item col-3">
+              <li className="nav-item col-6 col-md-3">
                 <a
                   className="nav-link"
                   data-bs-toggle="tab"
                   data-bs-target="#tab-4"
                 >
-                  <h4>Nostrum</h4>
+                  <h4>Professional Expertise</h4>
                 </a>
               </li>
               {/* End tab nav item */}
@@ -661,42 +619,42 @@ function Home() {
               <div className="tab-pane active show" id="tab-1">
                 <div className="row">
                   <div
-                    className="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0 d-flex flex-column justify-content-center"
-                    data-aos="fade-up"
-                    data-aos-delay={100}
+                      className="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0 d-flex flex-column justify-content-center"
+                      data-aos="fade-up"
+                      data-aos-delay={100}
                   >
-                    <h3>Voluptatem dignissimos provident</h3>
+                    <h3>Nationwide Coverage</h3>
                     <p className="fst-italic">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua.
+                      Our extensive transport network ensures comprehensive coverage across
+                      the entire country, delivering your cargo with unparalleled efficiency
+                      and precision.
                     </p>
                     <ul>
                       <li>
-                        <i className="bi bi-check2-all" /> Ullamco laboris nisi
-                        ut aliquip ex ea commodo consequat.
+                        <i className="bi bi-check2-all" /> We are equipped to handle
+                        logistics across all regions, meeting your distribution needs
+                        seamlessly.
                       </li>
                       <li>
-                        <i className="bi bi-check2-all" /> Duis aute irure dolor
-                        in reprehenderit in voluptate velit.
+                        <i className="bi bi-check2-all" /> Our services span urban and rural
+                        areas, ensuring timely deliveries wherever you need them.
                       </li>
                       <li>
-                        <i className="bi bi-check2-all" /> Ullamco laboris nisi
-                        ut aliquip ex ea commodo consequat. Duis aute irure
-                        dolor in reprehenderit in voluptate trideta
-                        storacalaperda mastiro dolore eu fugiat nulla pariatur.
+                        <i className="bi bi-check2-all" /> We utilize a fleet of
+                        state-of-the-art vehicles, maintained to the highest standards for
+                        reliability and safety.
                       </li>
                     </ul>
                   </div>
                   <div
-                    className="col-lg-6 order-1 order-lg-2 text-center"
-                    data-aos="fade-up"
-                    data-aos-delay={200}
+                      className="col-lg-6 order-1 order-lg-2 text-center"
+                      data-aos="fade-up"
+                      data-aos-delay={200}
                   >
                     <img
-                      src="assets/img/features-1.jpg"
-                      alt
-                      className="img-fluid"
+                        src="assets/img/nation-wide.webp"
+                        alt="Nationwide Coverage"
+                        className="img-fluid"
                     />
                   </div>
                 </div>
@@ -704,40 +662,42 @@ function Home() {
               {/* End tab content item */}
               <div className="tab-pane" id="tab-2">
                 <div className="row">
-                  <div className="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0 d-flex flex-column justify-content-center">
-                    <h3>Neque exercitationem debitis</h3>
+                  <div
+                      className="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0 d-flex flex-column justify-content-center"
+                      data-aos="fade-up"
+                      data-aos-delay={100}
+                  >
+                    <h3>Dependable Logistics</h3>
                     <p className="fst-italic">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua.
+                      Count on our commitment to dependable logistics solutions. We
+                      prioritize punctuality and safety in every delivery.
                     </p>
                     <ul>
                       <li>
-                        <i className="bi bi-check2-all" /> Ullamco laboris nisi
-                        ut aliquip ex ea commodo consequat.
+                        <i className="bi bi-check2-all" /> We meticulously manage every
+                        phase of the transport process to ensure your shipments are
+                        delivered as scheduled and in optimal condition.
                       </li>
                       <li>
-                        <i className="bi bi-check2-all" /> Duis aute irure dolor
-                        in reprehenderit in voluptate velit.
+                        <i className="bi bi-check2-all" /> Our tracking systems provide
+                        real-time updates, giving you peace of mind at every stage of
+                        transit.
                       </li>
                       <li>
-                        <i className="bi bi-check2-all" /> Provident mollitia
-                        neque rerum asperiores dolores quos qui a. Ipsum neque
-                        dolor voluptate nisi sed.
-                      </li>
-                      <li>
-                        <i className="bi bi-check2-all" /> Ullamco laboris nisi
-                        ut aliquip ex ea commodo consequat. Duis aute irure
-                        dolor in reprehenderit in voluptate trideta
-                        storacalaperda mastiro dolore eu fugiat nulla pariatur.
+                        <i className="bi bi-check2-all" /> Our logistics team is available
+                        24/7 to address any concerns and ensure smooth operations.
                       </li>
                     </ul>
                   </div>
-                  <div className="col-lg-6 order-1 order-lg-2 text-center">
+                  <div
+                      className="col-lg-6 order-1 order-lg-2 text-center"
+                      data-aos="fade-up"
+                      data-aos-delay={200}
+                  >
                     <img
-                      src="assets/img/features-2.jpg"
-                      alt
-                      className="img-fluid"
+                        src="path-to-your-image/Dependable-Logistics.jpg"
+                        alt="Dependable Logistics"
+                        className="img-fluid"
                     />
                   </div>
                 </div>
@@ -745,34 +705,41 @@ function Home() {
               {/* End tab content item */}
               <div className="tab-pane" id="tab-3">
                 <div className="row">
-                  <div className="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0 d-flex flex-column justify-content-center">
-                    <h3>Voluptatibus commodi accusamu</h3>
+                  <div
+                      className="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0 d-flex flex-column justify-content-center"
+                      data-aos="fade-up"
+                      data-aos-delay={100}
+                  >
+                    <h3>Cost-Effective Strategies</h3>
+                    <p className="fst-italic">
+                      We offer cost-effective logistics strategies designed to optimize your
+                      budget without compromising on quality.
+                    </p>
                     <ul>
                       <li>
-                        <i className="bi bi-check2-all" /> Ullamco laboris nisi
-                        ut aliquip ex ea commodo consequat.
+                        <i className="bi bi-check2-all" /> Our solutions leverage advanced
+                        technologies and efficient processes to provide competitive pricing
+                        and superior service.
                       </li>
                       <li>
-                        <i className="bi bi-check2-all" /> Duis aute irure dolor
-                        in reprehenderit in voluptate velit.
+                        <i className="bi bi-check2-all" /> We continuously analyze and
+                        refine our processes to ensure maximum efficiency and cost savings.
                       </li>
                       <li>
-                        <i className="bi bi-check2-all" /> Provident mollitia
-                        neque rerum asperiores dolores quos qui a. Ipsum neque
-                        dolor voluptate nisi sed.
+                        <i className="bi bi-check2-all" /> Our transparent pricing model
+                        ensures you get the best value for your investment.
                       </li>
                     </ul>
-                    <p className="fst-italic">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua.
-                    </p>
                   </div>
-                  <div className="col-lg-6 order-1 order-lg-2 text-center">
+                  <div
+                      className="col-lg-6 order-1 order-lg-2 text-center"
+                      data-aos="fade-up"
+                      data-aos-delay={200}
+                  >
                     <img
-                      src="assets/img/features-3.jpg"
-                      alt
-                      className="img-fluid"
+                        src="path-to-your-image/Cost-Effective-Strategies.jpg"
+                        alt="Cost-Effective Strategies"
+                        className="img-fluid"
                     />
                   </div>
                 </div>
@@ -780,207 +747,54 @@ function Home() {
               {/* End tab content item */}
               <div className="tab-pane" id="tab-4">
                 <div className="row">
-                  <div className="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0 d-flex flex-column justify-content-center">
-                    <h3>Omnis fugiat ea explicabo sunt</h3>
+                  <div
+                      className="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0 d-flex flex-column justify-content-center"
+                      data-aos="fade-up"
+                      data-aos-delay={100}
+                  >
+                    <h3>Professional Expertise</h3>
                     <p className="fst-italic">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua.
+                      Our team of seasoned logistics experts brings a wealth of knowledge
+                      and experience to every project.
                     </p>
                     <ul>
                       <li>
-                        <i className="bi bi-check2-all" /> Ullamco laboris nisi
-                        ut aliquip ex ea commodo consequat.
+                        <i className="bi bi-check2-all" /> We apply a strategic approach to
+                        address your transport needs, offering tailored solutions that align
+                        with industry best practices.
                       </li>
                       <li>
-                        <i className="bi bi-check2-all" /> Duis aute irure dolor
-                        in reprehenderit in voluptate velit.
+                        <i className="bi bi-check2-all" /> Our team undergoes continuous
+                        training to stay ahead of industry trends and regulations.
                       </li>
                       <li>
-                        <i className="bi bi-check2-all" /> Ullamco laboris nisi
-                        ut aliquip ex ea commodo consequat. Duis aute irure
-                        dolor in reprehenderit in voluptate trideta
-                        storacalaperda mastiro dolore eu fugiat nulla pariatur.
+                        <i className="bi bi-check2-all" /> We take pride in our exceptional
+                        customer service, ensuring that your logistics needs are met with
+                        professionalism and care.
                       </li>
                     </ul>
                   </div>
-                  <div className="col-lg-6 order-1 order-lg-2 text-center">
+                  <div
+                      className="col-lg-6 order-1 order-lg-2 text-center"
+                      data-aos="fade-up"
+                      data-aos-delay={200}
+                  >
                     <img
-                      src="assets/img/features-4.jpg"
-                      alt
-                      className="img-fluid"
+                        src="path-to-your-image/Professional-Expertise.jpg"
+                        alt="Professional Expertise"
+                        className="img-fluid"
                     />
                   </div>
                 </div>
               </div>
               {/* End tab content item */}
             </div>
+
           </div>
         </section>
         {/* End Features Section */}
         {/* ======= Testimonials Section ======= */}
-        <section id="testimonials" className="testimonials section-bg">
-          <div className="container" data-aos="fade-up">
-            <div className="section-header">
-              <h2>Testimonials</h2>
-              <p>
-                Quam sed id excepturi ccusantium dolorem ut quis dolores nisi
-                llum nostrum enim velit qui ut et autem uia reprehenderit sunt
-                deleniti
-              </p>
-            </div>
-            <div className="slides-2 swiper">
-              <div className="swiper-wrapper">
-                <div className="swiper-slide">
-                  <div className="testimonial-wrap">
-                    <div className="testimonial-item">
-                      <img
-                        src="assets/img/testimonials/testimonials-1.jpg"
-                        className="testimonial-img"
-                        alt
-                      />
-                      <h3>Saul Goodman</h3>
-                      <h4>Ceo &amp; Founder</h4>
-                      <div className="stars">
-                        <i className="bi bi-star-fill" />
-                        <i className="bi bi-star-fill" />
-                        <i className="bi bi-star-fill" />
-                        <i className="bi bi-star-fill" />
-                        <i className="bi bi-star-fill" />
-                      </div>
-                      <p>
-                        <i className="bi bi-quote quote-icon-left" />
-                        Proin iaculis purus consequat sem cure digni ssim donec
-                        porttitora entum suscipit rhoncus. Accusantium quam,
-                        ultricies eget id, aliquam eget nibh et. Maecen aliquam,
-                        risus at semper.
-                        <i className="bi bi-quote quote-icon-right" />
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                {/* End testimonial item */}
-                <div className="swiper-slide">
-                  <div className="testimonial-wrap">
-                    <div className="testimonial-item">
-                      <img
-                        src="assets/img/testimonials/testimonials-2.jpg"
-                        className="testimonial-img"
-                        alt
-                      />
-                      <h3>Sara Wilsson</h3>
-                      <h4>Designer</h4>
-                      <div className="stars">
-                        <i className="bi bi-star-fill" />
-                        <i className="bi bi-star-fill" />
-                        <i className="bi bi-star-fill" />
-                        <i className="bi bi-star-fill" />
-                        <i className="bi bi-star-fill" />
-                      </div>
-                      <p>
-                        <i className="bi bi-quote quote-icon-left" />
-                        Export tempor illum tamen malis malis eram quae irure
-                        esse labore quem cillum quid cillum eram malis quorum
-                        velit fore eram velit sunt aliqua noster fugiat irure
-                        amet legam anim culpa.
-                        <i className="bi bi-quote quote-icon-right" />
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                {/* End testimonial item */}
-                <div className="swiper-slide">
-                  <div className="testimonial-wrap">
-                    <div className="testimonial-item">
-                      <img
-                        src="assets/img/testimonials/testimonials-3.jpg"
-                        className="testimonial-img"
-                        alt
-                      />
-                      <h3>Jena Karlis</h3>
-                      <h4>Store Owner</h4>
-                      <div className="stars">
-                        <i className="bi bi-star-fill" />
-                        <i className="bi bi-star-fill" />
-                        <i className="bi bi-star-fill" />
-                        <i className="bi bi-star-fill" />
-                        <i className="bi bi-star-fill" />
-                      </div>
-                      <p>
-                        <i className="bi bi-quote quote-icon-left" />
-                        Enim nisi quem export duis labore cillum quae magna enim
-                        sint quorum nulla quem veniam duis minim tempor labore
-                        quem eram duis noster aute amet eram fore quis sint
-                        minim.
-                        <i className="bi bi-quote quote-icon-right" />
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                {/* End testimonial item */}
-                <div className="swiper-slide">
-                  <div className="testimonial-wrap">
-                    <div className="testimonial-item">
-                      <img
-                        src="assets/img/testimonials/testimonials-4.jpg"
-                        className="testimonial-img"
-                        alt
-                      />
-                      <h3>Matt Brandon</h3>
-                      <h4>Freelancer</h4>
-                      <div className="stars">
-                        <i className="bi bi-star-fill" />
-                        <i className="bi bi-star-fill" />
-                        <i className="bi bi-star-fill" />
-                        <i className="bi bi-star-fill" />
-                        <i className="bi bi-star-fill" />
-                      </div>
-                      <p>
-                        <i className="bi bi-quote quote-icon-left" />
-                        Fugiat enim eram quae cillum dolore dolor amet nulla
-                        culpa multos export minim fugiat minim velit minim dolor
-                        enim duis veniam ipsum anim magna sunt elit fore quem
-                        dolore labore illum veniam.
-                        <i className="bi bi-quote quote-icon-right" />
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                {/* End testimonial item */}
-                <div className="swiper-slide">
-                  <div className="testimonial-wrap">
-                    <div className="testimonial-item">
-                      <img
-                        src="assets/img/testimonials/testimonials-5.jpg"
-                        className="testimonial-img"
-                        alt
-                      />
-                      <h3>John Larson</h3>
-                      <h4>Entrepreneur</h4>
-                      <div className="stars">
-                        <i className="bi bi-star-fill" />
-                        <i className="bi bi-star-fill" />
-                        <i className="bi bi-star-fill" />
-                        <i className="bi bi-star-fill" />
-                        <i className="bi bi-star-fill" />
-                      </div>
-                      <p>
-                        <i className="bi bi-quote quote-icon-left" />
-                        Quis quorum aliqua sint quem legam fore sunt eram irure
-                        aliqua veniam tempor noster veniam enim culpa labore
-                        duis sunt culpa nulla illum cillum fugiat legam esse
-                        veniam culpa fore nisi cillum quid.
-                        <i className="bi bi-quote quote-icon-right" />
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                {/* End testimonial item */}
-              </div>
-              <div className="swiper-pagination" />
-            </div>
-          </div>
-        </section>
+        <Testimonials />
         {/* End Testimonials Section */}
         {/* <Chat/> */}
       </main>

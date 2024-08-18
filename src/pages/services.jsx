@@ -41,18 +41,12 @@ function Services() {
                                             }}
                                         />
                                     </div>
-                                    <div className="col-xl-7 d-flex align-items-start">
+                                    <div className="col-xl-7 d-flex align-items-center">
                                         <div className="card-body  lh-1">
                                             <h4 className="card-title">Land Freight</h4>
                                             <p>
-                                                Carry possesses outstanding expertise and extensive
-                                                experience in Road and Rail Transport. Utilizing our
-                                                extensive network, we excel in identifying the optimal
-                                                balance of time, cost, and perfortrailersmance to meet
-                                                customer requirements. Our services encompass:
+                                                CarryShipment brings exceptional expertise and extensive experience in road and rail transport. Leveraging our vast network, we excel at balancing time, cost, and performance to meet your specific needs efficiently. Our focus is on delivering optimal solutions that align with your logistics goals and operational requirements.
                                             </p>
-                                            <p> Inland haulage</p>
-                                            <p>Specialized equipment movements using semi or low bed trailers</p>
                                         </div>
                                     </div>
                                 </div>
@@ -74,7 +68,7 @@ function Services() {
                                     <div className="col-xl-7 d-flex align-items-center">
                                         <div className="card-body  lh-1">
                                             <h4 className="card-title">
-                                                Warehousing Distribution:
+                                                Warehousing Distribution
                                             </h4>
                                             <p>
                                                 Warehousing solutions made simple. Freight
@@ -106,7 +100,7 @@ function Services() {
                                             }}
                                         />
                                     </div>
-                                    <div className="col-xl-7 d-flex align-items-start">
+                                    <div className="col-xl-7 d-flex align-items-center">
                                         <div className="card-body  lh-1">
                                             <h4 className="card-title">
                                                 Intermodal/Multimodal Freight
@@ -140,17 +134,11 @@ function Services() {
                                             }}
                                         />
                                     </div>
-                                    <div className="col-xl-7 d-flex align-items-start">
+                                    <div className="col-xl-7 d-flex align-items-center">
                                         <div className="card-body lh-1">
                                             <h4 className="card-title">Reverse Supply Chain</h4>
                                             <p>
-                                                CarryShipment has developed an end-to-end reverse
-                                                logistics program that provides a system for managing
-                                                your product returns, allowing you to recoup revenue
-                                                while limiting your environmental impacts, including a
-                                                zero-landfill solution. Our expert management of
-                                                products’ aftermarket life cycle ensures the maximum
-                                                recovery value for reused goods.
+                                                CarryShipment has developed a comprehensive reverse logistics program to manage product returns effectively. Our system allows you to recoup revenue while minimizing environmental impacts. We handle the entire process of returns, ensuring that your reverse logistics operations are streamlined and cost-efficient.
                                             </p>
                                         </div>
                                     </div>
@@ -169,7 +157,7 @@ function Services() {
                                             }}
                                         />
                                     </div>
-                                    <div className="col-xl-7 d-flex align-items-start">
+                                    <div className="col-xl-7 d-flex align-items-center">
                                         <div className="card-body  lh-1">
                                             <h4 className="card-title">Hazardous Freight</h4>
                                             <p>
@@ -195,7 +183,7 @@ function Services() {
                                             }}
                                         />
                                     </div>
-                                    <div className="col-xl-7 d-flex align-items-start">
+                                    <div className="col-xl-7 d-flex align-items-center">
                                         <div className="card-body  lh-1">
                                             <h4 className="card-title">Integration</h4>
                                             <p>
@@ -223,7 +211,7 @@ function Services() {
                                             }}
                                         />
                                     </div>
-                                    <div className="col-xl-7 d-flex align-items-start">
+                                    <div className="col-xl-7 d-flex align-items-center">
                                         <div className="card-body  lh-1">
                                             <h4 className="card-title">Freight Insurance</h4>
                                             <p>
@@ -248,11 +236,11 @@ function Services() {
                                             className="card-bg"
                                             style={{
                                                 backgroundImage: "url(assets/img/Seight.jpg)",
-                                                height: "100%",
+                                                height: "357px",
                                             }}
                                         />
                                     </div>
-                                    <div className="col-xl-7 d-flex align-items-start">
+                                    <div className="col-xl-7 d-flex align-items-center">
                                         <div className="card-body  lh-1">
                                             <h4 className="card-title">Exceptional cargo</h4>
                                             <p className="col-12">
@@ -283,7 +271,7 @@ function Services() {
                 <div className="container" data-aos="fade-up">
                     <div className="section-header">
                         <h2>HOW WE DO IT</h2>
-                        <p>Our experienced, knowledgeable experts offer optimal solutions to help you meet your business challenges.</p>
+                        <p>Our skilled team provides tailored, strategic solutions designed to effectively address and resolve your business challenges.</p>
                     </div>
                     <div className="row gy-4">
                         <div
@@ -293,7 +281,7 @@ function Services() {
                         >
                             <div className="service-item  position-relative">
                                 <div className="icon p-2">
-                                    <i className="fa-solid fa-mountain-city fs-3 ps-2" />
+                                    <i className="fa-solid fa-arrow-up-from-ground-water fs-4 ps-3 pt-1" />
                                 </div>
                                 <h3>Your ocean freight Solution</h3>
                                 <p>
@@ -309,7 +297,7 @@ function Services() {
                         >
                             <div className="service-item position-relative">
                                 <div className="icon p-2 ">
-                                    <i className="fa-solid fa-arrow-up-from-ground-water fs-3 ps-2" />
+                                    <i className="fa-solid fa-mountain-city fs-4 ps-3 pt-1" />
                                 </div>
                                 <h3>Land transportation services </h3>
                                 <p>
@@ -325,11 +313,11 @@ function Services() {
                         >
                             <div className="service-item position-relative">
                                 <div className="icon  p-2">
-                                    <i className="fa-solid fa-compass-drafting fs-3 ps-3" />
+                                    <i className="fa-solid fa-warehouse fs-4 ps-3 pt-1" />
                                 </div>
                                 <h3>Warehousing</h3>
                                 <p>
-                                    Effectively and securely package and store your belongings to ensure their safety in our storage facilities.
+                                    Ensure the effective and secure storage of your items by utilizing our warehousing services, expertly packaging and safeguarding your belongings.
                                 </p>
                             </div>
                         </div>
@@ -357,7 +345,7 @@ function Services() {
                         >
                             <div className="service-item position-relative">
                                 <div className="icon  p-2">
-                                    <i className="fa-solid fa-helmet-safety fs-3 ps-3" />
+                                    <i className="fa-solid fa-boxes-packing fs-4 ps-3 pt-1" />
                                 </div>
                                 <h3>Packaging And Safe Storage</h3>
                                 <p>
@@ -373,7 +361,7 @@ function Services() {
                         >
                             <div className="service-item position-relative">
                                 <div className="icon  p-2 ">
-                                    <i className="fa-solid fa-arrow-up-from-ground-water fs-3 ps-3" />
+                                    <i className="fa-solid fa-truck-pickup fs-3 ps-3" />
                                 </div>
                                 <h3> Cargo</h3>
                                 <p>
@@ -403,7 +391,7 @@ function Services() {
                         >
                             <div className="service-item position-relative">
                                 <div className="icon  p-2 ">
-                                    <i className="bi bi-airplane fs-3 ps-3" />
+                                    <i className="fa-solid fa-map-location-dot fs-3 ps-3" />
                                 </div>
                                 <h3>Delivery from one door to another</h3>
                                 <p>
@@ -418,7 +406,7 @@ function Services() {
                         >
                             <div className="service-item position-relative">
                                 <div className="icon  p-2 ">
-                                    <i className="bi bi-person-wheelchair fs-3 ps-3" />
+                                    <i className="fa-solid fa-earth-europe fs-2 ps-3" />
                                 </div>
                                 <h3> Global Transportation</h3>
                                 <p>

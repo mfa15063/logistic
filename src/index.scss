@@ -1,3 +1,7 @@
+a {
+  text-decoration: none !important;
+}
+
 .site-name-primary {
   color: var(--color-primary);
 }
@@ -111,5 +115,31 @@
     max-width: 100px;
     min-height: 100px;
     max-height: 100px;
+  }
+}
+
+#testimonials {
+  .carousel-indicators {
+    margin-top: 1rem;
+    button {
+      background-color: rgba(0, 0, 0, 0.34); /* Gray for inactive slides */
+    }
+
+    button.active {
+      background-color: #FEB900; /* Yellow for active slide */
+    }
+  }
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    display: none; /* Hides navigation arrows */
+  }
+
+  @media (max-width: 767px) {
+    .carousel-indicators {
+      display: inline-flex !important;
+      position: relative !important;
+      margin: 0px 14px !important;
+    }
   }
 }

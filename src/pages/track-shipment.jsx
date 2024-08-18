@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../styles/track-shipment.scss";
 import StatusBar from "../components/status-bar";
-import { fetchShipmentDetails } from "../js/api";
+import {fetchContactDetails, fetchShipmentDetails} from "../js/api";
 import {useParams, Link, useNavigate} from "react-router-dom";
+import {ContactDetails} from "../models";
 
 const TrackShipment = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [contactDetails, setContactDetails] = useState(JSON.parse(localStorage.contactDetails || null) || ContactDetails);
   const [shipmentData, setShipmentData] = useState(null);
   const { clientID } = useParams();
   const inputID = useRef();
@@ -35,6 +37,17 @@ const TrackShipment = () => {
     console.log(clientID);
     if (clientID) {
       setLoading(true);
+      fetchContactDetails().then(res => {
+        try {
+          if (res.success) {
+            setContactDetails(res.data);
+          } else {
+            throw Error(res.message);
+          }
+        } catch (error) {
+          console.log(error.message);
+        }
+      });
       fetchShipmentDetails(clientID).then(orders => {
         try {
 
@@ -391,10 +404,11 @@ const TrackShipment = () => {
                         </div>
                       </div>
                       <div className="col-9">
-                        <h6 className="text-primary">Fixed prices</h6>
+                        <h6 className="text-primary">
+                          Transparent Pricing
+                        </h6>
                         <p className="w-100">
-                          Our prices are always what you pay, simple and secure
-                          with shipLink
+                          Our prices are straight forward and guaranteed no hidden fees, just secure payments.
                         </p>
                       </div>
                     </div>
@@ -419,9 +433,9 @@ const TrackShipment = () => {
                       <div className="col-9">
                         <h6 className="text-primary">Customer Services</h6>
                         <p className="w-75">
-                          Phone: 010-20-708-
-                          <br />
-                          E-mail: order@gmail.com
+                          <strong>Phone:</strong> {contactDetails.phone_no}
+                          <br/>
+                          <strong>Email:</strong> {contactDetails.email}
                         </p>
                       </div>
                     </div>

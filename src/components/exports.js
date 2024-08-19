@@ -5,5 +5,6 @@ import SideBar from "./side-bar";
 import StatusBar from "./status-bar";
 import WhatsappBtn from "./whatsapp-btn";
 import Testimonials from "./testimonials";
+import Chat from "./Chat";
 
-export { HeroSection, Header, SideBar, Footer, StatusBar, WhatsappBtn, Testimonials }
+export { HeroSection, Header, SideBar, Footer, StatusBar, WhatsappBtn, Testimonials, Chat }

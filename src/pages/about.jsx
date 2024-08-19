@@ -6,7 +6,7 @@ function About() {
       {/* ======= Breadcrumbs ======= */}
       <div
         className="breadcrumbs d-flex align-items-center"
-        style={{ backgroundImage: 'url("assets/img/breadcrumbs-bg.jpg")' }}
+        style={{ backgroundImage: 'url("assets/img/about-breadcrumbs.jpg")', backgroundPosition: "center" }}
       >
         <div
           className="container position-relative d-flex flex-column align-items-center"

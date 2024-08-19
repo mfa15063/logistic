@@ -22,13 +22,13 @@ export default function Footer() {
     return (
         <>
             {/* ======= Footer ======= */}
-            <footer id="footer" className="footer">
+            <footer id="footer" className="footer" style={{backgroundPosition: "center"}}>
                 <div className="footer-content position-relative">
                     <div className="container">
                         <div className="row">
                             <div className="col-lg-4 col-md-6">
                                 <div className="footer-info">
-                                    <h3>UpConstruction</h3>
+                                    <h3>Carry <span style={{color: "#feb900"}}>Shipment</span></h3>
                                     <p>
                                         {contactDetails.address}
                                         <br/>

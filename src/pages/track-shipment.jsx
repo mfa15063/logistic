@@ -71,7 +71,7 @@ const TrackShipment = () => {
       {/* ======= Breadcrumbs ======= */}
       <div
         className="breadcrumbs d-flex align-items-center"
-        style={{ backgroundImage: 'url("assets/img/breadcrumbs-bg.jpg")' }}
+        style={{ backgroundImage: 'url("assets/img/track-breadcrumbs.png")' }}
       >
         <div
           className="container position-relative d-flex flex-column align-items-center"

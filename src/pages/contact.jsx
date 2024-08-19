@@ -53,7 +53,7 @@ let Contact = () => {
         <main id="main">
             {/* ======= Breadcrumbs ======= */}
             <div className="breadcrumbs d-flex align-items-center"
-                 style={{backgroundImage: 'url("/assets/img/breadcrumbs-bg.jpg")'}}>
+                 style={{backgroundImage: 'url("/assets/img/contact-breadcrumbs.jpg")', backgroundPosition: "center"}}>
                 <div className="container position-relative d-flex flex-column align-items-center">
                     <h2>Contact</h2>
                     <ol>

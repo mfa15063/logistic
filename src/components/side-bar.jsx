@@ -1,11 +1,23 @@
 import React, {useState, useEffect, useRef} from "react";
-import { Link, Outlet } from "react-router-dom";
+import {Link, Outlet, useNavigate} from "react-router-dom";
 import "../styles/side-bar.scss";
-import { fetchUserProfile } from "../js/api";
+import {fetchUserProfile, logoutUser} from "../js/api";
+import {User} from "../models";
 
 export default function SideBar(props) {
+    const { setUser } = props.all;
     const [loading, setLoading] = useState(true);
     const sideNav = useRef(null);
+    const navigate = useNavigate();
+    const handleLogout = async () => {
+        setLoading(true);
+        const logoutData = await logoutUser();
+        if (logoutData.success) {
+            setUser(User);
+            navigate("/signin");
+        } else alert(logoutData.message);
+        setLoading(false);
+    };
 
     const handleToggleClick = () => {
         sideNav.current.classList.toggle("active");
@@ -65,6 +77,24 @@ export default function SideBar(props) {
                             </span>
                             <span className="title">Edit Profile</span>
                         </Link>
+                    </li>
+                    <li>
+                        <a
+                            onClick={handleLogout}
+                            disabled={loading}
+                            style={{
+                                color: "white",
+                                background: "transparent",
+                                border: "transparent",
+                                outline: "none",
+                                cursor: "pointer"
+                            }}
+                        >
+                            <span className="icon">
+                                <i className="fa-solid fa-right-from-bracket"></i>
+                            </span>
+                            <span className="title">Logout</span>
+                        </a>
                     </li>
                 </ul>
             </nav>

@@ -47,14 +47,16 @@ export default function Header(props) {
                             <li><Link className={location.pathname === "/services" ? "active" : ""} to="/services">Services</Link></li>
                             <li><Link className={location.pathname === "/track-shipment" ? "active" : ""} to="/track-shipment">Track Shipment</Link></li>
                             <li><Link className={location.pathname === "/contact" ? "active" : ""} to="/contact">Contact</Link></li>
-                            <li className="dropdown d-none d-lg-block"><Link to="/profile"><span>Account</span> <i
-                                className="bi bi-chevron-down dropdown-indicator"/></Link>
-                                <ul>
-                                    <li><a href="#">Profile</a></li>
-                                    <li><a href="#">Profile 2</a></li>
-                                    <li><a href="#">Profile 3</a></li>
-                                    <li><a href="#" display-if={userLogin}>Logout</a></li>
-                                </ul>
+                            <li className="dropdown d-none d-lg-block">
+                                <Link to="/profile"><span>Account</span>
+                                {/*<i className="bi bi-chevron-down dropdown-indicator"/>*/}
+                                </Link>
+                                {/*<ul>*/}
+                                {/*    <li><a href="#">Profile</a></li>*/}
+                                {/*    <li><a href="#">Profile 2</a></li>*/}
+                                {/*    <li><a href="#">Profile 3</a></li>*/}
+                                {/*    <li><a href="#" display-if={userLogin}>Logout</a></li>*/}
+                                {/*</ul>*/}
                             </li>
                             <li className="d-lg-none" display-if={userLogin}><Link to="/profile">Account</Link></li>
                             <li className="d-lg-none" display-if={!userLogin}><Link to="/signin">Login</Link></li>

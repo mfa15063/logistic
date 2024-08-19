@@ -56,6 +56,14 @@ export default function HeroSection() {
                     "url(assets/img/hero-carousel/Headerthree.jpg)",
               }}
           />
+          <div
+              className="carousel-item"
+              style={{
+                backgroundImage:
+                    "url(assets/img/hero-carousel/HeaderFour.jpg)",
+                backgroundPosition: "top center"
+              }}
+          />
           <a
               className="carousel-control-prev"
               href="#hero-carousel"

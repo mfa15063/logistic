@@ -67,6 +67,7 @@ export default function SignUp(props) {
                             <MDBInput
                                 size="lg"
                                 id="password"
+                                style={{paddingRight: "50px"}}
                                 type={showPassword ? "text" : "password"}
                                 label="Password: "
                                 value={user.password}
@@ -80,7 +81,14 @@ export default function SignUp(props) {
                                 disabled={loading}
                                 onClick={() => setPasswordVisibility(!showPassword)}
                                 className="input-group-text px-3"
-                                style={{height: "45px"}}
+                                style={{
+                                    height: "45px",
+                                    position: "absolute",
+                                    right: "0",
+                                    background: "transparent",
+                                    border: "transparent",
+                                    outline: "none"
+                                }}
                             >
                                 <MDBIcon display-if={showPassword} icon="eye-slash"/>
                                 <MDBIcon display-if={!showPassword} icon="eye"/>
@@ -90,6 +98,7 @@ export default function SignUp(props) {
                             <MDBInput
                                 size="lg"
                                 id="confirm_password"
+                                style={{paddingRight: "50px"}}
                                 type={showPassword ? "text" : "password"}
                                 label="Repeat your password: "
                                 value={user.confirm_password}
@@ -103,7 +112,14 @@ export default function SignUp(props) {
                                 disabled={loading}
                                 onClick={() => setPasswordVisibility(!showPassword)}
                                 className="input-group-text px-3"
-                                style={{height: "45px"}}
+                                style={{
+                                    height: "45px",
+                                    position: "absolute",
+                                    right: "0",
+                                    background: "transparent",
+                                    border: "transparent",
+                                    outline: "none"
+                                }}
                             >
                                 <MDBIcon display-if={showPassword} icon="eye-slash"/>
                                 <MDBIcon display-if={!showPassword} icon="eye"/>

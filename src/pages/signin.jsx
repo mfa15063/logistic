@@ -81,6 +81,7 @@ export default function SignIn(props) {
                 <MDBInput
                     size="lg"
                     id="password"
+                    style={{paddingRight: "50px"}}
                     type={showPassword ? "text" : "password"}
                     label="Password: "
                     value={user.password}
@@ -94,7 +95,14 @@ export default function SignIn(props) {
                     disabled={loading}
                     onClick={() => setPasswordVisibility(!showPassword)}
                     className="input-group-text px-3"
-                    style={{ height: "45px" }}
+                    style={{
+                      height: "45px",
+                      position: "absolute",
+                      right: "0",
+                      background: "transparent",
+                      border: "transparent",
+                      outline: "none"
+                    }}
                 >
                   <MDBIcon display-if={showPassword} icon="eye-slash" />
                   <MDBIcon display-if={!showPassword} icon="eye" />
@@ -121,9 +129,9 @@ export default function SignIn(props) {
                 {(!loading && "Sign In") || "Loading..."}
               </MDBBtn>
               <center className="d-block mt-3">
-                <Link onClick={forgetPassword}>
-                  Forget Password?
-                </Link> <br/>
+                {/*<Link onClick={forgetPassword}>*/}
+                {/*  Forget Password?*/}
+                {/*</Link> <br/>*/}
                 If you don't have Account! &nbsp;
                 <Link to="/signup">
                   Register here

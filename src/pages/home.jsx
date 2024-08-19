@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import {HeroSection, Testimonials} from "../components/exports";
+import {HeroSection, Testimonials, Chat} from "../components/exports";
 import { scrollToElement } from "../js/constants";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {ContactDetails} from "../models";
 import {fetchContactDetails} from "../js/api";
 
@@ -652,7 +652,7 @@ function Home() {
                       data-aos-delay={200}
                   >
                     <img
-                        src="assets/img/nation-wide.webp"
+                        src="assets/img/nation-wide.jpg"
                         alt="Nationwide Coverage"
                         className="img-fluid"
                     />
@@ -695,7 +695,7 @@ function Home() {
                       data-aos-delay={200}
                   >
                     <img
-                        src="path-to-your-image/Dependable-Logistics.jpg"
+                        src="assets/img/truck image 8.jpg"
                         alt="Dependable Logistics"
                         className="img-fluid"
                     />
@@ -737,7 +737,7 @@ function Home() {
                       data-aos-delay={200}
                   >
                     <img
-                        src="path-to-your-image/Cost-Effective-Strategies.jpg"
+                        src="assets/img/Truck16.jpg"
                         alt="Cost-Effective Strategies"
                         className="img-fluid"
                     />
@@ -780,7 +780,7 @@ function Home() {
                       data-aos-delay={200}
                   >
                     <img
-                        src="path-to-your-image/Professional-Expertise.jpg"
+                        src="assets/img/Truck27.jpg"
                         alt="Professional Expertise"
                         className="img-fluid"
                     />
@@ -796,7 +796,7 @@ function Home() {
         {/* ======= Testimonials Section ======= */}
         <Testimonials />
         {/* End Testimonials Section */}
-        {/* <Chat/> */}
+         <Chat />
       </main>
       {/* End #main */}
     </>

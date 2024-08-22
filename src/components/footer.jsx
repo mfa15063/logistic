@@ -29,22 +29,16 @@ export default function Footer() {
                             <div className="col-lg-4 col-md-6">
                                 <div className="footer-info">
                                     <h3>Carry <span style={{color: "#feb900"}}>Shipment</span></h3>
-                                    <p>
+                                    <p className="footer-contact-details">
                                         {contactDetails.address}
-                                        <br/>
-                                        <br/>
-                                        <strong>Phone:</strong> {contactDetails.phone_no}
-                                        <br/>
-                                        <strong>Email:</strong> {contactDetails.email}
-                                        <br/>
+                                        <br />
+                                        <br />
+                                        <strong>Phone:</strong> <a href={`tel:${contactDetails.phone_no}`}>{contactDetails.phone_no}</a>
+                                        <br />
+                                        <strong>Email:</strong> <a href={`mailto:${contactDetails.email}`}>{contactDetails.email}</a>
+                                        <br />
                                     </p>
                                     <div className="social-links d-flex mt-3">
-                                        <a
-                                            href="#"
-                                            className="d-flex align-items-center justify-content-center"
-                                        >
-                                            <i className="bi bi-twitter"/>
-                                        </a>
                                         <a
                                             href={contactDetails.facebook_profile}
                                             className="d-flex align-items-center justify-content-center"
@@ -56,12 +50,6 @@ export default function Footer() {
                                             className="d-flex align-items-center justify-content-center"
                                         >
                                             <i className="bi bi-instagram"/>
-                                        </a>
-                                        <a
-                                            href="#"
-                                            className="d-flex align-items-center justify-content-center"
-                                        >
-                                            <i className="bi bi-linkedin"/>
                                         </a>
                                     </div>
                                 </div>

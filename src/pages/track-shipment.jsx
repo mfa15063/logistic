@@ -4,6 +4,8 @@ import StatusBar from "../components/status-bar";
 import {fetchContactDetails, fetchShipmentDetails} from "../js/api";
 import {useParams, Link, useNavigate} from "react-router-dom";
 import {ContactDetails} from "../models";
+import { Modal, Button } from 'react-bootstrap';
+import {IMAGE_SERVER} from "../js/constants";
 
 const TrackShipment = () => {
   const [loading, setLoading] = useState(false);
@@ -13,6 +15,16 @@ const TrackShipment = () => {
   const { clientID } = useParams();
   const inputID = useRef();
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+  const [selectedShipment, setSelectedShipment] = useState(null);
+
+  const handleShowModal = (shipment) => {
+    setSelectedShipment(shipment);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => setShowModal(false);
+
   const handleTracking = async (e) => {
     e && e.preventDefault();
     let clientID = inputID.current?.value;
@@ -34,7 +46,6 @@ const TrackShipment = () => {
     return { date: formattedDate, time: formattedTime };
   };
   useEffect(() => {
-    console.log(clientID);
     if (clientID) {
       setLoading(true);
       fetchContactDetails().then(res => {
@@ -84,6 +95,9 @@ const TrackShipment = () => {
             </li>
             <li>Track Shipment</li>
           </ol>
+          <p display-if={clientID?.startsWith('order_')} className="text-warning fs-5 bg-dark px-2">
+            Order Id : {clientID}
+          </p>
         </div>
       </div>
       {/* End Breadcrumbs */}
@@ -144,47 +158,45 @@ const TrackShipment = () => {
             return (
               <div key={index}>
                 <div className="mt-5">
-                  <div className=" p-4 border border-2 mt-5 mb-4">
+                  <div className="p-4 border border-2 mt-5 mb-4">
                     <div className="row justify-content-center align-items-center">
-                      <div className="col-lg-12 col-md-6 col-12">
+                      <div className="col-12">
                         <div className="container">
                           <div className="row justify-content-center align-items-center">
-                            <div className="col-3">
+                            <div className="col-lg-3 col-md-4 col-12 text-center mb-4 mb-md-0 px-5 px-md-0">
                               <img
-                                src="https://img.freepik.com/free-vector/isometric-laptop-with-shopping-cart-keypad_1262-16544.jpg?size=626&ext=jpg&ga=GA1.1.153145685.1709292001&semt=ais"
-                                alt="nothing"
-                                className="col-12 bg-white rounded-circle"
+                                  src="https://img.freepik.com/free-vector/isometric-laptop-with-shopping-cart-keypad_1262-16544.jpg?size=626&ext=jpg&ga=GA1.1.153145685.1709292001&semt=ais"
+                                  alt="Shipment"
+                                  className="img-fluid bg-white rounded-circle px-5 px-md-0"
                               />
+                              <div className="d-none d-md-block" style={{ height: "300px" }} display-if={shipment.location}></div>
                             </div>
-                            <div className="col-9 d-flex flex-column justify-content-center">
-                              <p className="text-primary font-monospace track-shipment">
-                                Delivery status of {shipment.id}{" "}
-                                <Link to="/">
-                                  <i
-                                    title="Edit"
-                                    display-if={shipment.status === "Rejected"}
-                                    className="bi bi-pencil-square ps-2 text-primary fs-6"
-                                  ></i>
-                                </Link>
-                                <Link to="/">
-                                  <i
-                                    title="Delete"
-                                    display-if={shipment.status === "Rejected"}
-                                    className="bi bi-trash-fill ps-2 text-danger fs-6"
-                                  ></i>
-                                </Link>
+                            <div className="col-lg-9 col-md-8 d-flex flex-column justify-content-center">
+                              <p className="text-primary font-monospace track-shipment d-flex flex-column flex-md-row justify-content-between align-items-center">
+                                Delivery status of {shipment.id}
+                                <button
+                                    className="btn btn-primary ms-3"
+                                    onClick={() => handleShowModal(shipment)}
+                                >
+                                  Read More >>
+                                </button>
                               </p>
-                              <h4 className={statusColor + " track-shipment"}>
+                              <h4 className={`${statusColor} track-shipment text-center text-md-start mt-4`}>
                                 {shipment.status}
                               </h4>
                               <StatusBar status={shipment.status} />
-                              <small className="mt-2 track-shipment">
-                                {statusUpdatedAt.time}{" "}
-                                <i className="bi bi-dot"></i>{" "}
-                                <span className="text-info">
-                                  {" "}
-                                  {statusUpdatedAt.date}
-                                </span>
+                              {shipment.location && (
+                                  <iframe
+                                      src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyA5DW0zd4-Myw4JuPdAEqYA3Es8cRlza7c&q=${shipment.location}`}
+                                      style={{ border: 0, width: "100%", height: 300 }}
+                                      frameBorder="0"
+                                      allowFullScreen
+                                      title="Shipment Location"
+                                  />
+                              )}
+                              <small className="text-center text-md-start mt-2 track-shipment">
+                                {statusUpdatedAt.time} <i className="bi bi-dot"></i>{" "}
+                                <span className="text-info">{statusUpdatedAt.date}</span>
                               </small>
                             </div>
                           </div>
@@ -194,193 +206,178 @@ const TrackShipment = () => {
                   </div>
                 </div>
 
-                <div className="mt-5">
-                  <div className="p-4 border border-2 mt-5 track-shipment">
-                    <h4 className="text-primary py-5">Shipping Information:</h4>
-                    <div className="col-12">
-                      <div className="container">
-                        <div className="row">
-                          <div className="col-12 row m-0 p-0">
-                            <h5 className="col-3">Shipping ID:</h5>
-                            <p className="col-9 text-primary">{shipment.id}</p>
-                          </div>
-                          <div
-                            className="col-12 row m-0 p-0 text-danger"
-                            display-if={
-                              shipment.rejection_reason &&
-                              shipment.status === "Rejected"
-                            }
-                          >
-                            <h5 className="col-3">Rejection Reason:</h5>
-                            <p className="col-9">{shipment.rejection_reason}</p>
-                          </div>
-                          <div
-                            className="col-12 row m-0 p-0"
-                            display-if={shipment.price}
-                          >
-                            <h5 className="col-3">Price:</h5>
-                            <p className="col-9">{shipment.price} USD</p>
-                          </div>
-                          <div className="col-12 row m-0 p-0 mb-3">
-                            <h5 className="col-12">Received From:</h5>
-                            <p className="col-12 row m-0 p-0 ps-5">
-                              <b className="col-3">User Name:</b>
-                              <span className="col-9">
-                                {shipment.client.name}
-                              </span>
-                              <b
-                                className="col-3"
-                                display-if={shipment.received_address}
-                              >
-                                Street Address:
-                              </b>
-                              <span
-                                className="col-9"
-                                display-if={shipment.received_address}
-                              >
-                                {shipment.received_address}
-                              </span>
-                              <b
-                                className="col-3"
-                                display-if={shipment.received_city}
-                              >
-                                City:
-                              </b>
-                              <span
-                                className="col-9"
-                                display-if={shipment.received_city}
-                              >
-                                {shipment.received_city}
-                              </span>
-                              <b
-                                className="col-3"
-                                display-if={shipment.received_country}
-                              >
-                                Country:
-                              </b>
-                              <span
-                                className="col-9"
-                                display-if={shipment.received_country}
-                              >
-                                {shipment.received_country}
-                              </span>
-                              <b
-                                className="col-3"
-                                display-if={shipment.received_date}
-                              >
-                                Date:
-                              </b>
-                              <span
-                                className="col-9"
-                                display-if={shipment.received_date}
-                              >
-                                {shipment.received_date}
-                              </span>
-                            </p>
-                          </div>
-                          <div className="col-12 row m-0 p-0 mb-3">
-                            <h5 className="col-12">Delivered To:</h5>
-                            <p className="col-12 row m-0 p-0 ps-5">
-                              <b
-                                className="col-3"
-                                display-if={shipment.receiver_name}
-                              >
-                                Receiver Name:
-                              </b>
-                              <span
-                                className="col-9"
-                                display-if={shipment.receiver_name}
-                              >
-                                {shipment.receiver_name}
-                              </span>
-                              <b
-                                className="col-3"
-                                display-if={shipment.delivered_address}
-                              >
-                                Street Address:
-                              </b>
-                              <span
-                                className="col-9"
-                                display-if={shipment.delivered_address}
-                              >
-                                {shipment.delivered_address}
-                              </span>
-                              <b
-                                className="col-3"
-                                display-if={shipment.delivered_city}
-                              >
-                                City:
-                              </b>
-                              <span
-                                className="col-9"
-                                display-if={shipment.delivered_city}
-                              >
-                                {shipment.delivered_city}
-                              </span>
-                              <b
-                                className="col-3"
-                                display-if={shipment.delivered_country}
-                              >
-                                Country:
-                              </b>
-                              <span
-                                className="col-9"
-                                display-if={shipment.delivered_country}
-                              >
-                                {shipment.delivered_country}
-                              </span>
-                              <b
-                                className="col-3"
-                                display-if={shipment.delivered_date}
-                              >
-                                Date:
-                              </b>
-                              <span
-                                className="col-9"
-                                display-if={shipment.delivered_date}
-                              >
-                                {shipment.delivered_date}
-                              </span>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="border-top border-bottom  border-start border-end border-2">
-                  <div className="row justify-content-center align-items-center">
-                    <div className="col-lg-12 col-md-6 col-12">
-                      <div className="container">
-                        <div className="row align-items-center pt-3 pb-3">
-                          <div className="col-md-3 col-6">
-                            <small className="fw-semibold ps-4">
-                              number of percent <i className="bi bi-dot"></i>
-                              <span className="fw-light">1</span>{" "}
-                            </small>
-                          </div>
-                          <div className="col-md-3 col-6">
-                            <small className="fw-semibold">
-                              weight of goods <i className="bi bi-dot"></i>
-                              <span className="fw-light">3kg</span>
-                            </small>
-                          </div>
-                          <div className="col-md-3 col-6 ps-5 ps-md-0">
-                            <small className="fw-semibold">
-                              volumn <i className="bi bi-dot"></i>{" "}
-                              <span className="fw-light">
-                                0.0008 <sup>2</sup>
-                              </span>
-                            </small>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </div>
             );
           })}
+
+        <Modal show={showModal} onHide={handleCloseModal} size="lg">
+          <Modal.Header closeButton>
+            <Modal.Title>Shipping Info</Modal.Title>
+          </Modal.Header>
+          <Modal.Body style={{height: "70vh", overflowY: "auto"}}>
+            {selectedShipment && (
+            <div>
+                <iframe display-if={selectedShipment.location} src={"https://www.google.com/maps/embed/v1/place?key=AIzaSyA5DW0zd4-Myw4JuPdAEqYA3Es8cRlza7c&q="
+                    + selectedShipment.location}
+                        style={{border: 0, width: '100%', height: 300}} frameBorder="0" allowFullScreen/>
+                  <h4 className="text-primary py-5">Shipping Information:</h4>
+                  <div className="container">
+                    <div className="row">
+                      <div className="col-12 row m-0 p-0">
+                        <h5 className="col-3">Shipping ID:</h5>
+                        <p className="col-9 text-primary">{selectedShipment.id}</p>
+                      </div>
+                      <div
+                          className="col-12 row m-0 p-0 text-danger"
+                          display-if={
+                              selectedShipment.rejection_reason &&
+                              selectedShipment.status === "Rejected"
+                          }
+                      >
+                        <h5 className="col-3">Rejection Reason:</h5>
+                        <p className="col-9">{selectedShipment.rejection_reason}</p>
+                      </div>
+                      <div
+                          className="col-12 row m-0 p-0"
+                          display-if={selectedShipment.price}
+                      >
+                        <h5 className="col-3">Price:</h5>
+                        <p className="col-9">{selectedShipment.price} USD</p>
+                      </div>
+                      <div className="col-12 row m-0 p-0 mb-3">
+                        <h5 className="col-12">Received From:</h5>
+                        <p className="col-12 row m-0 p-0 ps-5">
+                          <b className="col-3">User Name:</b>
+                          <span className="col-9">
+                  {selectedShipment.client.name}
+                </span>
+                          <b
+                              className="col-3"
+                              display-if={selectedShipment.received_address}
+                          >
+                            Street Address:
+                          </b>
+                          <span
+                              className="col-9"
+                              display-if={selectedShipment.received_address}
+                          >
+                  {selectedShipment.received_address}
+                </span>
+                          <b
+                              className="col-3"
+                              display-if={selectedShipment.received_city}
+                          >
+                            City:
+                          </b>
+                          <span
+                              className="col-9"
+                              display-if={selectedShipment.received_city}
+                          >
+                  {selectedShipment.received_city}
+                </span>
+                          <b
+                              className="col-3"
+                              display-if={selectedShipment.received_country}
+                          >
+                            Country:
+                          </b>
+                          <span
+                              className="col-9"
+                              display-if={selectedShipment.received_country}
+                          >
+                  {selectedShipment.received_country}
+                </span>
+                          <b
+                              className="col-3"
+                              display-if={selectedShipment.received_date}
+                          >
+                            Date:
+                          </b>
+                          <span
+                              className="col-9"
+                              display-if={selectedShipment.received_date}
+                          >
+                  {selectedShipment.received_date}
+                </span>
+                        </p>
+                      </div>
+                      <div className="col-12 row m-0 p-0 mb-3">
+                        <h5 className="col-12">Delivered To:</h5>
+                        <p className="col-12 row m-0 p-0 ps-5">
+                          <b
+                              className="col-3"
+                              display-if={selectedShipment.receiver_name}
+                          >
+                            Receiver Name:
+                          </b>
+                          <span
+                              className="col-9"
+                              display-if={selectedShipment.receiver_name}
+                          >
+                  {selectedShipment.receiver_name}
+                </span>
+                          <b
+                              className="col-3"
+                              display-if={selectedShipment.delivered_address}
+                          >
+                            Street Address:
+                          </b>
+                          <span
+                              className="col-9"
+                              display-if={selectedShipment.delivered_address}
+                          >
+                  {selectedShipment.delivered_address}
+                </span>
+                          <b
+                              className="col-3"
+                              display-if={selectedShipment.delivered_city}
+                          >
+                            City:
+                          </b>
+                          <span
+                              className="col-9"
+                              display-if={selectedShipment.delivered_city}
+                          >
+                  {selectedShipment.delivered_city}
+                </span>
+                          <b
+                              className="col-3"
+                              display-if={selectedShipment.delivered_country}
+                          >
+                            Country:
+                          </b>
+                          <span
+                              className="col-9"
+                              display-if={selectedShipment.delivered_country}
+                          >
+                  {selectedShipment.delivered_country}
+                </span>
+                          <b
+                              className="col-3"
+                              display-if={selectedShipment.delivered_date}
+                          >
+                            Date:
+                          </b>
+                          <span
+                              className="col-9"
+                              display-if={selectedShipment.delivered_date}
+                          >
+                  {selectedShipment.delivered_date}
+                </span>
+                        </p>
+                        <img style={{height: "400px", objectFit: "contain", objectPosition: "left"}} src={IMAGE_SERVER + selectedShipment.product_pic} display-if={selectedShipment.product_pic} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            )}
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseModal}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
 
         <div className="my-5 p-4 border border-2">
           <div className="row justify-content-center align-items-center">
@@ -432,10 +429,12 @@ const TrackShipment = () => {
                       </div>
                       <div className="col-9">
                         <h6 className="text-primary">Customer Services</h6>
-                        <p className="w-75">
-                          <strong>Phone:</strong> {contactDetails.phone_no}
+                        <p className="shipment-contact-box-details">
+                          <strong>Phone:</strong>{" "}
+                          <a href={`tel:${contactDetails.phone_no}`}>{contactDetails.phone_no}</a>
                           <br/>
-                          <strong>Email:</strong> {contactDetails.email}
+                          <strong>Email:</strong>{" "}
+                          <a href={`mailto:${contactDetails.email}`}>{contactDetails.email}</a>
                         </p>
                       </div>
                     </div>

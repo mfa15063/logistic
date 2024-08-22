@@ -25,6 +25,11 @@ class orderController extends Controller
     }
     public function store(Request $request)
     {
+//        // Ensure the user is authenticated
+//        if (!$this->client_id) {
+//            return $this->json_response('error', 'unauthorized', 'User is not authenticated.', 403);
+//        }
+
         $validator = Validator::make(
             $request->all(),
             [
@@ -59,7 +64,7 @@ class orderController extends Controller
                 $payment_recipt = null;
             }
             $order = order::create([
-                'user_id'    => $this->user->client_id,
+                'user_id'    => "client_1",
                 'receiver_name'    => $request->receiver_name,
                 'received_country' => $request->received_country,
                 'received_city'    => $request->received_city,
@@ -72,13 +77,13 @@ class orderController extends Controller
                 'payment_recipt'   => $payment_recipt,
                 'location'         =>$request->location
             ]);
-        $email = User::where('is_admin',1)->first()->email;
+//        $email = User::where('is_admin',1)->first()->email;
         $data = $order->toArray();
         $data['client_id'] = $order->user_id;
         $data['message'] = '';
         $data['client_id'] = $order->user_id;
-        Mail::to($email)->send(new GeneralMail('order_update_to_client','Order: '.$order->id.' is created.',$data));
-            return $this->json_response('success', 'order_created', 'Order Created Successfully', 200);
+//        Mail::to($email)->send(new GeneralMail('order_update_to_client','Order: '.$order->id.' is created.',$data));
+            return $this->json_response('success', 'order_created', 'Order Created Successfully', 200, ["order_id"=> $order->id]);
         } catch (\Exception $e) {
             return response()->json(['type'=>'internal_error','message'=>$e->getMessage()], 404);
         }

@@ -10,6 +10,7 @@ import EditProfile from "./edit-profile";
 import TrackShipment from "./track-shipment";
 import Services from "./services";
 import Policies from "./policies";
+import PlaceOrder from "./add-order";
 
 
-export { FourZeroFour, About, Home, Contact, Portfolio, Profile, SignIn, SignUp, EditProfile, TrackShipment, Services, Policies };
+export { FourZeroFour, About, Home, Contact, Portfolio, Profile, SignIn, SignUp, EditProfile, TrackShipment, Services, Policies, PlaceOrder };

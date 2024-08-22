@@ -301,3 +301,47 @@ export const updateUserProfile = async (profileData, profileImage) => {
         };
     }
 };
+
+export const placeOrder = async (orderData, productPic, paymentReceipt) => {
+    const formData = new FormData();
+    for (const key in orderData) {
+        formData.append(key, orderData[key]);
+    }
+    if (productPic) {
+        formData.append('product_pic', productPic);
+    }
+    if (paymentReceipt) {
+        formData.append('payment_receipt', paymentReceipt);
+    }
+
+    try {
+        console.log(window.sessionStorage.authToken);
+        const response = await fetch(API_SERVER + "/order/store", {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${window.sessionStorage.authToken}` // No need for 'Content-Type' as FormData handles it.
+            },
+            body: formData
+        });
+
+        if (response.status !== 200) {
+            const errorData = await response.json();
+            return {
+                success: false,
+                message: errorData.message || "Failed to place order"
+            };
+        }
+
+        const res = await response.json();
+        return {
+            success: true,
+            message: 'Order placed successfully',
+            data: res.data
+        };
+    } catch (error) {
+        return {
+            success: false,
+            message: error.message
+        };
+    }
+};

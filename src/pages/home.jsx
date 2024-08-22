@@ -796,7 +796,7 @@ function Home() {
         {/* ======= Testimonials Section ======= */}
         <Testimonials />
         {/* End Testimonials Section */}
-         <Chat />
+        {/* <Chat />*/}
       </main>
       {/* End #main */}
     </>

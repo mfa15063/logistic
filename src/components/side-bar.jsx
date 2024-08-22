@@ -5,7 +5,7 @@ import {fetchUserProfile, logoutUser} from "../js/api";
 import {User} from "../models";
 
 export default function SideBar(props) {
-    const { setUser } = props.all;
+    const { user, setUser } = props.all;
     const [loading, setLoading] = useState(true);
     const sideNav = useRef(null);
     const navigate = useNavigate();
@@ -76,6 +76,22 @@ export default function SideBar(props) {
                                 <i className="fas fa-user-edit" />
                             </span>
                             <span className="title">Edit Profile</span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/place-order">
+                            <span className="icon">
+                                <i className="fa-solid fa-plus" />
+                            </span>
+                            <span className="title">Place Order</span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={"/track-shipment/" + user.client_id}>
+                            <span className="icon">
+                                <i className="fa-solid fa-list" />
+                            </span>
+                            <span className="title">View My Orders</span>
                         </Link>
                     </li>
                     <li>

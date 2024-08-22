@@ -6,6 +6,47 @@ a {
   color: var(--color-primary);
 }
 
+.footer-contact-details {
+  a {
+    color: white;
+  }
+
+  a:hover {
+    color: var(--color-primary);
+    text-decoration: underline !important;
+  }
+}
+
+.shipment-contact-box-details {
+  a {
+    color: #212529;
+  }
+
+  a:hover {
+    color: var(--color-primary);
+    text-decoration: underline !important;
+  }
+}
+
+.place-order {
+  input[type=file] {
+    + label {
+      opacity: 0 !important;
+    }
+  }
+  input[type=file]:focus {
+    + label {
+      opacity: 1 !important;
+    }
+  }
+}
+
+.footer-links {
+  a:hover {
+    color: var(--color-primary) !important;
+  }
+}
+
 #scroll-to-top {
   cursor: pointer;
 }
@@ -37,6 +78,10 @@ a {
     left: 50% !important;
     transform: translateX(-50%);
   }
+}
+
+#loom-companion-mv3 {
+  display: none !important;
 }
 
 .learn-more-link {

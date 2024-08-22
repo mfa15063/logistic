@@ -50,41 +50,44 @@ class userController extends Controller
         }
     }
 
-    // This function for register users
-    public function register(Request $request)
-    {
-        //Validate data
-        $data = $request->only('name', 'email', 'password', 'password_confirmation');
-        $validator = Validator::make($request->all(), [
-            'name' => ['required', 'max:255', 'string'],
-            'email' => ['required', 'max:255', 'email', Rule::unique('users', 'email')],
-            'password' => ['required', Password::min(8)
-                ->letters()
-                ->mixedCase()
-                ->numbers()
-                ->symbols()],
-            'password_confirmation' => ['required_with:password', 'same:password', Password::min(8)]
-        ]);
-        //Send failed response if request is not valid
-        if ($validator->fails()) {
-            return $this->json_response('error', 'validation_failed', $validator->errors()->first(), 422);
-        }
-        try {
-            $email = $request->input('email');
-            $is_user = User::where('email', $email)->first();
-            if (!empty($is_user)) {
-                if ($is_user->status == 0) {
-                    return $this->json_response('error', 'email_verification_pending', 'You are already register. Please verify your email', 200);
-                }
-                if ($is_user->status == 1) {
-                    return $this->json_response('error', 'user_exist', 'You are already register.', 200);
-                }
+    public function register(Request $request) {
+    // Validate data
+    $data = $request->only('name', 'email', 'password', 'password_confirmation');
+    $validator = Validator::make($request->all(), [
+        'name' => ['required', 'max:255', 'string'],
+        'email' => ['required', 'max:255', 'email', Rule::unique('users', 'email')],
+        'password' => ['required', Password::min(8)
+            ->letters()
+            ->mixedCase()
+            ->numbers()
+            ->symbols()],
+        'password_confirmation' => ['required_with:password', 'same:password', Password::min(8)]
+    ]);
+
+    // Send failed response if request is not valid
+    if ($validator->fails()) {
+        return $this->json_response('error', 'validation_failed', $validator->errors()->first(), 422);
+    }
+
+    try {
+        $email = $request->input('email');
+        $is_user = User::where('email', $email)->first();
+        if (!empty($is_user)) {
+            if ($is_user->status == 0) {
+                return $this->json_response('error', 'email_verification_pending', 'You are already registered. Please verify your email', 200);
             }
-            $user = User::create([
-                'name' => $request->input('name'),
-                'email' => $request->input('email'),
-                'password' => Hash::make($request->input('password')),
-            ]);
+            if ($is_user->status == 1) {
+                return $this->json_response('error', 'user_exist', 'You are already registered.', 200);
+            }
+        }
+
+        $user = User::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => Hash::make($request->input('password')),
+        ]);
+
+        try {
             $verifyUrl = URL::temporarySignedRoute('verification.verify',
                 Carbon::now()->addMinutes(
                     Config::get('auth.verification.expire', 60)),
@@ -93,21 +96,32 @@ class userController extends Controller
                     'hash' => sha1($user->email),
                 ]
             );
+
             $data = ['url' => $verifyUrl, 'name' => $request->input('name')];
             Mail::to($request->input('email'))->send(new GeneralMail('verify_mail', '', $data));
-            $credentials = $request->only('email', 'password');
-            if (!Auth::attempt($credentials)) {
-                // Invalid credentials
-                return $this->json_response('error', 'invalid_credential', 'The user email & password were incorrect.', 401);
-            }
-            $user = Auth::user();
-
-            $token = $user->createToken('auth_api', ['*'])->accessToken;
-            return $this->json_response('success', 'user created', 'User Created Successfully. Verification mail send to your provider email.', 200, $user,$token);
         } catch (\Exception $e) {
-            return response()->json(['type'=>'internal_error','message'=>$e->getMessage()], 404);
+            // Log the error for further inspection if needed
+            \Log::error('Email sending failed: '.$e->getMessage());
+
+            // You can optionally add a message to notify that email sending failed
+            // But continue the process
         }
+
+        $credentials = $request->only('email', 'password');
+        if (!Auth::attempt($credentials)) {
+            // Invalid credentials
+            return $this->json_response('error', 'invalid_credential', 'The user email & password were incorrect.', 401);
+        }
+
+        $user = Auth::user();
+        $token = $user->createToken('auth_api', ['*'])->accessToken;
+
+        return $this->json_response('success', 'user created', 'You are registered Successfully.', 200, $user, $token);
+        // return $this->json_response('success', 'user created', 'User Created Successfully. Verification mail sent to your provided email.', 200, $user, $token);
+    } catch (\Exception $e) {
+        return response()->json(['type' => 'internal_error', 'message' => $e->getMessage()], 404);
     }
+}
 
     public function verify($user_id, Request $request)
     {

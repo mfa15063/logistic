@@ -57,7 +57,8 @@ class orderController extends Controller
             }
             if ($request->hasFile('payment_recipt')) {
                 $payment_recipt = $request->file('payment_recipt');
-                $fileName = time() . '_' . $payment_recipt->getClientOriginalName();
+                $fileName = time() . '_' . $payment_recipt
+                        ->getClientOriginalName();
                 $payment_recipt->move(public_path('admin/img/order_attachment/'), $fileName);
                 $payment_recipt = '/admin/img/order_attachment/' . $fileName;
             } else {
